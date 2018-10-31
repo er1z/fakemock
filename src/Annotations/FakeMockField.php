@@ -22,6 +22,11 @@ class FakeMockField
     public $options = null;
 
     /**
+     * @var bool
+     */
+    public $recursive = true;
+
+    /**
      * @var null|string[]
      */
     public $groups = null;

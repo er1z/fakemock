@@ -10,9 +10,8 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Annotations\FakeMock as MainAnnotation;
-use Er1z\FakeMock\Detector\FieldDetectorInterface;
-use Faker\Factory;
-use phpDocumentor\Reflection\Types\Float_;
+use Er1z\FakeMock\Generator\DefaultGenerator;
+use Er1z\FakeMock\Generator\GeneratorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FakeMock
@@ -20,16 +19,11 @@ class FakeMock
 
     private $reader;
     /**
-     * @var string
+     * @var GeneratorInterface
      */
-    private $locale;
+    private $generator;
 
-    /**
-     * @var FieldDetectorInterface
-     */
-    private $fieldDetector = null;
-
-    public function __construct(Reader $reader = null, string $locale = Factory::DEFAULT_LOCALE)
+    public function __construct(Reader $reader = null, GeneratorInterface $generator = null)
     {
         // can't wait for v2...
         if(class_exists(AnnotationRegistry::class)) {
@@ -37,12 +31,7 @@ class FakeMock
         }
 
         $this->reader = $reader ?: new AnnotationReader();
-        $this->locale = $locale;
-    }
-
-    public function setFieldDetector(?FieldDetectorInterface $detector)
-    {
-        $this->fieldDetector = $detector;
+        $this->generator = $generator ?: new DefaultGenerator();
     }
 
     public function fill($object, $group = null)
@@ -67,8 +56,6 @@ class FakeMock
 
         $props = $reflection->getProperties();
 
-        $faker = Factory::create($this->locale);
-
         foreach($props as $prop){
 
             $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($prop));
@@ -80,42 +67,12 @@ class FakeMock
                 continue;
             }
 
-            if($propMetadata->method){
-                $method = [$propMetadata->method, (array)$propMetadata->options];
-            }else if($this->fieldDetector){
-                $method = $this->fieldDetector->detect($prop);
-            }else{
-
-            }
-
-            if(!is_callable([$faker, $method])){
-                throw new \InvalidArgumentException(sprintf('"%s" method is not supported by Faker', $method));
-            }
-
-            $value = call_user_func_array([$faker, $method[0]], (array)$propMetadata->options);
+            $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
         }
 
         return $object;
-    }
-
-    protected function getFieldType(\ReflectionProperty $prop)
-    {
-        $factory  = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $data = $factory->create($prop->getDocComment());
-
-        if($vars = $data->getTagsByName('var')){
-            $type = $vars[0]->getType();
-
-            if($type instanceof Float_){
-                return
-            }
-        }
-
-
-        // todo
-        return 'name';
     }
 
     protected function getObjectConfiguration(\ReflectionClass $object){
