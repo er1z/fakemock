@@ -1,0 +1,23 @@
+{
+  "name": "er1z/fakemock",
+  "description": "A library to provide mocking abilities for annotated class properties",
+  "license": "Apache-2.0",
+  "require": {
+    "symfony/property-access": "^4.1",
+    "doctrine/annotations": "^1.6",
+    "fzaninotto/faker": "^1.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Er1z\\FakeMock\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Er1z\\FakeMock\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit":  "^7.4"
+  }
+}
