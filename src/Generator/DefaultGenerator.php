@@ -10,6 +10,10 @@ use Er1z\FakeMock\Detector\DefaultFieldDetector;
 use Er1z\FakeMock\Detector\FieldDetectorInterface;
 use Faker\Factory;
 use Faker\Generator;
+use ReverseRegex\Generator\Scope;
+use ReverseRegex\Lexer;
+use ReverseRegex\Parser;
+use ReverseRegex\Random\SimpleRandom;
 
 class DefaultGenerator implements GeneratorInterface
 {
@@ -45,6 +49,22 @@ class DefaultGenerator implements GeneratorInterface
             $obj = $configuration;
         }
 
+        if($obj->regex){
+            return $this->generateForRegex($obj->regex);
+        }
+
         return $this->faker->{$obj->method}(...(array)$obj->options);
     }
+
+    protected function generateForRegex(string $regex){
+        $lexer = new Lexer($regex);
+        $gen   = new SimpleRandom();
+        $result = '';
+
+        $parser = new Parser($lexer,new Scope(),new Scope());
+        $parser->parse()->getResult()->generate($result, $gen);
+
+        return $result;
+    }
+
 }

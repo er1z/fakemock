@@ -19,13 +19,20 @@ class AnnotationCollection
 
     public function getOneBy($class)
     {
+        if($result = $this->findOneBy($class)){
+            return $result;
+        }
+
+        throw new \InvalidArgumentException(sprintf('Annotation %s not found in collection'));
+    }
+
+    public function findOneBy($class)
+    {
         foreach($this->annotations as $a){
             if($a instanceof $class){
                 return $a;
             }
         }
-
-        throw new \InvalidArgumentException(sprintf('Annotation %s not found in collection'));
     }
 
     public function getAllBy($class){

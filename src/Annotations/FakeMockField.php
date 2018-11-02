@@ -27,6 +27,16 @@ class FakeMockField
     public $recursive = true;
 
     /**
+     * @var null|string
+     */
+    public $regex = null;
+
+    /**
+     * @var bool
+     */
+    public $useAsserts = true;
+
+    /**
      * @var null|string[]
      */
     public $groups = null;
