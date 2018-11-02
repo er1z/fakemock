@@ -10,6 +10,8 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Annotations\FakeMock as MainAnnotation;
+use Er1z\FakeMock\Condition\Processor;
+use Er1z\FakeMock\Condition\ProcessorInterface;
 use Er1z\FakeMock\Generator\DefaultGenerator;
 use Er1z\FakeMock\Generator\GeneratorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -22,8 +24,12 @@ class FakeMock
      * @var GeneratorInterface
      */
     private $generator;
+    /**
+     * @var ProcessorInterface
+     */
+    private $conditionProcessor;
 
-    public function __construct(Reader $reader = null, GeneratorInterface $generator = null)
+    public function __construct(?Reader $reader = null, ?GeneratorInterface $generator = null, ?ProcessorInterface $conditionProcessor = null)
     {
         // can't wait for v2...
         if(class_exists(AnnotationRegistry::class)) {
@@ -32,6 +38,7 @@ class FakeMock
 
         $this->reader = $reader ?: new AnnotationReader();
         $this->generator = $generator ?: new DefaultGenerator();
+        $this->conditionProcessor = $conditionProcessor ?: new Processor();
     }
 
     public function fill($object, $group = null)
@@ -59,7 +66,10 @@ class FakeMock
         foreach($props as $prop){
 
             $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($prop));
-            if(!($propMetadata = $annotations->getOneBy(FakeMockField::class))){
+            /**
+             * @var $propMetadata FakeMockField
+             */
+            if(!($propMetadata = $annotations->findOneBy(FakeMockField::class))){
                 continue;
             }
 
@@ -67,7 +77,13 @@ class FakeMock
                 continue;
             }
 
-            $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
+            if($propMetadata->satisfyAssertsConditions){
+                $value = $this->conditionProcessor->processConditions($object, $propMetadata, $annotations, $group);
+            }
+
+            if(empty($value)) {
+                $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
+            }
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
         }

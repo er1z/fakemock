@@ -14,9 +14,13 @@ use ReverseRegex\Generator\Scope;
 use ReverseRegex\Lexer;
 use ReverseRegex\Parser;
 use ReverseRegex\Random\SimpleRandom;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\Validator\Constraints\EqualTo;
 
 class DefaultGenerator implements GeneratorInterface
 {
+
+    const DEFAULT_METHOD = 'name';
 
     /**
      * @var string
@@ -51,6 +55,10 @@ class DefaultGenerator implements GeneratorInterface
 
         if($obj->regex){
             return $this->generateForRegex($obj->regex);
+        }
+
+        if(!$obj->method){
+            $obj->method = self::DEFAULT_METHOD;
         }
 
         return $this->faker->{$obj->method}(...(array)$obj->options);

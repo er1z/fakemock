@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
 use Tests\Er1z\FakeMock\Mocks\StructBasic;
+use Tests\Er1z\FakeMock\Mocks\StructPasswords;
 use Tests\Er1z\FakeMock\Mocks\StructWithAsserts;
 use Tests\Er1z\FakeMock\Mocks\StructWithComplexTypes;
 use Tests\Er1z\FakeMock\Mocks\StructWithGroups;
@@ -44,7 +45,7 @@ class FakeMockTest extends TestCase
     {
         $obj = new FakeMock();
 
-        $struct = new StructWithRegex();
+        $struct = new StructPasswords();
         $obj->fill($struct);
 
 

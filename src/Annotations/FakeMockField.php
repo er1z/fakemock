@@ -12,31 +12,43 @@ class FakeMockField
 {
 
     /**
+     * Faker method to use
      * @var string
      */
     public $method = null;
 
     /**
-     * @var null|string
+     * Options passed to a particular callback
+     * @var null|mixed
      */
     public $options = null;
 
     /**
+     * Generate structs recursively
      * @var bool
      */
     public $recursive = true;
 
     /**
+     * Generate according to the regex
      * @var null|string
      */
     public $regex = null;
 
     /**
+     * Use asserts for field type auto-detection
      * @var bool
      */
     public $useAsserts = true;
 
     /**
+     * Follow asserts conditions to comply validation
+     * @var bool
+     */
+    public $satisfyAssertsConditions = true;
+
+    /**
+     * Validation groups
      * @var null|string[]
      */
     public $groups = null;

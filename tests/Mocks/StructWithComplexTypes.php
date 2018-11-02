@@ -46,4 +46,25 @@ class StructWithComplexTypes
      * @Assert\Url()
      */
     public $url;
+
+    /**
+     * @var string
+     * @FakeMockField()
+     * @Assert\Ip(version="4")
+     */
+    public $ipv4;
+
+    /**
+     * @var string
+     * @FakeMockField()
+     * @Assert\Ip(version="6")
+     */
+    public $ipv6;
+
+    /**
+     * @var string
+     * @FakeMockField()
+     * @Assert\Ip(version="all")
+     */
+    public $ipvAll;
 }
