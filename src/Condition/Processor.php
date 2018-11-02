@@ -9,6 +9,7 @@ use Er1z\FakeMock\Annotations\FakeMockField;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\IdenticalTo;
 
 class Processor implements ProcessorInterface
 {
@@ -26,14 +27,17 @@ class Processor implements ProcessorInterface
         foreach($asserts as $a){
             switch(get_class($a)){
                 case EqualTo::class:
+                case IdenticalTo::class:
                     /**
-                     * @var $a EqualTo
+                     * @var $a EqualTo|IdenticalTo
                      */
                     if(!empty($a->propertyPath)) {
                         return $this->getValueByPath($object, $a->propertyPath);
                     }else if(!empty($a->value)){
                         return $a->value;
                     }
+
+
             }
         }
     }
