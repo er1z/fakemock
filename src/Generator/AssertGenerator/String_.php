@@ -32,39 +32,39 @@ class String_ implements GeneratorInterface
         $configuration = $this->getSingleChoiceTypes($configuration, $annotations);
 
         if($emailConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Email::class)){
-            $configuration->method = 'email';
+            $configuration->faker = 'email';
         }
 
         if($emailConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Url::class)){
-            $configuration->method = 'url';
+            $configuration->faker = 'url';
         }
 
         if($regexConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Regex::class)){
             /**
              * @var Regex $regexConfig
              */
-            $configuration->method = null;
+            $configuration->faker = null;
             $configuration->regex = $regexConfig->pattern;
         }
 
         if($uuidConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Uuid::class)){
-            $configuration->method = 'uuid';
+            $configuration->faker = 'uuid';
         }
 
         if($ibanConfig = $annotations->findOneBy(Iban::class)){
-            $configuration->method = 'iban';
+            $configuration->faker = 'iban';
         }
 
         if($languageConfig = $annotations->findOneBy(Language::class)){
-            $configuration->method = 'languageCode';
+            $configuration->faker = 'languageCode';
         }
 
         if($localeConfig = $annotations->findOneBy(Locale::class)){
-            $configuration->method = 'locale';
+            $configuration->faker = 'locale';
         }
 
         if($countryConfig = $annotations->findOneBy(Country::class)){
-            $configuration->method = 'countryCode';
+            $configuration->faker = 'countryCode';
         }
 
 
@@ -80,14 +80,14 @@ class String_ implements GeneratorInterface
              */
             switch($ipConfig->version[0]){
                 case '6':
-                    $configuration->method = 'ipv6';
+                    $configuration->faker = 'ipv6';
                     break;
                 default:
                 case '4':
-                    $configuration->method = 'ipv4';
+                    $configuration->faker = 'ipv4';
                     break;
                 case 'a':
-                    $configuration->method = mt_rand(0,1) ? 'ipv4' : 'ipv6';
+                    $configuration->faker = mt_rand(0,1) ? 'ipv4' : 'ipv6';
                     break;
             }
         }
@@ -99,15 +99,15 @@ class String_ implements GeneratorInterface
     {
         // todo: class_exists
         if($datetimeConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\DateTime::class)){
-            $configuration->method = 'iso8601';
+            $configuration->faker = 'iso8601';
         }
 
         if($dateConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Date::class)){
-            $configuration->method = 'date';
+            $configuration->faker = 'date';
         }
 
         if($dateConfig = $annotations->findOneBy(\Symfony\Component\Validator\Constraints\Time::class)){
-            $configuration->method = 'time';
+            $configuration->faker = 'time';
         }
 
         return $configuration;
