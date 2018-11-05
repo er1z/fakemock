@@ -10,37 +10,40 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Annotations\FakeMock as MainAnnotation;
-use Er1z\FakeMock\Condition\Processor;
-use Er1z\FakeMock\Condition\ProcessorInterface;
-use Er1z\FakeMock\Generator\DefaultGenerator;
-use Er1z\FakeMock\Generator\GeneratorInterface;
+use Er1z\FakeMock\Decorator\DecoratorChain;
+use Er1z\FakeMock\Decorator\DecoratorChainInterface;
+use Er1z\FakeMock\Generator\GeneratorChain;
+use Er1z\FakeMock\Generator\GeneratorChainInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Length;
 
 class FakeMock
 {
 
+    /**
+     * @var AnnotationReader
+     */
     private $reader;
     /**
-     * @var GeneratorInterface
+     * @var GeneratorChainInterface
      */
-    private $generator;
+    private $guesserChain;
     /**
-     * @var ProcessorInterface
+     * @var DecoratorChainInterface
      */
-    private $conditionProcessor;
+    private $decoratorChain;
 
-    public function __construct(?Reader $reader = null, ?GeneratorInterface $generator = null, ?ProcessorInterface $conditionProcessor = null)
+    public function __construct(
+        ?Reader $reader = null, ?GeneratorChainInterface $guesserChain = null, ?DecoratorChainInterface $decoratorChain = null
+    )
     {
         // can't wait for v2...
-        if(class_exists(AnnotationRegistry::class)) {
+        if (class_exists(AnnotationRegistry::class)) {
             AnnotationRegistry::registerLoader('class_exists');
         }
 
         $this->reader = $reader ?: new AnnotationReader();
-        $this->generator = $generator ?: new DefaultGenerator();
-        $this->conditionProcessor = $conditionProcessor ?: new Processor();
+        $this->guesserChain = $guesserChain ?: new GeneratorChain();
+        $this->decoratorChain = $decoratorChain ?: new DecoratorChain();
     }
 
     public function fill($object, $group = null)
@@ -50,7 +53,7 @@ class FakeMock
         $reflection = new \ReflectionClass($obj);
         $cfg = $this->getObjectConfiguration($reflection);
 
-        if(!$cfg){
+        if (!$cfg) {
             return $object;
         }
 
@@ -65,27 +68,22 @@ class FakeMock
 
         $props = $reflection->getProperties();
 
-        foreach($props as $prop){
+        foreach ($props as $prop) {
 
             $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($prop));
             /**
              * @var $propMetadata FakeMockField
              */
-            if(!($propMetadata = $annotations->findOneBy(FakeMockField::class))){
+            if (!($propMetadata = $annotations->findOneBy(FakeMockField::class))) {
                 continue;
             }
 
-            if($group && !in_array($group, (array)$propMetadata->groups)){
+            if ($group && !in_array($group, (array)$propMetadata->groups)) {
                 continue;
             }
 
-            if(empty($value)) {
-                $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
-            }
-
-            if($propMetadata->satisfyAssertsConditions){
-                $value = $this->conditionProcessor->processConditions($value, $object, $propMetadata, $annotations, $group);
-            }
+            $value = $this->guesserChain->getValueForField($object, $prop, $propMetadata, $annotations);
+            $value = $this->decoratorChain->getDecoratedValue($value, $object, $propMetadata, $annotations);
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
         }
@@ -93,37 +91,15 @@ class FakeMock
         return $object;
     }
 
-    protected function checkLength($value, FakeMockField $config, AnnotationCollection $annotations){
-
-        if(!class_exists(Constraint::class)){
-            return $value;
-        }
-
-        if($lengthConfig = $annotations->findOneBy(Length::class) && $config->satisfyAssertsConditions){
-            /**
-             * @var $lengthConfig Length
-             */
-            $min = $lengthConfig->min;
-            $max = $lengthConfig->max;
-            if(!isset($value[$min])){
-                // todo: to const
-                $value = str_pad($value, strlen($value)-$min, '_');
-            }else if(isset($value[$max+1])){
-                $value = substr($value, 0, $max);
-            }
-        }
-
-        return $value;
-
-    }
-
-    protected function getObjectConfiguration(\ReflectionClass $object){
+    protected function getObjectConfiguration(\ReflectionClass $object)
+    {
         return $this->reader->getClassAnnotation($object, MainAnnotation::class);
     }
 
-    protected function getClass($objectOrClass){
+    protected function getClass($objectOrClass)
+    {
 
-        if(is_object($objectOrClass)){
+        if (is_object($objectOrClass)) {
             return $objectOrClass;
         }
 

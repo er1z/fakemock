@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Er1z\FakeMock\Detector\Detectors;
+namespace Er1z\FakeMock\Generator\AssertGenerator;
 
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;

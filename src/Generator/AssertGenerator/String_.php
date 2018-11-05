@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Er1z\FakeMock\Detector\Detectors;
+namespace Er1z\FakeMock\Generator\AssertGenerator;
 
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
@@ -15,10 +15,10 @@ use Symfony\Component\Validator\Constraints\Language;
 use Symfony\Component\Validator\Constraints\Locale;
 use Symfony\Component\Validator\Constraints\Regex;
 
-class String_ implements DetectorInterface
+class String_ implements GeneratorInterface
 {
 
-    public function getConfigurationForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField
+    public function generateForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField
     {
 
         if(!$configuration->useAsserts){

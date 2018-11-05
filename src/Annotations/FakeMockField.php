@@ -15,16 +15,22 @@ class FakeMockField
      * Faker method to use
      * @var string
      */
-    public $method = null;
+    public $faker = null;
 
     /**
-     * Options passed to a particular callback
-     * @var null|mixed
+     * @var null|string
      */
-    public $options = null;
+    public $value = null;
+
+    /**
+     * Options passed to a particular callback or Faker
+     * @var null|array
+     */
+    public $arguments = null;
 
     /**
      * Generate structs recursively
+     * @todo: needs some more logic
      * @var bool
      */
     public $recursive = true;
@@ -61,7 +67,7 @@ class FakeMockField
                 $this->$k = $v;
             }
         }else{
-            $this->method = $data;
+            $this->faker = $data;
         }
 
         return;

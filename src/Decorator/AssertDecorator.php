@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Er1z\FakeMock\Condition;
+namespace Er1z\FakeMock\Decorator;
 
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
@@ -13,12 +13,13 @@ use Symfony\Component\Validator\Constraints\IdenticalTo;
 use Symfony\Component\Validator\Constraints\NotEqualTo;
 use Symfony\Component\Validator\Constraints\NotIdenticalTo;
 
-class Processor implements ProcessorInterface
+class AssertDecorator implements DecoratorInterface
 {
 
-    public function processConditions(
-        $currentValue, $object, FakeMockField $configuration, AnnotationCollection $annotations, $group = null
-    ){
+    public function decorate(
+        &$value, $object, FakeMockField $configuration, AnnotationCollection $annotations, $group = null
+    ): bool
+    {
         $asserts = array_filter($annotations->findAllBy(Constraint::class), function($a) use ($group){
             /**
              * @var $a Constraint
@@ -56,6 +57,31 @@ class Processor implements ProcessorInterface
                 break;
             }
         }
+    }
+
+    protected function checkLength($value, FakeMockField $config, AnnotationCollection $annotations)
+    {
+
+        if (!class_exists(Constraint::class)) {
+            return $value;
+        }
+
+        if ($lengthConfig = $annotations->findOneBy(Length::class) && $config->satisfyAssertsConditions) {
+            /**
+             * @var $lengthConfig Length
+             */
+            $min = $lengthConfig->min;
+            $max = $lengthConfig->max;
+            if (!isset($value[$min])) {
+                // todo: to const
+                $value = str_pad($value, strlen($value) - $min, '_');
+            } else if (isset($value[$max + 1])) {
+                $value = substr($value, 0, $max);
+            }
+        }
+
+        return $value;
+
     }
 
     protected function getValueByPath($obj, $path){

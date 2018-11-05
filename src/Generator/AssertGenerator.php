@@ -1,20 +1,16 @@
 <?php
 
 
-namespace Er1z\FakeMock\Detector;
+namespace Er1z\FakeMock\Generator;
 
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use Er1z\FakeMock\Detector\Detectors\Default_;
-use Er1z\FakeMock\Detector\Detectors\DetectorInterface;
+use Er1z\FakeMock\Generator\AssertGenerator\Default_;
 use phpDocumentor\Reflection\Type;
-use phpDocumentor\Reflection\Types\Object_;
 
-class DefaultFieldDetector implements FieldDetectorInterface
+class AssertGenerator implements GeneratorInterface
 {
-
-    const DEFAULT_TYPE = 'name';
 
     protected function getPhpDocType(\ReflectionProperty $property): ?Type
     {
@@ -30,19 +26,25 @@ class DefaultFieldDetector implements FieldDetectorInterface
         return null;
     }
 
-    public function getGeneratorArgumentsForUnmapped(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations)
+    public function generateForProperty(
+        $object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations
+    )
     {
+
+        if(!$configuration->useAsserts){
+            return null;
+        }
 
         $type = $this->getPhpDocType($property);
 
         if ($type) {
             // https://coderwall.com/p/cpxxxw/php-get-class-name-without-namespace - reflection is the fastest?
             $baseClass = new \ReflectionClass($type);
-            $class = sprintf('Er1z\\FakeMock\\Detector\\Detectors\\%s', $baseClass->getShortName());
+            $class = sprintf('Er1z\\FakeMock\\Guesser\\AssertGuesser\\%s', $baseClass->getShortName());
 
             if (class_exists($class)) {
                 /**
-                 * @var $obj DetectorInterface
+                 * @var $obj GeneratorInterface
                  */
                 $obj = new $class;
             }
@@ -51,12 +53,8 @@ class DefaultFieldDetector implements FieldDetectorInterface
         }
 
         if(isset($obj)){
-            return $obj->getConfigurationForType($property, $configuration, $annotations, $type);
+            return $obj->generateForType($property, $configuration, $annotations, $type);
         }
-
-        $configuration->method = self::DEFAULT_TYPE;
-
-        return $configuration;
     }
 
 }
