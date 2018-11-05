@@ -2,7 +2,8 @@
 namespace Tests\Er1z\FakeMock\Mocks;
 
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
-use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use Er1z\FakeMock\Annotations\FakeMockField;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class StructBasic
@@ -32,5 +33,12 @@ class StructBasic
      * @var float
      */
     public $floatAuto;
+
+    /**
+     * @FakeMockField()
+     * @Assert\Choice(choices={"one", "two", "three"})
+     * @var string
+     */
+    public $choice;
 
 }

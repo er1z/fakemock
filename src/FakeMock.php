@@ -15,6 +15,8 @@ use Er1z\FakeMock\Condition\ProcessorInterface;
 use Er1z\FakeMock\Generator\DefaultGenerator;
 use Er1z\FakeMock\Generator\GeneratorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Length;
 
 class FakeMock
 {
@@ -77,18 +79,42 @@ class FakeMock
                 continue;
             }
 
-            if($propMetadata->satisfyAssertsConditions){
-                $value = $this->conditionProcessor->processConditions($object, $propMetadata, $annotations, $group);
-            }
-
             if(empty($value)) {
                 $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
+            }
+
+            if($propMetadata->satisfyAssertsConditions){
+                $value = $this->conditionProcessor->processConditions($value, $object, $propMetadata, $annotations, $group);
             }
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
         }
 
         return $object;
+    }
+
+    protected function checkLength($value, FakeMockField $config, AnnotationCollection $annotations){
+
+        if(!class_exists(Constraint::class)){
+            return $value;
+        }
+
+        if($lengthConfig = $annotations->findOneBy(Length::class) && $config->satisfyAssertsConditions){
+            /**
+             * @var $lengthConfig Length
+             */
+            $min = $lengthConfig->min;
+            $max = $lengthConfig->max;
+            if(!isset($value[$min])){
+                // todo: to const
+                $value = str_pad($value, strlen($value)-$min, '_');
+            }else if(isset($value[$max+1])){
+                $value = substr($value, 0, $max);
+            }
+        }
+
+        return $value;
+
     }
 
     protected function getObjectConfiguration(\ReflectionClass $object){

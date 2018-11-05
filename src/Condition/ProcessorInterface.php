@@ -9,5 +9,5 @@ use Er1z\FakeMock\Annotations\FakeMockField;
 
 interface ProcessorInterface
 {
-    public function processConditions($object, FakeMockField $configuration, AnnotationCollection $annotations);
+    public function processConditions($currentValue, $object, FakeMockField $configuration, AnnotationCollection $annotations);
 }

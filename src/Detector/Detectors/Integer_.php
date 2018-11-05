@@ -8,7 +8,7 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use phpDocumentor\Reflection\Type;
 
-class Float_ extends Numeric_ implements DetectorInterface
+class Integer_ extends Numeric_ implements DetectorInterface
 {
 
     public function getConfigurationForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField
