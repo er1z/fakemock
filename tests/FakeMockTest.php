@@ -7,7 +7,7 @@ namespace Tests\Er1z\FakeMock;
 use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
-use Tests\Er1z\FakeMock\Mocks\StructBasic;
+use Tests\Er1z\FakeMock\Mocks\StructExplicit;
 use Tests\Er1z\FakeMock\Mocks\StructPasswords;
 use Tests\Er1z\FakeMock\Mocks\StructWithAsserts;
 use Tests\Er1z\FakeMock\Mocks\StructWithComplexTypes;
@@ -45,7 +45,7 @@ class FakeMockTest extends TestCase
     {
         $obj = new FakeMock();
 
-        $struct = new StructBasic();
+        $struct = new StructExplicit();
         $obj->fill($struct);
 
 
