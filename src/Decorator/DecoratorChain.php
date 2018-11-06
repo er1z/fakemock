@@ -54,7 +54,7 @@ class DecoratorChain implements DecoratorChainInterface
         return $value;
     }
 
-    protected function addDecorator(DecoratorInterface $d)
+    public function addDecorator(DecoratorInterface $d)
     {
         $this->decorators[] = $d;
     }

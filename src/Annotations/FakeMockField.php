@@ -59,15 +59,15 @@ class FakeMockField
      */
     public $groups = null;
 
-    public function __construct($data = [])
+    public function __construct($dataOrFaker = [])
     {
 
-        if(is_array($data)){
-            foreach($data as $k=>$v){
+        if(is_array($dataOrFaker)){
+            foreach($dataOrFaker as $k=> $v){
                 $this->$k = $v;
             }
         }else{
-            $this->faker = $data;
+            $this->faker = $dataOrFaker;
         }
 
         return;
