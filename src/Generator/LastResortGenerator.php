@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -22,7 +23,7 @@ class LastResortGenerator implements GeneratorInterface
         $this->generator = $generator ?: Factory::create();
     }
 
-    public function generateForProperty($object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations)
+    public function generateForProperty(FieldMetadata $field)
     {
         return $this->generator->name();
     }

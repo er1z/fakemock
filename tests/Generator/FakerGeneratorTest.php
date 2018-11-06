@@ -6,9 +6,11 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Er1z\FakeMock\Generator\FakerGenerator;
 use Faker\Generator;
 use Faker\Guesser\Name;
+use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 
 class FakerGeneratorTest extends TestCase
@@ -30,8 +32,16 @@ class FakerGeneratorTest extends TestCase
             ]
         ]);
 
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            $config
+        );
 
-        $result = $faker->generateForProperty($obj, $prop, $config, $this->createMock(AnnotationCollection::class));
+
+        $result = $faker->generateForProperty($field);
         $this->assertNotNull(filter_var($result, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE));
         $this->assertContains('320', $result);
         $this->assertContains('240', $result);
@@ -43,7 +53,15 @@ class FakerGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'created_at');
 
-        $result = $faker->generateForProperty($obj, $prop, new FakeMockField(), $this->createMock(AnnotationCollection::class));
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            new FakeMockField()
+        );
+
+        $result = $faker->generateForProperty($field);
 
         return $result;
     }

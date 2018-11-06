@@ -8,6 +8,8 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\DecoratorChain;
 use Er1z\FakeMock\Decorator\DecoratorInterface;
+use Er1z\FakeMock\FieldMetadata;
+use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 
@@ -52,9 +54,15 @@ class DecoratorChainTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'field');
 
-        $decoratorChain->getDecoratedValue(
-            $obj, $prop, new FakeMockField(), $this->createMock(AnnotationCollection::class)
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            new FakeMockField()
         );
+
+        $decoratorChain->getDecoratedValue('', $field);
 
     }
 

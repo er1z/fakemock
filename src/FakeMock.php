@@ -14,6 +14,7 @@ use Er1z\FakeMock\Decorator\DecoratorChain;
 use Er1z\FakeMock\Decorator\DecoratorChainInterface;
 use Er1z\FakeMock\Generator\GeneratorChain;
 use Er1z\FakeMock\Generator\GeneratorChainInterface;
+use phpDocumentor\Reflection\Type;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FakeMock
@@ -82,13 +83,31 @@ class FakeMock
                 continue;
             }
 
-            $value = $this->guesserChain->getValueForField($object, $prop, $propMetadata, $annotations);
-            $value = $this->decoratorChain->getDecoratedValue($value, $object, $propMetadata, $annotations);
+            $metadata = new FieldMetadata(
+                $object, $prop, $this->getPhpDocType($prop), $annotations, $propMetadata
+            );
+
+            $value = $this->guesserChain->getValueForField($metadata);
+            $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
         }
 
         return $object;
+    }
+
+    protected function getPhpDocType(\ReflectionProperty $property): ?Type
+    {
+        $factory = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $data = $factory->create(
+            $property->getDocComment()
+        );
+
+        if ($vars = $data->getTagsByName('var')) {
+            return reset($vars)->getType();
+        }
+
+        return null;
     }
 
     protected function getObjectConfiguration(\ReflectionClass $object)

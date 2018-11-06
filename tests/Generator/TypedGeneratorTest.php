@@ -6,16 +6,17 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Er1z\FakeMock\Generator\TypedGenerator;
+use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 
 class TypedGeneratorTest extends TestCase
 {
 
-
     const TESTING_SCALAR_VALUE = 'testing scalar value';
 
-    protected function getInternalResult($data, $description){
+    protected function getInternalResult($data){
         $generator = new TypedGenerator();
 
         $config = new FakeMockField($data);
@@ -25,7 +26,15 @@ class TypedGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'sth');
 
-        $result = $generator->generateForProperty(new \stdClass(), $prop, $config, $this->createMock(AnnotationCollection::class), $description);
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            $config
+        );
+
+        $result = $generator->generateForProperty($field);
         return $result;
     }
 

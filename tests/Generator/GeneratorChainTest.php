@@ -6,8 +6,10 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Er1z\FakeMock\Generator\GeneratorChain;
 use Er1z\FakeMock\Generator\GeneratorInterface;
+use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 
@@ -45,9 +47,15 @@ class GeneratorChainTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'field');
 
-        $result = $generatorChain->getValueForField(
-            $obj, $prop, new FakeMockField(), $this->createMock(AnnotationCollection::class)
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            new FakeMockField()
         );
+
+        $result = $generatorChain->getValueForField($field);
 
         return $result;
     }

@@ -4,8 +4,7 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use ReverseRegex\Generator\Scope;
 use ReverseRegex\Lexer;
 use ReverseRegex\Parser;
@@ -15,22 +14,22 @@ class TypedGenerator implements GeneratorInterface
 {
 
     public function generateForProperty(
-        $object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations
+        FieldMetadata $field
     )
     {
 
-        if($configuration->value){
-            return $configuration->value;
+        if($field->configuration->value){
+            return $field->configuration->value;
         }
 
-        if($configuration->regex){
-            return $this->generateForRegex($configuration);
+        if($field->configuration->regex){
+            return $this->generateForRegex($field->configuration->regex);
         }
 
     }
 
-    protected function generateForRegex(FakeMockField $configuration){
-        $lexer = new Lexer($configuration->regex);
+    protected function generateForRegex(string $regex){
+        $lexer = new Lexer($regex);
         $gen = new SimpleRandom();
         $result = '';
 

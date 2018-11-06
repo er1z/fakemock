@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class GeneratorChain implements GeneratorChainInterface
@@ -54,11 +55,11 @@ class GeneratorChain implements GeneratorChainInterface
     }
 
     public function getValueForField(
-        $object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations
+        FieldMetadata $field
     )
     {
         foreach ($this->generators as $d) {
-            $result = $d->generateForProperty($object, $property, $configuration, $annotations);
+            $result = $d->generateForProperty($field);
             if(!is_null($result)) {
                 return $result;
             }

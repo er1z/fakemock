@@ -4,10 +4,9 @@
 namespace Er1z\FakeMock\Decorator;
 
 
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 
 interface DecoratorInterface
 {
-    public function decorate(&$value, $object, FakeMockField $configuration, AnnotationCollection $annotations): bool;
+    public function decorate(&$value, FieldMetadata $field, ?string $group = null): bool;
 }

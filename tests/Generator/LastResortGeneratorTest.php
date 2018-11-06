@@ -6,9 +6,10 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Er1z\FakeMock\Generator\LastResortGenerator;
-use Er1z\FakeMock\Generator\TypedGenerator;
 use Faker\Generator;
+use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 
 class LastResortGeneratorTest extends TestCase
@@ -23,7 +24,15 @@ class LastResortGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'sth');
 
-        $result = $generator->generateForProperty(new \stdClass(), $prop, new FakeMockField([]), $this->createMock(AnnotationCollection::class));
+        $field = new FieldMetadata(
+            $obj,
+            $prop,
+            $this->createMock(Type::class),
+            $this->createMock(AnnotationCollection::class),
+            new FakeMockField()
+        );
+
+        $result = $generator->generateForProperty($field);
         return $result;
     }
 

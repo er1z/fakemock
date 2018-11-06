@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class DecoratorChain implements DecoratorChainInterface
@@ -43,10 +44,10 @@ class DecoratorChain implements DecoratorChainInterface
         return $result;
     }
 
-    public function getDecoratedValue($value, $object, FakeMockField $configuration, AnnotationCollection $annotations)
+    public function getDecoratedValue($value, FieldMetadata $field)
     {
         foreach ($this->decorators as $d) {
-            if (!$d->decorate($value, $object, $configuration, $annotations)) {
+            if (!$d->decorate($value, $field)) {
                 break;
             }
         }

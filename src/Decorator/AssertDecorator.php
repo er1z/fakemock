@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\EqualTo;
@@ -17,10 +18,10 @@ class AssertDecorator implements DecoratorInterface
 {
 
     public function decorate(
-        &$value, $object, FakeMockField $configuration, AnnotationCollection $annotations, $group = null
+        &$value, FieldMetadata $field, ?string $group = null
     ): bool
     {
-        $asserts = array_filter($annotations->findAllBy(Constraint::class), function($a) use ($group){
+        $asserts = array_filter($field->annotations->findAllBy(Constraint::class), function($a) use ($group){
             /**
              * @var $a Constraint
              */
@@ -35,7 +36,7 @@ class AssertDecorator implements DecoratorInterface
                      * @var $a EqualTo|IdenticalTo
                      */
                     if(!empty($a->propertyPath)) {
-                        return $this->getValueByPath($object, $a->propertyPath);
+                        return $this->getValueByPath($field->object, $a->propertyPath);
                     }else if(!empty($a->value)){
                         return $a->value;
                     }
@@ -48,7 +49,7 @@ class AssertDecorator implements DecoratorInterface
                      * @todo: distinguish from eq/ident
                      */
                     if(
-                        !empty($a->propertyPath) && $this->getValueByPath($object, $a->propertyPath) == $value
+                        !empty($a->propertyPath) && $this->getValueByPath($field->object, $a->propertyPath) == $value
                         || (!empty($a->value) && $a->value == $value)
                     )
                     {

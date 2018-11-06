@@ -4,8 +4,7 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 use Faker\Guesser\Name;
@@ -36,12 +35,12 @@ class FakerGenerator implements GeneratorInterface
         $this->generator = $generator;
     }
 
-    public function generateForProperty($object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations)
+    public function generateForProperty(FieldMetadata $field)
     {
-        if($configuration->faker){
-            return $this->generator->{$configuration->faker}(...(array)$configuration->arguments);
+        if($field->configuration->faker){
+            return $this->generator->{$field->configuration->faker}(...(array)$field->configuration->arguments);
         }
-        $format = $this->guesser->guessFormat($property->getName());
+        $format = $this->guesser->guessFormat($field->property->getName());
 
         if($format){
             return $format();
