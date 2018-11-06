@@ -41,6 +41,7 @@ class FieldMetadata
         $this->property = $property;
         $this->type = $type;
         $this->annotations = $annotations;
+        // todo: fetching from annotations collection?
         $this->configuration = $configuration;
     }
 

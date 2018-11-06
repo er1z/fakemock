@@ -27,14 +27,14 @@ class FakeMock
     /**
      * @var GeneratorChainInterface
      */
-    private $guesserChain;
+    private $generatorChain;
     /**
      * @var DecoratorChainInterface
      */
     private $decoratorChain;
 
     public function __construct(
-        ?Reader $reader = null, ?GeneratorChainInterface $guesserChain = null, ?DecoratorChainInterface $decoratorChain = null
+        ?Reader $reader = null, ?GeneratorChainInterface $generatorChain = null, ?DecoratorChainInterface $decoratorChain = null
     )
     {
         // can't wait for v2...
@@ -43,7 +43,7 @@ class FakeMock
         }
 
         $this->reader = $reader ?: new AnnotationReader();
-        $this->guesserChain = $guesserChain ?: new GeneratorChain();
+        $this->generatorChain = $generatorChain ?: new GeneratorChain();
         $this->decoratorChain = $decoratorChain ?: new DecoratorChain();
     }
 
@@ -87,7 +87,7 @@ class FakeMock
                 $object, $prop, $this->getPhpDocType($prop), $annotations, $propMetadata
             );
 
-            $value = $this->guesserChain->getValueForField($metadata);
+            $value = $this->generatorChain->getValueForField($metadata);
             $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
             $propertyAccessor->setValue($object, $prop->getName(), $value);
