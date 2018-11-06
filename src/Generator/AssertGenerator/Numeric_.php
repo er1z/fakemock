@@ -8,13 +8,11 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Symfony\Component\Validator\Constraints\Range;
 
-abstract class Numeric_
+abstract class Numeric_ extends GeneratorAbstract
 {
 
     public function getConfigurationForNumericType($method, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField
     {
-
-        $configuration->method = $method;
 
         /**
          * @var $hasAssert Range

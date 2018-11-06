@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Tests\Er1z\FakeMock\StructsSuite;
+namespace Tests\Er1z\FakeMock\Behavior;
 
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
-use Tests\Er1z\FakeMock\Mocks\StructExplicit;
+use Tests\Er1z\FakeMock\Behavior\Mocks\StructExplicit;
 
 class ExplicitTest extends TestCase
 {

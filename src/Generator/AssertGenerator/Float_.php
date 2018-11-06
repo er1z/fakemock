@@ -8,7 +8,7 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use phpDocumentor\Reflection\Type;
 
-class Float_ extends Numeric_ implements GeneratorInterface
+class Float_ extends Numeric_
 {
 
     public function generateForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField

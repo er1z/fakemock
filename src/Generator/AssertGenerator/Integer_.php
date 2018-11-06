@@ -8,11 +8,11 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use phpDocumentor\Reflection\Type;
 
-class Integer_ extends Numeric_ implements GeneratorInterface
+class Integer_ extends Numeric_
 {
 
     public function generateForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField
     {
-        return parent::getConfigurationForNumericType('randomFloat', $configuration, $annotations);
+        return parent::getConfigurationForNumericType('randomNumber', $configuration, $annotations);
     }
 }

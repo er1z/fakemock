@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Er1z\FakeMock\Mocks;
+namespace Tests\Er1z\FakeMock\Behavior\Mocks;
 
 
 class StructIgnored

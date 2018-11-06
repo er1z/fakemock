@@ -11,5 +11,5 @@ use phpDocumentor\Reflection\Type;
 interface GeneratorInterface
 {
     
-    public function generateForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null): FakeMockField;
+    public function generateForType(\ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations, ?Type $type = null);
 }

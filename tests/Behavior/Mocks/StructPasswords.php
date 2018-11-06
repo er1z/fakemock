@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Er1z\FakeMock\Mocks;
+namespace Tests\Er1z\FakeMock\Behavior\Mocks;
 
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;

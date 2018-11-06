@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * Class FakeAnnotation
+ * @todo: make some options global for @see FakeMock propagated into here
  * @Annotation()
  */
 class FakeMockField

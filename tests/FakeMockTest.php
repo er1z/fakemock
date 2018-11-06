@@ -45,7 +45,7 @@ class FakeMockTest extends TestCase
     {
         $obj = new FakeMock();
 
-        $struct = new StructExplicit();
+        $struct = new StructWithAsserts();
         $obj->fill($struct);
 
 
