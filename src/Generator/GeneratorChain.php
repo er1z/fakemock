@@ -58,7 +58,8 @@ class GeneratorChain implements GeneratorChainInterface
     )
     {
         foreach ($this->generators as $d) {
-            if ($result = $d->generateForProperty($object, $property, $configuration, $annotations)) {
+            $result = $d->generateForProperty($object, $property, $configuration, $annotations);
+            if(!is_null($result)) {
                 return $result;
             }
         }

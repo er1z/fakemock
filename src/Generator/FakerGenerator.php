@@ -46,5 +46,7 @@ class FakerGenerator implements GeneratorInterface
         if($format){
             return $format();
         }
+
+        return null;
     }
 }
