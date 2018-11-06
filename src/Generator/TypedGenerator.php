@@ -10,7 +10,6 @@ use ReverseRegex\Generator\Scope;
 use ReverseRegex\Lexer;
 use ReverseRegex\Parser;
 use ReverseRegex\Random\SimpleRandom;
-use Symfony\Component\Validator\Constraints\Regex;
 
 class TypedGenerator implements GeneratorInterface
 {
@@ -24,17 +23,14 @@ class TypedGenerator implements GeneratorInterface
             return $configuration->value;
         }
 
-        /**
-         * @var $regexConfig Regex
-         */
-        if(!$regexConfig = $annotations->findOneBy(Regex::class)){
+        if($configuration->regex){
             return $this->generateForRegex($configuration);
         }
 
     }
 
     protected function generateForRegex(FakeMockField $configuration){
-        $lexer = new Lexer($configuration->pattern);
+        $lexer = new Lexer($configuration->regex);
         $gen = new SimpleRandom();
         $result = '';
 

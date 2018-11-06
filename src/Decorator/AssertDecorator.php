@@ -48,15 +48,17 @@ class AssertDecorator implements DecoratorInterface
                      * @todo: distinguish from eq/ident
                      */
                     if(
-                        !empty($a->propertyPath) && $this->getValueByPath($object, $a->propertyPath) == $currentValue
-                        || (!empty($a->value) && $a->value == $currentValue)
+                        !empty($a->propertyPath) && $this->getValueByPath($object, $a->propertyPath) == $value
+                        || (!empty($a->value) && $a->value == $value)
                     )
                     {
-                        return $currentValue.'_';
+                        $value .= '_';
                     }
                 break;
             }
         }
+
+        return false;
     }
 
     protected function checkLength($value, FakeMockField $config, AnnotationCollection $annotations)

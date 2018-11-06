@@ -13,7 +13,7 @@ class GeneratorChain implements GeneratorChainInterface
     /**
      * @var GeneratorInterface[]
      */
-    private $detectors;
+    private $generators;
 
     /**
      * DetectorChain constructor.
@@ -26,13 +26,13 @@ class GeneratorChain implements GeneratorChainInterface
         }
 
         foreach ($detectors as $d) {
-            $this->addDetector($d);
+            $this->addGenerator($d);
         }
     }
 
-    public function addDetector(GeneratorInterface $detector)
+    public function addGenerator(GeneratorInterface $detector)
     {
-        $this->detectors[] = $detector;
+        $this->generators[] = $detector;
     }
 
     /**
@@ -57,7 +57,7 @@ class GeneratorChain implements GeneratorChainInterface
         $object, \ReflectionProperty $property, FakeMockField $configuration, AnnotationCollection $annotations
     )
     {
-        foreach ($this->detectors as $d) {
+        foreach ($this->generators as $d) {
             if ($result = $d->generateForProperty($object, $property, $configuration, $annotations)) {
                 return $result;
             }
