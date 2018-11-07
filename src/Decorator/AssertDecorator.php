@@ -45,37 +45,9 @@ class AssertDecorator implements DecoratorInterface
                 $obj->decorate($value, $field, $a, $group);
             }
 
-//            switch(get_class($a)){
-//                case EqualTo::class:
-//                case IdenticalTo::class:
-//                    /**
-//                     * @var $a EqualTo|IdenticalTo
-//                     */
-//                    if(!empty($a->propertyPath)) {
-//                        return $this->getValueByPath($field->object, $a->propertyPath);
-//                    }else if(!empty($a->value)){
-//                        return $a->value;
-//                    }
-//                    break;
-//
-//                case NotEqualTo::class:
-//                case NotIdenticalTo::class:
-//                    /**
-//                     * @var $a EqualTo|IdenticalTo
-//                     * @todo: distinguish from eq/ident
-//                     */
-//                    if(
-//                        !empty($a->propertyPath) && $this->getValueByPath($field->object, $a->propertyPath) == $value
-//                        || (!empty($a->value) && $a->value == $value)
-//                    )
-//                    {
-//                        $value .= '_';
-//                    }
-//                break;
-//            }
         }
 
-        return false;
+        return true;
     }
 
 }

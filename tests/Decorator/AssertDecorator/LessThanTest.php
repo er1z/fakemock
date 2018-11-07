@@ -6,23 +6,23 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use Er1z\FakeMock\Decorator\AssertDecorator\LessThanOrEqual;
+use Er1z\FakeMock\Decorator\AssertDecorator\LessThan;
 use Er1z\FakeMock\FieldMetadata;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use PHPUnit\Framework\TestCase;
 
-class LessThanOrEqualTest extends TestCase
+class LessThanTest extends TestCase
 {
 
     public function testWithoutNumericValue()
     {
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $num = 'asdasd';
         $this->expectException(\InvalidArgumentException::class);
 
-        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThan([
             'value'=>10
         ]));
     }
@@ -42,39 +42,39 @@ class LessThanOrEqualTest extends TestCase
 
         $num = 10.0;
 
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath'=>'test'
         ]));
     }
 
     public function testScalarValueInt()
     {
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $num = 10;
 
-        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThan([
             'value'=>10
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
         $num = 11;
-        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\LessThan([
             'value'=>10
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
     }
 
     public function testScalarValueFloat()
     {
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $obj = new \stdClass();
         $obj->test = null;
@@ -89,24 +89,24 @@ class LessThanOrEqualTest extends TestCase
 
         $num = 10.0;
 
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'value'=>10.0
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
         $num = 10.1;
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'value'=>10.0
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
     }
 
     public function testPropertyPathInt()
     {
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $num = 10;
 
@@ -121,11 +121,11 @@ class LessThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
         $obj = new \stdClass();
         $obj->test = 10;
@@ -139,17 +139,17 @@ class LessThanOrEqualTest extends TestCase
         );
 
         $num = 11;
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
     }
 
     public function testPropertyPathFloat()
     {
-        $decorator = new LessThanOrEqual();
+        $decorator = new LessThan();
 
         $num = 10.0;
 
@@ -164,11 +164,11 @@ class LessThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10.0, $num);
+        $this->assertLessThan(10.0, $num);
 
         $obj = new \stdClass();
         $obj->test = 10.0;
@@ -182,11 +182,11 @@ class LessThanOrEqualTest extends TestCase
         );
 
         $num = 11.0;
-        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+        $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThan(10, $num);
 
     }
 

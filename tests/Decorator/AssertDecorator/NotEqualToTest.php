@@ -12,7 +12,7 @@ use Er1z\FakeMock\FieldMetadata;
 use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
 
-class EqualToTest extends TestCase
+class NotEqualToTest extends TestCase
 {
 
     public function testWithScalarValue()

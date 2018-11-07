@@ -17,11 +17,9 @@ class LessThan extends LessThanOrEqual
          * @var $configuration \Symfony\Component\Validator\Constraints\LessThan
          */
 
+        parent::decorate($value, $field, $configuration, $group);
         // now it's less
-        if(is_numeric($value)) {
-            parent::decorate($value, $field, $configuration, $group);
-            $value -= $field->type instanceof Float_ ? 0.00001 : 1;
-        }
+        $value -= $field->type instanceof Float_ ? 0.00001 : 1;
 
         return true;
     }

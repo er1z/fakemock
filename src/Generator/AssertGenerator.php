@@ -16,7 +16,15 @@ use Symfony\Component\Validator\Constraint;
  */
 class AssertGenerator implements GeneratorInterface
 {
+    /**
+     * @var Generator
+     */
     protected $generator;
+
+    /**
+     * @var \Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface[]
+     */
+    protected $generators = [];
 
     public function __construct(?Generator $generator = null)
     {
@@ -40,18 +48,23 @@ class AssertGenerator implements GeneratorInterface
 
             // https://coderwall.com/p/cpxxxw/php-get-class-name-without-namespace - reflection is the fastest?
             $baseClass = new \ReflectionClass($assert);
-            $class = sprintf('Er1z\\FakeMock\\Generator\\AssertGenerator\\%s', $baseClass->getShortName());
 
-            if (class_exists($class)) {
-                /**
-                 * @var \Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface $obj
-                 */
-                $obj = new $class;
-                return $obj->generateForProperty($field, $assert, $this->generator);
+            if ($generator = $this->getGenerator($baseClass->getShortName())) {
+                return $generator->generateForProperty($field, $assert, $this->generator);
             }
         }
 
         return null;
+    }
+
+    protected function getGenerator($assertClass){
+
+        if(empty($this->generators[$assertClass])){
+            $generatorFqcn = sprintf('Er1z\\FakeMock\\Generator\\AssertGenerator\\%s', $assertClass);
+            $this->generators[$assertClass] = class_exists($generatorFqcn) ? new $generatorFqcn : false;
+        }
+
+        return $this->generators[$assertClass];
     }
 
 }
