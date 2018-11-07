@@ -28,7 +28,7 @@ class AnnotationCollection
 
     public function findOneBy($class)
     {
-        $result = array_values($this->findAllBy($class))[0] ?: null;
+        $result = array_values($this->findAllBy($class))[0] ?? null;
         return $result;
     }
 
