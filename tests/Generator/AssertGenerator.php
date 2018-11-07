@@ -156,17 +156,6 @@ class AssertGenerator extends TestCase
         return $value;
     }
 
-    public function testEmail()
-    {
-        $value = $this->forAssert([
-            new Email()
-        ]);
-
-        $this->assertNotNull(
-            filter_var($value, FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)
-        );
-    }
-
     public function testUrl()
     {
         $value = $this->forAssert([
