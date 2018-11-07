@@ -5,8 +5,6 @@ namespace Er1z\FakeMock\Generator;
 
 
 use Er1z\FakeMock\FieldMetadata;
-use Faker\Factory;
-use Faker\Generator;
 
 /**
  * @todo: add interface with FakerableInterface in order to inject main Faker instance or sth
@@ -15,16 +13,6 @@ use Faker\Generator;
  */
 class AssertGenerator extends GeneratorAbstract
 {
-    /**
-     * @var Generator
-     */
-    protected $generator;
-
-    public function __construct(?Generator $generator = null)
-    {
-        $this->generator = $generator ?: Factory::create();
-    }
-
     public function generateForProperty(FieldMetadata $field)
     {
         if(!$field->configuration->useAsserts){

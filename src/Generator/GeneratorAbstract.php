@@ -3,6 +3,9 @@ namespace Er1z\FakeMock\Generator;
 
 
 use Er1z\FakeMock\FieldMetadata;
+use Faker\Factory;
+use Faker\Generator;
+use Symfony\Component\Validator\Constraint;
 
 abstract class GeneratorAbstract implements GeneratorInterface{
 
@@ -10,6 +13,16 @@ abstract class GeneratorAbstract implements GeneratorInterface{
      * @var \Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface[]
      */
     protected $generators;
+
+    /**
+     * @var Generator
+     */
+    protected $generator;
+
+    public function __construct(?Generator $generator = null)
+    {
+        $this->generator = $generator ?: Factory::create();
+    }
 
     public function generateForProperty(
         FieldMetadata $field
