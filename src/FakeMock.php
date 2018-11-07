@@ -63,10 +63,6 @@ class FakeMock
 
     protected function populateObject(\ReflectionClass $reflection, $object, $group = null)
     {
-        $propertyAccessor = PropertyAccess::createPropertyAccessorBuilder()
-            ->enableExceptionOnInvalidIndex()
-            ->getPropertyAccessor();
-
         $props = $reflection->getProperties();
 
         foreach ($props as $prop) {
@@ -90,7 +86,7 @@ class FakeMock
             $value = $this->generatorChain->getValueForField($metadata);
             $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
-            $propertyAccessor->setValue($object, $prop->getName(), $value);
+            ObjectUtils::setPropertyValue($object, $prop->getName(), $value);
         }
 
         return $object;
@@ -125,6 +121,5 @@ class FakeMock
         return new $objectOrClass;
 
     }
-
 
 }
