@@ -7,7 +7,8 @@
     "doctrine/annotations": "^1.6",
     "fzaninotto/faker": "^1.8",
     "symfony/validator": "^4.1",
-    "icomefromthenet/reverse-regex": "^0.1.0"
+    "icomefromthenet/reverse-regex": "^0.1.0",
+    "symfony/intl": "^4.1"
   },
   "autoload": {
     "psr-4": {
@@ -23,6 +24,7 @@
     "phpunit/phpunit":  "^7.4"
   },
   "suggest": {
+    "symfony/intl": "To get a correct country code for Country assert",
     "symfony/validator": "To enhance field options autodetection"
   }
 }

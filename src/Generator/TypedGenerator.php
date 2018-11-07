@@ -28,7 +28,7 @@ class TypedGenerator implements GeneratorInterface
 
     }
 
-    protected function generateForRegex(string $regex){
+    public function generateForRegex(string $regex){
         $lexer = new Lexer($regex);
         $gen = new SimpleRandom();
         $result = '';
