@@ -5,7 +5,6 @@ namespace Er1z\FakeMock\Generator;
 use Er1z\FakeMock\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
-use Symfony\Component\Validator\Constraint;
 
 abstract class GeneratorAbstract implements GeneratorInterface{
 
@@ -24,27 +23,9 @@ abstract class GeneratorAbstract implements GeneratorInterface{
         $this->generator = $generator ?: Factory::create();
     }
 
-    public function generateForProperty(
+    abstract public function generateForProperty(
         FieldMetadata $field
-    )
-    {
-
-        $asserts = $field->annotations->findAllBy(Constraint::class);
-
-        if ($asserts) {
-
-            $assert = $asserts[0];
-
-            // https://coderwall.com/p/cpxxxw/php-get-class-name-without-namespace - reflection is the fastest?
-            $baseClass = new \ReflectionClass($assert);
-
-            if ($generator = $this->getGenerator($baseClass->getShortName())) {
-                return $generator->generateForProperty($field, $assert, $this->generator);
-            }
-        }
-
-        return null;
-    }
+    );
 
     abstract protected function getGeneratorFqcn($simpleClassName);
 
