@@ -14,14 +14,15 @@ class StructWithAsserts
 
     /**
      * @FakeMockField()
+     * @Assert\Email()
      */
-    public $stringAuto;
+    public $stringEmail;
 
     /**
      * @FakeMockField()
      * @Assert\Range(min=10, max=255)
      * @var float
      */
-    public $floatAuto;
+    public $floatAssert;
 
 }
