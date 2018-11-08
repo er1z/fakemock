@@ -24,7 +24,7 @@ class FakeMock
      */
     private $decoratorChain;
     /**
-     * @var Factory
+     * @var FactoryInterface
      */
     private $metadataFactory;
 
