@@ -17,7 +17,7 @@ use Faker\Generator;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 
-class GeneratorAbstractTest extends TestCase
+abstract class GeneratorAbstractTest extends TestCase
 {
 
     protected function getFieldMetadata($assertsCollection = [], ?Type $type = null)
@@ -30,7 +30,7 @@ class GeneratorAbstractTest extends TestCase
         $field = new FieldMetadata(
             $obj,
             $prop,
-            $type ?: $this->createMock(Type::class),
+            $type ?? $this->createMock(Type::class),
             new AnnotationCollection($assertsCollection),
             new FakeMockField()
         );

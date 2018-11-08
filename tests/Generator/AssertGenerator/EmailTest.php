@@ -12,7 +12,11 @@ class EmailTest extends GeneratorAbstractTest {
 
         $field = $this->getFieldMetadata();
 
-        $value = $generator->generateForProperty($field, new \Symfony\Component\Validator\Constraints\Email(), $this->getFaker());
+        $value = $generator->generateForProperty(
+            $field,
+            new \Symfony\Component\Validator\Constraints\Email(),
+            $this->getFaker()
+        );
 
         $this->assertNotNull(
             filter_var($value, FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)
