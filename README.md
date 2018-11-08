@@ -1,9 +1,8 @@
 TODO
 ----
 - `Assert\File` mocking
-- `FakeMockField` with inherited from class options fields
-- refactor unit tests a bit
+- recursive fields processing when a type is supplied
 
 Future
 -----
-- may be in order to override adapters use `ServiceLocator` for adapters
+- refactor unit tests a bit
