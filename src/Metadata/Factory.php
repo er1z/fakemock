@@ -28,7 +28,7 @@ class Factory implements FactoryInterface
         $this->reader = $reader ?: new AnnotationReader();
     }
 
-    public function getObjectConfiguration(\ReflectionClass $object): FakeMock{
+    public function getObjectConfiguration(\ReflectionClass $object): ?FakeMock{
         return $this->reader->getClassAnnotation($object, FakeMock::class);
     }
 
