@@ -30,13 +30,6 @@ class FakeMockField
     public $arguments = null;
 
     /**
-     * Generate structs recursively
-     * @todo: needs some more logic
-     * @var bool
-     */
-    public $recursive = null;
-
-    /**
      * Generate according to the regex
      * @var null|string
      */
