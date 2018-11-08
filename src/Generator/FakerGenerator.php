@@ -38,11 +38,7 @@ class FakerGenerator implements GeneratorInterface
     public function generateForProperty(FieldMetadata $field)
     {
         if($field->configuration->faker){
-            if(is_callable([$this->generator, $field->configuration->faker])) {
-                return $this->generator->{$field->configuration->faker}(...(array)$field->configuration->arguments);
-            }else{
-                return $this->generator->{$field->configuration->faker};
-            }
+            return $this->generator->{$field->configuration->faker}(...(array)$field->configuration->arguments);
         }
         $format = $this->guesser->guessFormat($field->property->getName());
 

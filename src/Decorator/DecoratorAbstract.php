@@ -24,10 +24,8 @@ abstract class DecoratorAbstract implements DecoratorInterface{
             $refl = new \ReflectionClass($a);
             $basename = $refl->getShortName();
 
-            $className = $this->getDecoratorFqcn($basename);
-
             $result = true;
-            if($decorator = $this->getDecorator($className)){
+            if($decorator = $this->getDecorator($basename)){
                 $result = $decorator->decorate($value, $field, $a, $group);
             }
 

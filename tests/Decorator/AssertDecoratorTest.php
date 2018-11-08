@@ -33,7 +33,15 @@ class AssertDecoratorTest extends TestCase
         $result = $d->decorate($val, $field);
 
         $this->assertFalse($result);
+    }
 
+    public function testDecoratorFqcn()
+    {
+        $d = new AssertDecorator();
+        $m = new \ReflectionMethod($d, 'getDecoratorFqcn');
+        $m->setAccessible(true);
+
+        $this->assertEquals('Er1z\\FakeMock\\Decorator\\AssertDecorator\\Test', $m->invoke($d, 'Test'));
     }
 
 }
