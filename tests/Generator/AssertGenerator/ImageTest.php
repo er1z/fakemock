@@ -12,7 +12,7 @@ class ImageTest extends GeneratorAbstractTest
     const TEST_MAX_WIDTH = 320;
     const TEST_MAX_HEIGHT = 240;
 
-    public function testDate()
+    public function testImage()
     {
         $generator = new Image();
 
