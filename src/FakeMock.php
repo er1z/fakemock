@@ -61,6 +61,13 @@ class FakeMock
         return $this->populateObject($reflection, $obj, $group);
     }
 
+    public function createObject($class, $constructorArguments = [], $group = null)
+    {
+        $obj = new $class(...(array)$constructorArguments);
+
+        return $this->fill($obj, $group);
+    }
+
     protected function populateObject(\ReflectionClass $reflection, $object, $group = null)
     {
         $props = $reflection->getProperties();
