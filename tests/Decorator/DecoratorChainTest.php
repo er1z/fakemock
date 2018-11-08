@@ -8,7 +8,7 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\DecoratorChain;
 use Er1z\FakeMock\Decorator\DecoratorInterface;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;

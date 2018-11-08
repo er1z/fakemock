@@ -4,7 +4,7 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
  * Class AssertGenerator
  * @package Er1z\FakeMock\Generator
  */
-class AssertGenerator extends GeneratorAbstract
+class AssertGenerator extends AttachableGeneratorAbstract
 {
     public function generateForProperty(FieldMetadata $field)
     {

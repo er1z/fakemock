@@ -5,7 +5,7 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 
 
 use Er1z\FakeMock\Decorator\AssertDecorator\Length;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use PHPUnit\Framework\TestCase;
 
 class LengthTest extends TestCase

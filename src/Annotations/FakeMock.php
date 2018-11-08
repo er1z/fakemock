@@ -11,4 +11,26 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class FakeMock
 {
+
+    /**
+     * use asserts within field type guessing process
+     * @var bool
+     */
+    public $useAsserts = true;
+
+    /**
+     * consider conditions such as LowerThan, EqualsTo as to be satisfied
+     * @var bool
+     */
+    public $satisfyAssertsConditions = true;
+
+    public function __construct($data = [])
+    {
+
+        foreach($data as $k=> $v){
+            $this->$k = $v;
+        }
+
+    }
+
 }

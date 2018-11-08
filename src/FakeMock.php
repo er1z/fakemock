@@ -4,26 +4,17 @@
 namespace Er1z\FakeMock;
 
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\Common\Annotations\Reader;
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Annotations\FakeMock as MainAnnotation;
 use Er1z\FakeMock\Decorator\DecoratorChain;
 use Er1z\FakeMock\Decorator\DecoratorChainInterface;
+use Er1z\FakeMock\Metadata\Factory;
+use Er1z\FakeMock\Metadata\FactoryInterface;
 use Er1z\FakeMock\Generator\GeneratorChain;
 use Er1z\FakeMock\Generator\GeneratorChainInterface;
-use phpDocumentor\Reflection\Type;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FakeMock
 {
 
-    /**
-     * @var AnnotationReader
-     */
-    private $reader;
     /**
      * @var GeneratorChainInterface
      */
@@ -32,90 +23,56 @@ class FakeMock
      * @var DecoratorChainInterface
      */
     private $decoratorChain;
+    /**
+     * @var Factory
+     */
+    private $metadataFactory;
 
     public function __construct(
-        ?Reader $reader = null, ?GeneratorChainInterface $generatorChain = null, ?DecoratorChainInterface $decoratorChain = null
+        ?FactoryInterface $metadataFactory = null, ?GeneratorChainInterface $generatorChain = null, ?DecoratorChainInterface $decoratorChain = null
     )
     {
-        // can't wait for v2...
-        if (class_exists(AnnotationRegistry::class)) {
-            AnnotationRegistry::registerLoader('class_exists');
-        }
-
-        $this->reader = $reader ?: new AnnotationReader();
-        $this->generatorChain = $generatorChain ?: new GeneratorChain();
-        $this->decoratorChain = $decoratorChain ?: new DecoratorChain();
+        $this->generatorChain = $generatorChain ?? new GeneratorChain();
+        $this->decoratorChain = $decoratorChain ?? new DecoratorChain();
+        $this->metadataFactory = $metadataFactory ?? new Factory();
     }
 
-    public function fill($object, $group = null)
+    public function fill($objectOrClassName, $group = null)
     {
-        $obj = $this->getClass($object);
+        $obj = $this->getClass($objectOrClassName);
 
         $reflection = new \ReflectionClass($obj);
-        $cfg = $this->getObjectConfiguration($reflection);
+        $cfg = $this->metadataFactory->getObjectConfiguration($reflection);
 
         if (!$cfg) {
-            return $object;
+            return $obj;
         }
 
-        return $this->populateObject($reflection, $obj, $group);
+        return $this->populateObject($reflection, $obj, $cfg, $group);
     }
 
-    public function createObject($class, $constructorArguments = [], $group = null)
-    {
-        $obj = new $class(...(array)$constructorArguments);
-
-        return $this->fill($obj, $group);
-    }
-
-    protected function populateObject(\ReflectionClass $reflection, $object, $group = null)
+    protected function populateObject(\ReflectionClass $reflection, $object, MainAnnotation $objectConfiguration, $group = null)
     {
         $props = $reflection->getProperties();
 
         foreach ($props as $prop) {
 
-            $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($prop));
-            /**
-             * @var $propMetadata FakeMockField
-             */
-            if (!($propMetadata = $annotations->findOneBy(FakeMockField::class))) {
+            $metadata = $this->metadataFactory->create($object, $objectConfiguration, $prop);
+            if (!$metadata) {
                 continue;
             }
 
-            if ($group && !in_array($group, (array)$propMetadata->groups)) {
+            if ($group && !in_array($group, (array)$metadata->configuration->groups)) {
                 continue;
             }
-
-            $metadata = new FieldMetadata(
-                $object, $prop, $this->getPhpDocType($prop), $annotations, $propMetadata
-            );
 
             $value = $this->generatorChain->getValueForField($metadata);
             $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
-            ObjectUtils::setPropertyValue($object, $prop->getName(), $value);
+            Accessor::setPropertyValue($object, $prop->getName(), $value);
         }
 
         return $object;
-    }
-
-    protected function getPhpDocType(\ReflectionProperty $property): ?Type
-    {
-        $factory = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $data = $factory->create(
-            $property->getDocComment()
-        );
-
-        if ($vars = $data->getTagsByName('var')) {
-            return reset($vars)->getType();
-        }
-
-        return null;
-    }
-
-    protected function getObjectConfiguration(\ReflectionClass $object)
-    {
-        return $this->reader->getClassAnnotation($object, MainAnnotation::class);
     }
 
     protected function getClass($objectOrClass)

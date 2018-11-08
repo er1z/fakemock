@@ -4,9 +4,7 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class GeneratorChain implements GeneratorChainInterface

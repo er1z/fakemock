@@ -6,9 +6,8 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use Er1z\FakeMock\Decorator\AssertDecorator\EqualTo;
 use Er1z\FakeMock\Decorator\AssertDecorator\IdenticalTo;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
 

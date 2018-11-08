@@ -4,9 +4,9 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 
-class PhpDocGenerator extends GeneratorAbstract
+class PhpDocGenerator extends AttachableGeneratorAbstract
 {
 
     protected function getGeneratorFqcn($simpleClassName)

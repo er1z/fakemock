@@ -2,11 +2,11 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 
-abstract class GeneratorAbstract implements GeneratorInterface{
+abstract class AttachableGeneratorAbstract implements GeneratorInterface{
 
     /**
      * @var \Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface[]

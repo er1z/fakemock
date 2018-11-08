@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Er1z\FakeMock;
+namespace Er1z\FakeMock\Metadata;
 
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
@@ -27,7 +27,6 @@ class FieldMetadata
      * @var AnnotationCollection
      */
     public $annotations;
-
     /**
      * @var FakeMockField
      */
@@ -41,7 +40,6 @@ class FieldMetadata
         $this->property = $property;
         $this->type = $type;
         $this->annotations = $annotations;
-        // todo: fetching from annotations collection?
         $this->configuration = $configuration;
     }
 

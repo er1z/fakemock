@@ -6,7 +6,7 @@ namespace Er1z\FakeMock;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class ObjectUtils
+class Accessor
 {
 
     /**

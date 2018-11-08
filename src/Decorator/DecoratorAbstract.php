@@ -3,7 +3,7 @@ namespace Er1z\FakeMock\Decorator;
 
 
 use Er1z\FakeMock\Decorator\AssertDecorator\AssertDecoratorInterface;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 abstract class DecoratorAbstract implements DecoratorInterface{

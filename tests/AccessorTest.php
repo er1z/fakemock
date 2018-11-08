@@ -2,10 +2,10 @@
 namespace Tests\Er1z\FakeMock;
 
 
-use Er1z\FakeMock\ObjectUtils;
+use Er1z\FakeMock\Accessor;
 use PHPUnit\Framework\TestCase;
 
-class ObjectUtilsTest extends TestCase{
+class AccessorTest extends TestCase{
 
 
     public function testGetValue()
@@ -14,7 +14,7 @@ class ObjectUtilsTest extends TestCase{
 
         $obj->prop = 'asd';
 
-        $result = ObjectUtils::getPropertyValue($obj, 'prop');
+        $result = Accessor::getPropertyValue($obj, 'prop');
 
         $this->assertEquals($obj->prop, $result);
     }
@@ -25,7 +25,7 @@ class ObjectUtilsTest extends TestCase{
 
         $obj->prop = 'one';
 
-        ObjectUtils::setPropertyValue($obj, 'prop', 'two');
+        Accessor::setPropertyValue($obj, 'prop', 'two');
 
         $this->assertEquals('two', $obj->prop);
     }

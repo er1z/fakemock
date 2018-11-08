@@ -7,7 +7,7 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\AssertDecorator\LessThan;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use PHPUnit\Framework\TestCase;

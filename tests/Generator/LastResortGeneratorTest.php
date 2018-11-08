@@ -6,7 +6,7 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\LastResortGenerator;
 use Faker\Generator;
 use phpDocumentor\Reflection\Type;

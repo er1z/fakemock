@@ -34,7 +34,7 @@ class FakeMockField
      * @todo: needs some more logic
      * @var bool
      */
-    public $recursive = true;
+    public $recursive = null;
 
     /**
      * Generate according to the regex
@@ -46,13 +46,13 @@ class FakeMockField
      * Use asserts for field type auto-detection
      * @var bool
      */
-    public $useAsserts = true;
+    public $useAsserts = null;
 
     /**
      * Follow asserts conditions to comply validation
      * @var bool
      */
-    public $satisfyAssertsConditions = true;
+    public $satisfyAssertsConditions = null;
 
     /**
      * Validation groups
@@ -71,7 +71,6 @@ class FakeMockField
             $this->faker = $dataOrFaker;
         }
 
-        return;
     }
 
 }

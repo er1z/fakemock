@@ -4,8 +4,8 @@
 namespace Er1z\FakeMock\Decorator\AssertDecorator;
 
 
-use Er1z\FakeMock\FieldMetadata;
-use Er1z\FakeMock\ObjectUtils;
+use Er1z\FakeMock\Accessor;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class LessThanOrEqual implements AssertDecoratorInterface
@@ -22,7 +22,7 @@ class LessThanOrEqual implements AssertDecoratorInterface
         if($configuration->value && $value>$configuration->value){
             $value -= $value-$configuration->value;
         }else if($configuration->propertyPath){
-            $compare = ObjectUtils::getPropertyValue($field->object, $configuration->propertyPath);
+            $compare = Accessor::getPropertyValue($field->object, $configuration->propertyPath);
 
             if(!is_numeric($compare)){
                 throw new \InvalidArgumentException('Non-numeric value supplied');

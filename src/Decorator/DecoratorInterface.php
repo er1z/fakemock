@@ -4,7 +4,7 @@
 namespace Er1z\FakeMock\Decorator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 
 interface DecoratorInterface
 {

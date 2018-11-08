@@ -4,8 +4,8 @@
 namespace Er1z\FakeMock\Decorator\AssertDecorator;
 
 
-use Er1z\FakeMock\FieldMetadata;
-use Er1z\FakeMock\ObjectUtils;
+use Er1z\FakeMock\Accessor;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class NotEqualTo implements AssertDecoratorInterface
@@ -24,7 +24,7 @@ class NotEqualTo implements AssertDecoratorInterface
         if($configuration->value && $value==$configuration->value){
             $value .= mt_rand(0,9);
         }else if($configuration->propertyPath){
-            $otherValue = ObjectUtils::getPropertyValue($field->object, $configuration->propertyPath);
+            $otherValue = Accessor::getPropertyValue($field->object, $configuration->propertyPath);
             if($otherValue==$value){
                 $value .= mt_rand(0,9);
             }

@@ -4,7 +4,7 @@
 namespace Er1z\FakeMock\Generator\PhpDocGenerator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Generator;
 
 class Float_ implements GeneratorInterface

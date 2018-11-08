@@ -4,7 +4,7 @@
 namespace Er1z\FakeMock\Generator;
 
 
-use Er1z\FakeMock\FieldMetadata;
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 use Faker\Guesser\Name;
