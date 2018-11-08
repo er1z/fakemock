@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Decorator\AssertDecorator;
 
 use Er1z\FakeMock\Accessor;
 use Er1z\FakeMock\Metadata\FieldMetadata;
+use phpDocumentor\Reflection\Types\Float_;
 use Symfony\Component\Validator\Constraint;
 
 class GreaterThanOrEqual implements AssertDecoratorInterface
@@ -16,11 +17,16 @@ class GreaterThanOrEqual implements AssertDecoratorInterface
             throw new \InvalidArgumentException('Non-numeric value supplied');
         }
 
+        $trailer = 0;
+        if($this->useTrailer()){
+            $trailer = $field->type instanceof Float_ ? 0.00001 : 1;
+        }
+
         /**
-         * @var $configuration \Symfony\Component\Validator\Constraints\GreaterThan
+         * @var $configuration \Symfony\Component\Validator\Constraints\GreaterThan|\Symfony\Component\Validator\Constraints\GreaterThanOrEqual
          */
-        if($configuration->value && $value<$configuration->value){
-            $value += $value-$configuration->value;
+        if($configuration->value && $value<=$configuration->value){
+            $value += $configuration->value-$value+$trailer;
         }else if($configuration->propertyPath){
             $compare = Accessor::getPropertyValue($field->object, $configuration->propertyPath);
 
@@ -28,11 +34,15 @@ class GreaterThanOrEqual implements AssertDecoratorInterface
                 throw new \InvalidArgumentException('Non-numeric value supplied');
             }
 
-            if($value<$compare){
-                $value += $value-$compare;
+            if($value<=$compare){
+                $value += $compare-$value+$trailer;
             }
         }
 
         return true;
+    }
+
+    protected function useTrailer(){
+        return false;
     }
 }

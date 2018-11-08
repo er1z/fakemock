@@ -87,20 +87,20 @@ class LessThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 10.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThanOrEqual(10.01, $num);
 
         $num = 10.1;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThanOrEqual(10.01, $num);
 
     }
 
@@ -151,15 +151,15 @@ class LessThanOrEqualTest extends TestCase
     {
         $decorator = new LessThanOrEqual();
 
-        $num = 10.0;
+        $num = 10.01;
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
@@ -168,25 +168,25 @@ class LessThanOrEqualTest extends TestCase
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10.0, $num);
+        $this->assertLessThanOrEqual(10.01, $num);
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
 
-        $num = 11.0;
+        $num = 11.01;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThanOrEqual(10, $num);
+        $this->assertLessThanOrEqual(10.01, $num);
 
     }
 

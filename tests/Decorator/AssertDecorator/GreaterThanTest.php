@@ -40,7 +40,7 @@ class GreaterThanTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 10.01;
 
         $decorator = new GreaterThan();
 
@@ -55,7 +55,7 @@ class GreaterThanTest extends TestCase
     {
         $decorator = new GreaterThan();
 
-        $num = 10;
+        $num = 9;
 
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThan([
             'value'=>10
@@ -63,7 +63,7 @@ class GreaterThanTest extends TestCase
 
         $this->assertGreaterThan(10, $num);
 
-        $num = 11;
+        $num = 9;
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThan([
             'value'=>10
         ]));
@@ -87,20 +87,20 @@ class GreaterThanTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 9.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
         $this->assertGreaterThan(10, $num);
 
-        $num = 10.1;
+        $num = 9.9;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertGreaterThan(10, $num);
+        $this->assertGreaterThan(10.01, $num);
 
     }
 
@@ -108,7 +108,7 @@ class GreaterThanTest extends TestCase
     {
         $decorator = new GreaterThan();
 
-        $num = 10;
+        $num = 9;
 
         $obj = new \stdClass();
         $obj->test = 10;
@@ -151,15 +151,15 @@ class GreaterThanTest extends TestCase
     {
         $decorator = new GreaterThan();
 
-        $num = 10.0;
+        $num = 10.01;
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
@@ -168,25 +168,25 @@ class GreaterThanTest extends TestCase
             'propertyPath'=>'test'
         ]));
 
-        $this->assertGreaterThan(10.0, $num);
+        $this->assertGreaterThan(10.01, $num);
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
 
-        $num = 11.0;
+        $num = 9.01;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertGreaterThan(10, $num);
+        $this->assertGreaterThan(10.01, $num);
 
     }
 

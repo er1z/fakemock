@@ -87,20 +87,20 @@ class LessThanTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 10.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertLessThan(10, $num);
+        $this->assertLessThan(10.01, $num);
 
         $num = 10.1;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertLessThan(10, $num);
+        $this->assertLessThan(10.01, $num);
 
     }
 
@@ -151,15 +151,15 @@ class LessThanTest extends TestCase
     {
         $decorator = new LessThan();
 
-        $num = 10.0;
+        $num = 10.01;
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
@@ -168,15 +168,15 @@ class LessThanTest extends TestCase
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThan(10.0, $num);
+        $this->assertLessThan(10.01, $num);
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
@@ -186,7 +186,7 @@ class LessThanTest extends TestCase
             'propertyPath'=>'test'
         ]));
 
-        $this->assertLessThan(10, $num);
+        $this->assertLessThan(10.01, $num);
 
     }
 

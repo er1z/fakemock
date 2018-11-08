@@ -7,7 +7,6 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\AssertDecorator\GreaterThanOrEqual;
-use Er1z\FakeMock\Decorator\AssertDecorator\LessThanOrEqual;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
@@ -41,7 +40,7 @@ class GreaterThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 10.01;
 
         $decorator = new GreaterThanOrEqual();
 
@@ -64,7 +63,7 @@ class GreaterThanOrEqualTest extends TestCase
 
         $this->assertGreaterThanOrEqual(10, $num);
 
-        $num = 11;
+        $num = 9;
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([
             'value'=>10
         ]));
@@ -88,20 +87,20 @@ class GreaterThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 10.0;
+        $num = 10.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
         $this->assertGreaterThanOrEqual(10, $num);
 
-        $num = 10.1;
+        $num = 9.9;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([
-            'value'=>10.0
+            'value'=>10.01
         ]));
 
-        $this->assertGreaterThanOrEqual(10, $num);
+        $this->assertGreaterThanOrEqual(10.01, $num);
 
     }
 
@@ -139,7 +138,7 @@ class GreaterThanOrEqualTest extends TestCase
             new FakeMockField()
         );
 
-        $num = 11;
+        $num = 9;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([
             'propertyPath'=>'test'
         ]));
@@ -152,15 +151,15 @@ class GreaterThanOrEqualTest extends TestCase
     {
         $decorator = new GreaterThanOrEqual();
 
-        $num = 10.0;
+        $num = 10.01;
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
@@ -169,25 +168,25 @@ class GreaterThanOrEqualTest extends TestCase
             'propertyPath'=>'test'
         ]));
 
-        $this->assertGreaterThanOrEqual(10.0, $num);
+        $this->assertGreaterThanOrEqual(10.01, $num);
 
         $obj = new \stdClass();
-        $obj->test = 10.0;
+        $obj->test = 10.01;
 
         $fieldMetadata = new FieldMetadata(
             $obj,
             new \ReflectionProperty($obj, 'test'),
-            new Integer(),
+            new Float_(),
             $this->createMock(AnnotationCollection::class),
             new FakeMockField()
         );
 
-        $num = 11.0;
+        $num = 9.01;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([
             'propertyPath'=>'test'
         ]));
 
-        $this->assertGreaterThanOrEqual(10, $num);
+        $this->assertGreaterThanOrEqual(10.01, $num);
 
     }
 
