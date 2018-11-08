@@ -33,9 +33,11 @@ class AnnotationCollection
     }
 
     public function findAllBy($class){
-        return array_filter($this->annotations, function($a) use ($class){
+        $result = array_filter($this->annotations, function($a) use ($class){
             return $a instanceof $class;
         });
+
+        return array_values($result);
     }
 
 }
