@@ -39,6 +39,8 @@ class DecoratorChain implements DecoratorChainInterface
             $result[] = new AssertDecorator();
         }
 
+        $result[] = new PhpDocDecorator();
+
         return $result;
     }
 

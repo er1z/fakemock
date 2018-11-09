@@ -1,15 +1,13 @@
 <?php
-namespace Tests\Er1z\FakeMock\Behavior\Mocks;
+namespace Tests\Er1z\FakeMock\Mocks\Struct;
 
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class StructBasic
  * @FakeMock()
  */
-class StructExplicit
+class Explicit
 {
 
     /**

@@ -1,8 +1,8 @@
 <?php
-namespace Tests\Er1z\FakeMock\Behavior\Mocks;
+namespace Tests\Er1z\FakeMock\Mocks\Struct;
 
 
-class StructIgnored
+class Ignored
 {
 
     /**

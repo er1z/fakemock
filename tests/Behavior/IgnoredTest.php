@@ -6,7 +6,7 @@ namespace Tests\Er1z\FakeMock\Behavior;
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
-use Tests\Er1z\FakeMock\Behavior\Mocks\StructIgnored;
+use Tests\Er1z\FakeMock\Mocks\Struct\Ignored;
 
 class IgnoredTest extends TestCase
 {
@@ -15,7 +15,7 @@ class IgnoredTest extends TestCase
     {
         $f = new FakeMock();
 
-        $obj = new StructIgnored();
+        $obj = new Ignored();
 
         $f->fill($obj);
 

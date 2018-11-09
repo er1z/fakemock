@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Er1z\FakeMock\Behavior\Mocks;
+namespace Tests\Er1z\FakeMock\Mocks\Struct;
 
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -9,11 +9,9 @@ use Er1z\FakeMock\Annotations\FakeMockField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class StructPasswords
- * @package Tests\Er1z\FakeMock\Mocks
  * @FakeMock()
  */
-class StructPasswords
+class Passwords
 {
 
     /**

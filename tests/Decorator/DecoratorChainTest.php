@@ -21,7 +21,7 @@ class DecoratorChainTest extends TestCase
 
         $decorators = DecoratorChain::getDefaultDecoratorsSet();
 
-        $this->assertCount($constraintsAvail ? 1 : 0, $decorators, 'Count ok');
+        $this->assertCount($constraintsAvail ? 2 : 1, $decorators, 'Count ok');
 
         foreach($decorators as $g){
             $this->assertInstanceOf(DecoratorInterface::class, $g, get_class($g));

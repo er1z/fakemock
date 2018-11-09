@@ -6,7 +6,8 @@ namespace Tests\Er1z\FakeMock\Behavior;
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
-use Tests\Er1z\FakeMock\Behavior\Mocks\StructExplicit;
+use Tests\Er1z\FakeMock\Mocks\Struct\Explicit;
+
 
 class ExplicitTest extends TestCase
 {
@@ -16,7 +17,7 @@ class ExplicitTest extends TestCase
         
         $mocker = new FakeMock();
 
-        $class = new StructExplicit();
+        $class = new Explicit();
         $mocker->fill($class);
 
         $this->assertEquals('test value', $class->value, 'Scalar value set');

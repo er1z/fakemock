@@ -69,8 +69,14 @@ class Factory implements FactoryInterface
     protected function getPhpDocType(\ReflectionProperty $property): ?Type
     {
         $factory = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $docComment = $property->getDocComment();
+
+        if(!$docComment){
+            return null;
+        }
+
         $data = $factory->create(
-            $property->getDocComment()
+            $docComment
         );
 
         if ($vars = $data->getTagsByName('var')) {

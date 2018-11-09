@@ -6,7 +6,7 @@ namespace Tests\Er1z\FakeMock\Behavior;
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
-use Tests\Er1z\FakeMock\Behavior\Mocks\StructPasswords;
+use Tests\Er1z\FakeMock\Mocks\Struct\Passwords;
 
 class PasswordsTest extends TestCase
 {
@@ -14,7 +14,7 @@ class PasswordsTest extends TestCase
     public function testPasswords()
     {
         $f = new FakeMock();
-        $obj = new StructPasswords();
+        $obj = new Passwords();
 
         $f->fill($obj);
 
