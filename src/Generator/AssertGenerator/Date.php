@@ -6,6 +6,7 @@ namespace Er1z\FakeMock\Generator\AssertGenerator;
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Generator;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\Validator\Constraint;
 
 class Date implements GeneratorInterface
@@ -16,6 +17,12 @@ class Date implements GeneratorInterface
         /**
          * @var \Symfony\Component\Validator\Constraints\Date $constraint
          */
-        return new \DateTime($faker->date());
+        $date = $faker->date();
+
+        if($field->type instanceof String_){
+            return $date;
+        }
+
+        return new \DateTime($date);
     }
 }
