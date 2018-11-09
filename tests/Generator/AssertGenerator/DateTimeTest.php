@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\DateTime;
 use phpDocumentor\Reflection\Types\String_;
 
 class DateTimeTest extends GeneratorAbstractTest
 {
-
     public function testDateTime()
     {
         $generator = new DateTime();
@@ -23,7 +20,6 @@ class DateTimeTest extends GeneratorAbstractTest
         );
 
         $this->assertInstanceOf(\DateTime::class, $value);
-
     }
 
     public function testDateTimeAsString()
@@ -40,7 +36,5 @@ class DateTimeTest extends GeneratorAbstractTest
 
         $this->assertInternalType('string', $value);
         $this->assertRegExp('#^\d{4}\-\d{2}\-\d{2}.\d{2}\:\d{2}\:\d{2}.*#si', $value);
-
     }
-
 }

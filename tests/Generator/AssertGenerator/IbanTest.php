@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Iban;
 
 class IbanTest extends GeneratorAbstractTest
 {
-
     public function testIban()
     {
         $generator = new Iban();
@@ -23,5 +20,4 @@ class IbanTest extends GeneratorAbstractTest
 
         $this->assertTrue(ctype_alnum($value));
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Behavior;
-
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +8,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\WithGroups;
 
 class GroupsTest extends TestCase
 {
-
     public function testGroups()
     {
         $mocker = new FakeMock();
@@ -32,7 +29,5 @@ class GroupsTest extends TestCase
 
         $this->assertNull($second->stringOne);
         $this->assertGreaterThanOrEqual(1, substr_count($second->stringTwo, ' '));
-
     }
-
 }

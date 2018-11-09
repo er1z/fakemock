@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: eRIZ
  * Date: 07.11.2018
- * Time: 23:46
+ * Time: 23:46.
  */
 
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -19,7 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 abstract class GeneratorAbstractTest extends TestCase
 {
-
     protected function getFieldMetadata($assertsCollection = [], ?Type $type = null)
     {
         $obj = new \stdClass();
@@ -42,5 +40,4 @@ abstract class GeneratorAbstractTest extends TestCase
     {
         return Factory::create();
     }
-
 }

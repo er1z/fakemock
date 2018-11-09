@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -14,9 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 class LastResortGeneratorTest extends TestCase
 {
-
-
-    protected function runForProperty($generator = null){
+    protected function runForProperty($generator = null)
+    {
         $generator = new LastResortGenerator($generator);
 
         $obj = new \stdClass();
@@ -33,6 +30,7 @@ class LastResortGeneratorTest extends TestCase
         );
 
         $result = $generator->generateForProperty($field);
+
         return $result;
     }
 
@@ -42,7 +40,8 @@ class LastResortGeneratorTest extends TestCase
         $this->assertGreaterThanOrEqual(2, explode(' ', $result), 'Generator not supplied');
     }
 
-    public function testWithCustomGenerator(){
+    public function testWithCustomGenerator()
+    {
         $generator = $this->getMockBuilder(Generator::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -54,7 +53,5 @@ class LastResortGeneratorTest extends TestCase
             ->method('__call');
 
         $this->runForProperty($generator);
-
     }
-
 }

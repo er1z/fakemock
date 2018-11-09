@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -23,12 +21,13 @@ class DecoratorChainTest extends TestCase
 
         $this->assertCount($constraintsAvail ? 2 : 1, $decorators, 'Count ok');
 
-        foreach($decorators as $g){
+        foreach ($decorators as $g) {
             $this->assertInstanceOf(DecoratorInterface::class, $g, get_class($g));
         }
     }
 
-    public function testRunOnlyFirstDecorator(){
+    public function testRunOnlyFirstDecorator()
+    {
         $firstDecorator = $this
             ->getMockBuilder(DecoratorInterface::class)
             ->getMock();
@@ -46,7 +45,7 @@ class DecoratorChainTest extends TestCase
 
         $decoratorChain = new DecoratorChain([
             $firstDecorator,
-            $secondDecorator
+            $secondDecorator,
         ]);
 
         $obj = new \stdClass();
@@ -63,7 +62,6 @@ class DecoratorChainTest extends TestCase
         );
 
         $decoratorChain->getDecoratedValue('', $field);
-
     }
 
     public function testCallWithNoArguments()

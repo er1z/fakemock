@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Mocks;
-
 
 use Er1z\FakeMock\Decorator\AssertDecorator\AssertDecoratorInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -18,5 +16,4 @@ class AssertDecoratorMockNegative implements AssertDecoratorInterface
 
         return false;
     }
-
 }

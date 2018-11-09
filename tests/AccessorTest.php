@@ -1,13 +1,12 @@
 <?php
-namespace Tests\Er1z\FakeMock;
 
+namespace Tests\Er1z\FakeMock;
 
 use Er1z\FakeMock\Accessor;
 use PHPUnit\Framework\TestCase;
 
-class AccessorTest extends TestCase{
-
-
+class AccessorTest extends TestCase
+{
     public function testGetValue()
     {
         $obj = new \stdClass();
@@ -29,5 +28,4 @@ class AccessorTest extends TestCase{
 
         $this->assertEquals('two', $obj->prop);
     }
-
 }

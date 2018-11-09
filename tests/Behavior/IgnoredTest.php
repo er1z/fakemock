@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Behavior;
-
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +8,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Ignored;
 
 class IgnoredTest extends TestCase
 {
-
     public function testIgnored()
     {
         $f = new FakeMock();
@@ -21,5 +18,4 @@ class IgnoredTest extends TestCase
 
         $this->assertNull($obj->string);
     }
-
 }

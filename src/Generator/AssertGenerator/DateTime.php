@@ -13,9 +13,6 @@ class DateTime implements GeneratorInterface
 
     public function generateForProperty(FieldMetadata $field, Constraint $constraint, Generator $faker)
     {
-        /**
-         * @var \Symfony\Component\Validator\Constraints\Date
-         */
         $result = $faker->dateTime;
         if ($field->type instanceof String_) {
             $result = $result->format(self::FORMAT);

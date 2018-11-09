@@ -12,7 +12,7 @@ class Regex implements GeneratorInterface
     public function generateForProperty(FieldMetadata $field, Constraint $constraint, Generator $faker)
     {
         /**
-         * @var \Symfony\Component\Validator\Constraints\Regex
+         * @var \Symfony\Component\Validator\Constraints\Regex $constraint
          */
         $generator = new TypedGenerator();
 

@@ -1,11 +1,11 @@
 <?php
-namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
 
+namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
 
 use Er1z\FakeMock\Generator\AssertGenerator\Email;
 
-class EmailTest extends GeneratorAbstractTest {
-
+class EmailTest extends GeneratorAbstractTest
+{
     public function testEmail()
     {
         $generator = new Email();
@@ -22,5 +22,4 @@ class EmailTest extends GeneratorAbstractTest {
             filter_var($value, FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)
         );
     }
-
 }

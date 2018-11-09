@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Behavior;
-
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +8,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Passwords;
 
 class PasswordsTest extends TestCase
 {
-
     public function testPasswords()
     {
         $f = new FakeMock();
@@ -21,5 +18,4 @@ class PasswordsTest extends TestCase
         $this->assertInternalType('string', $obj->password);
         $this->assertEquals($obj->password, $obj->passwordConfirm);
     }
-
 }

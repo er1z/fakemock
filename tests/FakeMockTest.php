@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock;
-
 
 use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\Factory;
@@ -12,16 +10,15 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Ignored;
 use Tests\Er1z\FakeMock\Mocks\Struct\OnlyClassConfigured;
 use Tests\Er1z\FakeMock\Mocks\Struct\SingleGroup;
 
-
 class FakeMockTest extends TestCase
 {
-
     protected function getMetadataFactory(): Factory
     {
         return new Factory();
     }
 
-    protected function getUnleashedFieldValue($obj, $field){
+    protected function getUnleashedFieldValue($obj, $field)
+    {
         $prop = new \ReflectionProperty($obj, $field);
         $prop->setAccessible(true);
 
@@ -51,11 +48,12 @@ class FakeMockTest extends TestCase
         $this->assertEquals(null, $ignored->string);
     }
 
-    public function testFillWithInstantiation(){
+    public function testFillWithInstantiation()
+    {
         $fakemock = new FakeMock();
 
         /**
-         * @var Explicit $result
+         * @var Explicit
          */
         $result = $fakemock->fill(Explicit::class);
 
@@ -63,7 +61,8 @@ class FakeMockTest extends TestCase
         $this->assertNotNull($result->value);
     }
 
-    public function testOnlyClassConfigured(){
+    public function testOnlyClassConfigured()
+    {
         $fakemock = new FakeMock();
 
         $mock = new OnlyClassConfigured();
@@ -74,7 +73,8 @@ class FakeMockTest extends TestCase
         $this->assertNull($mock->field);
     }
 
-    public function testMissedGroup(){
+    public function testMissedGroup()
+    {
         $fakemock = new FakeMock();
 
         $mock = new SingleGroup();
@@ -84,5 +84,4 @@ class FakeMockTest extends TestCase
         $this->assertInstanceOf(SingleGroup::class, $result);
         $this->assertNull($mock->name);
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Range;
 use phpDocumentor\Reflection\Types\Float_;
@@ -10,7 +8,6 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class RangeTest extends GeneratorAbstractTest
 {
-
     public function testInt()
     {
         $generator = new Range();
@@ -20,8 +17,8 @@ class RangeTest extends GeneratorAbstractTest
         $value = $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\Range([
-                'min'=>1,
-                'max'=>10
+                'min' => 1,
+                'max' => 10,
             ]),
             $this->getFaker()
         );
@@ -40,8 +37,8 @@ class RangeTest extends GeneratorAbstractTest
         $value = $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\Range([
-                'min'=>1,
-                'max'=>10
+                'min' => 1,
+                'max' => 10,
             ]),
             $this->getFaker()
         );
@@ -50,5 +47,4 @@ class RangeTest extends GeneratorAbstractTest
         $this->assertGreaterThanOrEqual(1, $value);
         $this->assertLessThanOrEqual(10, $value);
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -14,10 +12,8 @@ use Symfony\Component\Validator\Constraints\Ip;
 
 class AssertGeneratorTest extends TestCase
 {
-
     public function testGenerateDisabledAssertConditions()
     {
-
         $d = new \Er1z\FakeMock\Generator\AssertGenerator();
 
         $val = null;
@@ -27,38 +23,33 @@ class AssertGeneratorTest extends TestCase
 
         $field = new FieldMetadata(
             $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField([
-                'useAsserts'=>false
+                'useAsserts' => false,
             ])
         );
 
         $result = $d->generateForProperty($field);
 
         $this->assertNull($result);
-
     }
 
     public function testGetGeneratorForNotExisting()
     {
-
         $d = new \Er1z\FakeMock\Generator\AssertGenerator();
 
         $method = new \ReflectionMethod($d, 'getGenerator');
         $method->setAccessible(true);
         $result = $method->invoke($d, 'asdasdasdasd');
         $this->assertFalse($result);
-
     }
 
     public function testGetGeneratorForExisting()
     {
-
         $d = new \Er1z\FakeMock\Generator\AssertGenerator();
 
         $method = new \ReflectionMethod($d, 'getGenerator');
         $method->setAccessible(true);
         $result = $method->invoke($d, 'Ip');
         $this->assertInstanceOf(\Er1z\FakeMock\Generator\AssertGenerator\Ip::class, $result);
-
     }
 
     public function testGenerateForNoAsserts()
@@ -79,7 +70,8 @@ class AssertGeneratorTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testGenerateForMockAssert(){
+    public function testGenerateForMockAssert()
+    {
         $mock = $this->getMockBuilder(GeneratorInterface::class)
             ->getMock();
 
@@ -92,7 +84,7 @@ class AssertGeneratorTest extends TestCase
         $generators = new \ReflectionProperty($d, 'generators');
         $generators->setAccessible(true);
         $generators->setValue($d, [
-            'Ip'=>$mock
+            'Ip' => $mock,
         ]);
 
         $obj = new \stdClass();
@@ -102,9 +94,9 @@ class AssertGeneratorTest extends TestCase
 
         $field = new FieldMetadata(
             $obj, $prop, new String_(), new AnnotationCollection([
-                new Ip()
+                new Ip(),
         ]), new FakeMockField([
-            'useAsserts'=>true
+            'useAsserts' => true,
             ])
         );
 
@@ -112,5 +104,4 @@ class AssertGeneratorTest extends TestCase
 
         $this->assertEquals('123', $result);
     }
-
 }

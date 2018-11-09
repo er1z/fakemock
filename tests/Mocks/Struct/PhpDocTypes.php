@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Mocks\Struct;
-
 
 class PhpDocTypes
 {
-
     /**
      * @var float
      */
@@ -18,5 +15,4 @@ class PhpDocTypes
      * @see nothing
      */
     public $docBlockWithoutVar;
-
 }

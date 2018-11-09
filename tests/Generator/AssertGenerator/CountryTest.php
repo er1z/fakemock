@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Country;
 
 class CountryTest extends GeneratorAbstractTest
 {
-
     public function testCountry()
     {
         $generator = new Country();
@@ -23,5 +20,4 @@ class CountryTest extends GeneratorAbstractTest
 
         $this->assertRegExp('#[A-Z]{2}#s', $value);
     }
-
 }

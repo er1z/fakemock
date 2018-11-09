@@ -1,19 +1,19 @@
 <?php
+
 namespace Tests\Er1z\FakeMock\Mocks\Struct;
 
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
 
 /**
- * Class StructBasic
+ * Class StructBasic.
+ *
  * @FakeMock()
  */
 class WithGroups
 {
-
     /**
      * @FakeMockField(groups={"first"}, useAsserts=false)
-     *
      */
     public $stringOne;
 
@@ -21,5 +21,4 @@ class WithGroups
      * @FakeMockField(groups={"second"}, useAsserts=false)
      */
     public $stringTwo;
-
 }

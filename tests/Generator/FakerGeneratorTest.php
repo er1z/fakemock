@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -15,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 class FakerGeneratorTest extends TestCase
 {
-
     public function testFakerExplicit()
     {
         $faker = new FakerGenerator();
@@ -26,10 +23,10 @@ class FakerGeneratorTest extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $config = new FakeMockField([
-            'faker'=>'imageUrl',
-            'arguments'=>[
-                320, 240, 'cats'
-            ]
+            'faker' => 'imageUrl',
+            'arguments' => [
+                320, 240, 'cats',
+            ],
         ]);
 
         $field = new FieldMetadata(
@@ -40,14 +37,14 @@ class FakerGeneratorTest extends TestCase
             $config
         );
 
-
         $result = $faker->generateForProperty($field);
         $this->assertNotNull(filter_var($result, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE));
         $this->assertContains('320', $result);
         $this->assertContains('240', $result);
     }
 
-    protected function runGuess(FakerGenerator $faker){
+    protected function runGuess(FakerGenerator $faker)
+    {
         $obj = new \stdClass();
         $obj->created_at = null;
 
@@ -66,31 +63,31 @@ class FakerGeneratorTest extends TestCase
         return $result;
     }
 
-    public function testFakerGuess(){
+    public function testFakerGuess()
+    {
         $faker = new FakerGenerator();
         $result = $this->runGuess($faker);
 
         $this->assertInstanceOf(\DateTime::class, $result);
     }
 
-    public function testOwnGuesser(){
+    public function testOwnGuesser()
+    {
         $guesser = $this->createMock(Name::class);
 
         $guesser->expects($this->once())->method('guessFormat');
 
         $faker = new FakerGenerator($guesser);
         $this->runGuess($faker);
-
     }
 
-    public function testOwnGenerator(){
+    public function testOwnGenerator()
+    {
         $generator = $this->createMock(Generator::class);
 
         $generator->expects($this->once())->method('__get');
 
         $faker = new FakerGenerator(null, $generator);
         $this->runGuess($faker);
-
     }
-
 }

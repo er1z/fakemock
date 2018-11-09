@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Issn;
 
 class IssnTest extends GeneratorAbstractTest
 {
-
     public function testIssn()
     {
         $generator = new Issn();
@@ -23,5 +20,4 @@ class IssnTest extends GeneratorAbstractTest
 
         $this->assertEquals(\Er1z\FakeMock\Generator\AssertGenerator\Issn::HARDCODED_ISSN, $value);
     }
-
 }

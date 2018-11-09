@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Uuid;
 
-class UuidTest extends GeneratorAbstractTest {
-
+class UuidTest extends GeneratorAbstractTest
+{
     public function testUrl()
     {
         $generator = new Uuid();
@@ -24,5 +22,4 @@ class UuidTest extends GeneratorAbstractTest {
             1, preg_match('#([0-9A-Z\-]+)#si', $value)
         );
     }
-
 }

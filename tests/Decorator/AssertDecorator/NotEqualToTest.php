@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -13,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class NotEqualToTest extends TestCase
 {
-
     public function testWithScalarValue()
     {
         $decorator = new NotEqualTo();
@@ -21,7 +18,7 @@ class NotEqualToTest extends TestCase
         $str = $oldStr = 'three';
 
         $result = $decorator->decorate($str, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\EqualTo([
-            'value'=>$oldStr
+            'value' => $oldStr,
         ]));
 
         $this->assertTrue($result);
@@ -37,9 +34,8 @@ class NotEqualToTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $decorator->decorate($val, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\EqualTo([
-            'value'=>'test'
+            'value' => 'test',
         ]));
-
     }
 
     public function testWithPath()
@@ -61,12 +57,10 @@ class NotEqualToTest extends TestCase
         $str = 'one';
 
         $result = $decorator->decorate($str, $metadata, new \Symfony\Component\Validator\Constraints\EqualTo([
-            'propertyPath'=>'first'
+            'propertyPath' => 'first',
         ]));
 
         $this->assertTrue($result);
         $this->assertNotEquals('one', $str);
-
     }
-
 }

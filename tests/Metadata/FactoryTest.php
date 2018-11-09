@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Metadata;
-
 
 use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
@@ -16,12 +14,10 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Explicit;
 use Tests\Er1z\FakeMock\Mocks\Struct\PhpDocTypes;
 
 /**
-  * Class FactoryTest
- * @package Tests\Er1z\FakeMock\Metadata
+ * Class FactoryTest.
  */
 class FactoryTest extends TestCase
 {
-
     public function testGetObjectConfiguration()
     {
         $reader = $this->createMock(Reader::class);
@@ -30,7 +26,7 @@ class FactoryTest extends TestCase
             ->method('getClassAnnotation')
             ->willReturn(
                 new FakeMock([
-                    'useAsserts'=>false
+                    'useAsserts' => false,
                 ])
             );
 
@@ -80,14 +76,14 @@ class FactoryTest extends TestCase
         $localOverrided->satisfyAssertsConditions = true;
 
         /**
-         * @var $mergedInherited FakeMockField
+         * @var FakeMockField
          */
         $mergedInherited = $method->invoke($factory, $global, $localInherited);
         $this->assertFalse($mergedInherited->satisfyAssertsConditions);
         $this->assertFalse($mergedInherited->useAsserts);
 
         /**
-         * @var $mergedOverrided FakeMockField
+         * @var FakeMockField
          */
         $mergedOverrided = $method->invoke($factory, $global, $localOverrided);
         $this->assertTrue($mergedOverrided->satisfyAssertsConditions);
@@ -110,7 +106,6 @@ class FactoryTest extends TestCase
 
     public function testCreateBound()
     {
-
         $factory = new Factory();
 
         $obj = new Explicit();
@@ -125,7 +120,5 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(FakeMockField::class, $result->configuration);
         $this->assertInstanceOf(\ReflectionProperty::class, $result->property);
         $this->assertInstanceOf(String_::class, $result->type);
-
     }
-
 }

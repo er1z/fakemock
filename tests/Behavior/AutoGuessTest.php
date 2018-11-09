@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Behavior;
-
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +8,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\AutoGuess;
 
 class AutoGuessTest extends TestCase
 {
-
     public function testAutoGuess()
     {
         $fakemock = new FakeMock();
@@ -23,5 +20,4 @@ class AutoGuessTest extends TestCase
         $this->assertInternalType('bool', $obj->is_enabled);
         $this->assertNotEmpty($obj->username);
     }
-
 }

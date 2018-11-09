@@ -1,14 +1,12 @@
 {
   "name": "er1z/fakemock",
   "description": "A library to provide mocking abilities for annotated class properties",
-  "license": "Apache-2.0",
+  "license": "mit",
   "require": {
     "symfony/property-access": "^4.1",
     "doctrine/annotations": "^1.6",
     "fzaninotto/faker": "^1.8",
-    "symfony/validator": "^4.1",
-    "icomefromthenet/reverse-regex": "^0.1.0",
-    "symfony/intl": "^4.1"
+    "icomefromthenet/reverse-regex": "^0.1.0"
   },
   "autoload": {
     "psr-4": {
@@ -22,7 +20,7 @@
   },
   "require-dev": {
     "phpunit/phpunit":  "^7.4",
-    "phpspec/prophecy": "~1.0"
+    "phpstan/phpstan": "^0.10.5"
   },
   "suggest": {
     "symfony/intl": "To get a correct country code for Country assert",

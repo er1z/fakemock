@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
-
 
 use Er1z\FakeMock\Decorator\AssertDecorator\Length;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -10,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class LengthTest extends TestCase
 {
-
     public function testLengthOk()
     {
         $decorator = new Length();
@@ -18,8 +15,8 @@ class LengthTest extends TestCase
         $str = $oldStr = 'lorem ipsum';
 
         $result = $decorator->decorate($str, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\Length([
-            'min'=>3,
-            'max'=>20
+            'min' => 3,
+            'max' => 20,
         ]));
 
         $this->assertTrue($result);
@@ -33,7 +30,7 @@ class LengthTest extends TestCase
         $str = 'lorem';
 
         $result = $decorator->decorate($str, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\Length([
-            'min'=>10
+            'min' => 10,
         ]));
 
         $this->assertTrue($result);
@@ -47,11 +44,10 @@ class LengthTest extends TestCase
         $str = 'lorem ipsum';
 
         $result = $decorator->decorate($str, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\Length([
-            'max'=>9
+            'max' => 9,
         ]));
 
         $this->assertTrue($result);
         $this->assertLessThanOrEqual(10, strlen($str));
     }
-
 }

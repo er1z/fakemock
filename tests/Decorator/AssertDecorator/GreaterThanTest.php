@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -14,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class GreaterThanTest extends TestCase
 {
-
     public function testWithoutNumericValue()
     {
         $decorator = new GreaterThan();
@@ -23,7 +20,7 @@ class GreaterThanTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10
+            'value' => 10,
         ]));
     }
 
@@ -47,7 +44,7 @@ class GreaterThanTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'propertyPath'=>'test'
+            'propertyPath' => 'test',
         ]));
     }
 
@@ -58,18 +55,17 @@ class GreaterThanTest extends TestCase
         $num = 9;
 
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10
+            'value' => 10,
         ]));
 
         $this->assertGreaterThan(10, $num);
 
         $num = 9;
         $decorator->decorate($num, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10
+            'value' => 10,
         ]));
 
         $this->assertGreaterThan(10, $num);
-
     }
 
     public function testScalarValueFloat()
@@ -90,18 +86,17 @@ class GreaterThanTest extends TestCase
         $num = 9.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10.01
+            'value' => 10.01,
         ]));
 
         $this->assertGreaterThan(10, $num);
 
         $num = 9.9;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'value'=>10.01
+            'value' => 10.01,
         ]));
 
         $this->assertGreaterThan(10.01, $num);
-
     }
 
     public function testPropertyPathInt()
@@ -122,7 +117,7 @@ class GreaterThanTest extends TestCase
         );
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'propertyPath'=>'test'
+            'propertyPath' => 'test',
         ]));
 
         $this->assertGreaterThan(10, $num);
@@ -140,11 +135,10 @@ class GreaterThanTest extends TestCase
 
         $num = 11;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'propertyPath'=>'test'
+            'propertyPath' => 'test',
         ]));
 
         $this->assertGreaterThan(10, $num);
-
     }
 
     public function testPropertyPathFloat()
@@ -165,7 +159,7 @@ class GreaterThanTest extends TestCase
         );
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'propertyPath'=>'test'
+            'propertyPath' => 'test',
         ]));
 
         $this->assertGreaterThan(10.01, $num);
@@ -183,11 +177,9 @@ class GreaterThanTest extends TestCase
 
         $num = 9.01;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThan([
-            'propertyPath'=>'test'
+            'propertyPath' => 'test',
         ]));
 
         $this->assertGreaterThan(10.01, $num);
-
     }
-
 }

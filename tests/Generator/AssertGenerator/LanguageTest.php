@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Language;
 
 class LanguageTest extends GeneratorAbstractTest
 {
-
     public function testLanguage()
     {
         $generator = new Language();
@@ -23,5 +20,4 @@ class LanguageTest extends GeneratorAbstractTest
 
         $this->assertEquals(2, strlen($value));
     }
-
 }

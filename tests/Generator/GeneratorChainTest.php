@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -15,7 +13,6 @@ use Symfony\Component\Validator\Constraint;
 
 class GeneratorChainTest extends TestCase
 {
-
     public function testDefaultGeneratorsSet()
     {
         $constraintsAvail = class_exists(Constraint::class);
@@ -24,12 +21,13 @@ class GeneratorChainTest extends TestCase
 
         $this->assertCount($constraintsAvail ? 4 : 3, $generators, 'Count ok');
 
-        foreach($generators as $g){
+        foreach ($generators as $g) {
             $this->assertInstanceOf(GeneratorInterface::class, $g, get_class($g));
         }
     }
 
-    protected function generate($result = null){
+    protected function generate($result = null)
+    {
         $generator = $this
             ->getMockBuilder(GeneratorInterface::class)
             ->getMock();
@@ -39,7 +37,7 @@ class GeneratorChainTest extends TestCase
             ->willReturn($result);
 
         $generatorChain = new GeneratorChain([
-            $generator
+            $generator,
         ]);
 
         $obj = new \stdClass();
@@ -66,7 +64,8 @@ class GeneratorChainTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testSingleGenerator(){
+    public function testSingleGenerator()
+    {
         $result = $this->generate(true);
         $this->assertTrue($result);
     }
@@ -81,5 +80,4 @@ class GeneratorChainTest extends TestCase
 
         $this->assertNotEmpty($prop->getValue($obj));
     }
-
 }

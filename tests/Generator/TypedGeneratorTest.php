@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -13,10 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 class TypedGeneratorTest extends TestCase
 {
-
     const TESTING_SCALAR_VALUE = 'testing scalar value';
 
-    protected function getInternalResult($data){
+    protected function getInternalResult($data)
+    {
         $generator = new TypedGenerator();
 
         $config = new FakeMockField($data);
@@ -35,13 +33,14 @@ class TypedGeneratorTest extends TestCase
         );
 
         $result = $generator->generateForProperty($field);
+
         return $result;
     }
 
     public function testScalarValue()
     {
         $result = $this->getInternalResult([
-            'value'=> self::TESTING_SCALAR_VALUE
+            'value' => self::TESTING_SCALAR_VALUE,
         ], 'Scalar value');
 
         $this->assertEquals(self::TESTING_SCALAR_VALUE, $result);
@@ -50,11 +49,9 @@ class TypedGeneratorTest extends TestCase
     public function testRegexValue()
     {
         $result = $this->getInternalResult([
-            'regex'=> '\d{7}'
+            'regex' => '\d{7}',
         ], 'Regex value');
 
         $this->assertGreaterThanOrEqual('1000000', $result);
     }
-
-
 }

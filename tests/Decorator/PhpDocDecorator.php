@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -14,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class PhpDocDecorator extends TestCase
 {
-
     public function testSkip()
     {
         $d = new \Er1z\FakeMock\Decorator\PhpDocDecorator();
@@ -174,7 +171,4 @@ class PhpDocDecorator extends TestCase
         $this->assertGreaterThan(0, strtotime($val));
         $this->assertTrue($result);
     }
-
-
-
 }

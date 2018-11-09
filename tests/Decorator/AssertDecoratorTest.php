@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -13,10 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 class AssertDecoratorTest extends TestCase
 {
-
     public function testDecorateDisabledAssertConditions()
     {
-
         $d = new AssertDecorator();
 
         $val = null;
@@ -26,7 +22,7 @@ class AssertDecoratorTest extends TestCase
 
         $field = new FieldMetadata(
             $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField([
-                'satisfyAssertsConditions'=>false
+                'satisfyAssertsConditions' => false,
             ])
         );
 
@@ -43,5 +39,4 @@ class AssertDecoratorTest extends TestCase
 
         $this->assertEquals('Er1z\\FakeMock\\Decorator\\AssertDecorator\\Test', $m->invoke($d, 'Test'));
     }
-
 }

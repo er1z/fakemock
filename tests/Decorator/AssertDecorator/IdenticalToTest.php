@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -13,13 +11,12 @@ use PHPUnit\Framework\TestCase;
 
 class IdenticalToTest extends TestCase
 {
-
     public function testWithScalarValue()
     {
         $decorator = new IdenticalTo();
 
         $result = $decorator->decorate($str, $this->createMock(FieldMetadata::class), new \Symfony\Component\Validator\Constraints\IdenticalTo([
-            'value'=>'three'
+            'value' => 'three',
         ]));
 
         $this->assertTrue($result);
@@ -43,12 +40,10 @@ class IdenticalToTest extends TestCase
         $decorator = new IdenticalTo();
 
         $result = $decorator->decorate($str, $metadata, new \Symfony\Component\Validator\Constraints\IdenticalTo([
-            'propertyPath'=>'first'
+            'propertyPath' => 'first',
         ]));
 
         $this->assertTrue($result);
         $this->assertEquals('one', $str);
-
     }
-
 }

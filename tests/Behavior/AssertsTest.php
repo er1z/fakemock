@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Behavior;
-
 
 use Er1z\FakeMock\FakeMock;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +8,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Asserts;
 
 class AssertsTest extends TestCase
 {
-
     public function testAsserts()
     {
         $f = new FakeMock();
@@ -33,9 +30,5 @@ class AssertsTest extends TestCase
         $this->assertNotNull(filter_var($obj->email, FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE));
 
         $this->assertNotNull(filter_var($obj->url, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE));
-
-
-
     }
-
 }

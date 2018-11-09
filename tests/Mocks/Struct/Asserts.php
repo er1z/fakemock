@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Er1z\FakeMock\Mocks\Struct;
 
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
@@ -6,14 +7,14 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
-  * @FakeMock()
+ * @FakeMock()
  */
 class Asserts
 {
-
     /**
      * @FakeMockField()
      * @Assert\Range(min=10, max=255)
+     *
      * @var float
      */
     public $floatAssert;
@@ -26,6 +27,7 @@ class Asserts
 
     /**
      * @FakeMockField()
+     *
      * @var string
      * @Assert\Date()
      */
@@ -39,6 +41,7 @@ class Asserts
 
     /**
      * @FakeMockField()
+     *
      * @var string
      * @Assert\DateTime()
      */
@@ -70,5 +73,4 @@ class Asserts
      * @Assert\Url()
      */
     public $url;
-
 }

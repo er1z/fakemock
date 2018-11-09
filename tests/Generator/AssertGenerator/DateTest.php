@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Date;
 use phpDocumentor\Reflection\Types\String_;
 
 class DateTest extends GeneratorAbstractTest
 {
-
     public function testDateAsObject()
     {
         $generator = new Date();
@@ -41,5 +38,4 @@ class DateTest extends GeneratorAbstractTest
         $this->assertInternalType('string', $value);
         $this->assertRegExp('#\d{4}\-\d{2}\-\d{2}#si', $value);
     }
-
 }

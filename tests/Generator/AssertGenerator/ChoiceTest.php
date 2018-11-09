@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\Choice;
 
 class ChoiceTest extends GeneratorAbstractTest
 {
-
     const CHOICES = ['one', 'two', 'three'];
 
     public function testSingle()
@@ -20,8 +17,8 @@ class ChoiceTest extends GeneratorAbstractTest
         $value = $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\Choice([
-                'multiple'=>false,
-                'choices'=> self::CHOICES
+                'multiple' => false,
+                'choices' => self::CHOICES,
             ]),
             $this->getFaker()
         );
@@ -41,8 +38,8 @@ class ChoiceTest extends GeneratorAbstractTest
         $value = $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\Choice([
-                'multiple'=>true,
-                'choices'=> self::CHOICES
+                'multiple' => true,
+                'choices' => self::CHOICES,
             ]),
             $this->getFaker()
         );
@@ -50,5 +47,4 @@ class ChoiceTest extends GeneratorAbstractTest
         $this->assertGreaterThanOrEqual(0, count(array_diff($value, self::CHOICES)));
         $this->assertEquals(count($value), count(array_unique($value)));
     }
-
 }

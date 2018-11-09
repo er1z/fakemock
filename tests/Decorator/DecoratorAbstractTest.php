@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
@@ -16,7 +14,6 @@ use Tests\Er1z\FakeMock\Mocks\AssertDecoratorMockPositive;
 
 class DecoratorAbstractTest extends TestCase
 {
-
     protected $counter = 0;
 
     protected function setUp()
@@ -24,7 +21,6 @@ class DecoratorAbstractTest extends TestCase
         $this->counter = 0;
         parent::setUp();
     }
-
 
     public function testDecorateSingle()
     {
@@ -37,7 +33,7 @@ class DecoratorAbstractTest extends TestCase
         $obj->field = null;
         $field = new FieldMetadata(
             $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
-            new Email()
+            new Email(),
         ]), new FakeMockField()
         );
 
@@ -45,18 +41,17 @@ class DecoratorAbstractTest extends TestCase
 
         $this->assertTrue($result);
         $this->assertEquals(AssertDecoratorMockPositive::MOCK_VALUE, $test);
-
     }
 
-    public function collectionFqcns(){
-
-        if($this->counter==0){
+    public function collectionFqcns()
+    {
+        if (0 == $this->counter) {
             $result = AssertDecoratorMockNegative::class;
-        }else{
+        } else {
             $result = AssertDecoratorMockPositive::class;
         }
 
-        $this->counter++;
+        ++$this->counter;
 
         return $result;
     }
@@ -73,7 +68,7 @@ class DecoratorAbstractTest extends TestCase
         $field = new FieldMetadata(
             $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
             new Email(),
-            new Url()
+            new Url(),
         ]), new FakeMockField()
         );
 
@@ -81,7 +76,5 @@ class DecoratorAbstractTest extends TestCase
 
         $this->assertTrue($result);
         $this->assertEquals(AssertDecoratorMockNegative::MOCK_VALUE, $test);
-
     }
-
 }

@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Generator\AssertGenerator\CardScheme;
 
 class CardSchemeTest extends GeneratorAbstractTest
 {
-
     public function testCardSchemePass()
     {
         $generator = new CardScheme();
@@ -18,7 +15,7 @@ class CardSchemeTest extends GeneratorAbstractTest
         $value = $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\CardScheme([
-                'schemes'=>['visa']
+                'schemes' => ['visa'],
             ]),
             $this->getFaker()
         );
@@ -36,14 +33,9 @@ class CardSchemeTest extends GeneratorAbstractTest
         $generator->generateForProperty(
             $field,
             new \Symfony\Component\Validator\Constraints\CardScheme([
-                'schemes'=>['blablabla']
+                'schemes' => ['blablabla'],
             ]),
             $this->getFaker()
         );
-
-
     }
-
-
-
 }

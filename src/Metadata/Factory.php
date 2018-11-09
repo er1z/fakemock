@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\Type;
 
 class Factory implements FactoryInterface
@@ -75,8 +76,11 @@ class Factory implements FactoryInterface
             $docComment
         );
 
+        /**
+         * @var Tag
+         */
         if ($vars = $data->getTagsByName('var')) {
-            return reset($vars)->getType();
+            return $vars[0]->getType();
         }
 
         return null;
