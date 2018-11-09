@@ -15,10 +15,10 @@ before_install:
 
 install:
   - if [[ $deps = 'low' ]]; then
-    composer update --prefer-dist --no-progress --no-suggest --prefer-stable --prefer-lowest --ansi;
+      composer update --prefer-dist --no-progress --no-suggest --prefer-stable --prefer-lowest --ansi;
     else
-    composer suggests | xargs -i composer require {}
-    composer update --prefer-dist --no-progress --no-suggest --ansi;
+      composer suggests | xargs -i composer require {}
+      composer update --prefer-dist --no-progress --no-suggest --ansi;
     fi
 
 script:
