@@ -6,7 +6,9 @@
     "symfony/property-access": "^4.1",
     "doctrine/annotations": "^1.6",
     "fzaninotto/faker": "^1.8",
-    "icomefromthenet/reverse-regex": "^0.1.0"
+    "icomefromthenet/reverse-regex": "^0.1.0",
+    "symfony/intl": "^4.1",
+    "symfony/validator": "^4.1"
   },
   "autoload": {
     "psr-4": {
