@@ -11,7 +11,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
 
     protected function getGeneratorFqcn($simpleClassName)
     {
-        return sprintf('Er1z\\FakeMock\\Generator\\AssertGenerator\\%s', $simpleClassName);
+        return sprintf('Er1z\\FakeMock\\Generator\\PhpDocGenerator\\%s', $simpleClassName);
     }
 
     public function generateForProperty(FieldMetadata $field)

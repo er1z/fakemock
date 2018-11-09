@@ -27,7 +27,7 @@ class FactoryTest extends TestCase
         $reader = $this->createMock(Reader::class);
 
         $reader->expects($this->once())
-            ->method('getClassAnnotation ')
+            ->method('getClassAnnotation')
             ->willReturn(
                 new FakeMock([
                     'useAsserts'=>false

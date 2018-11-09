@@ -37,9 +37,9 @@ class FakeMock
         $this->metadataFactory = $metadataFactory ?? new Factory();
     }
 
-    public function fill($objectOrClassName, $group = null)
+    public function fill($objectOrClassName, $group = null, $newObjectArguments = [])
     {
-        $obj = $this->getClass($objectOrClassName);
+        $obj = $this->getClass($objectOrClassName, $newObjectArguments);
 
         $reflection = new \ReflectionClass($obj);
         $cfg = $this->metadataFactory->getObjectConfiguration($reflection);
@@ -75,14 +75,14 @@ class FakeMock
         return $object;
     }
 
-    protected function getClass($objectOrClass)
+    protected function getClass($objectOrClass, $newObjectArguments = [])
     {
 
         if (is_object($objectOrClass)) {
             return $objectOrClass;
         }
 
-        return new $objectOrClass;
+        return new $objectOrClass(...(array)$newObjectArguments);
 
     }
 

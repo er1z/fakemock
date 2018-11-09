@@ -12,7 +12,7 @@ use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Ip;
 
-class AssertGenerator extends TestCase
+class AssertGeneratorTest extends TestCase
 {
 
     public function testGenerateDisabledAssertConditions()
@@ -103,7 +103,9 @@ class AssertGenerator extends TestCase
         $field = new FieldMetadata(
             $obj, $prop, new String_(), new AnnotationCollection([
                 new Ip()
-        ]), new FakeMockField()
+        ]), new FakeMockField([
+            'useAsserts'=>true
+            ])
         );
 
         $result = $d->generateForProperty($field);
