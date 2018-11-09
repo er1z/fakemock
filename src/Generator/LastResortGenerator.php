@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
@@ -10,7 +8,6 @@ use Faker\Generator;
 
 class LastResortGenerator implements GeneratorInterface
 {
-
     /**
      * @var Generator
      */

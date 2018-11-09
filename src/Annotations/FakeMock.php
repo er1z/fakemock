@@ -1,36 +1,34 @@
 <?php
 
-
 namespace Er1z\FakeMock\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
 
 /**
- * Class FakeAnnotation
+ * Class FakeAnnotation.
+ *
  * @Annotation()
  */
 class FakeMock
 {
-
     /**
-     * use asserts within field type guessing process
+     * use asserts within field type guessing process.
+     *
      * @var bool
      */
     public $useAsserts = true;
 
     /**
-     * consider conditions such as LowerThan, EqualsTo as to be satisfied
+     * consider conditions such as LowerThan, EqualsTo as to be satisfied.
+     *
      * @var bool
      */
     public $satisfyAssertsConditions = true;
 
     public function __construct($data = [])
     {
-
-        foreach($data as $k=> $v){
+        foreach ($data as $k => $v) {
             $this->$k = $v;
         }
-
     }
-
 }

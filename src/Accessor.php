@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Er1z\FakeMock;
-
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Accessor
 {
-
     /**
      * @var \Symfony\Component\PropertyAccess\PropertyAccessorInterface
      */
@@ -16,7 +13,7 @@ class Accessor
 
     protected static function getAccessor()
     {
-        if(!self::$accessor){
+        if (!self::$accessor) {
             self::$accessor = PropertyAccess::createPropertyAccessorBuilder()
                 ->enableExceptionOnInvalidIndex()
                 ->getPropertyAccessor();
@@ -34,5 +31,4 @@ class Accessor
     {
         return self::getAccessor()->getValue($obj, $prop);
     }
-
 }

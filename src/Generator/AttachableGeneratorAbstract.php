@@ -1,13 +1,13 @@
 <?php
-namespace Er1z\FakeMock\Generator;
 
+namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 
-abstract class AttachableGeneratorAbstract implements GeneratorInterface{
-
+abstract class AttachableGeneratorAbstract implements GeneratorInterface
+{
     /**
      * @var \Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface[]
      */
@@ -29,14 +29,13 @@ abstract class AttachableGeneratorAbstract implements GeneratorInterface{
 
     abstract protected function getGeneratorFqcn($simpleClassName);
 
-    protected function getGenerator($assertClass){
-
-        if(empty($this->generators[$assertClass])){
+    protected function getGenerator($assertClass)
+    {
+        if (empty($this->generators[$assertClass])) {
             $generatorFqcn = $this->getGeneratorFqcn($assertClass);
-            $this->generators[$assertClass] = class_exists($generatorFqcn) ? new $generatorFqcn : false;
+            $this->generators[$assertClass] = class_exists($generatorFqcn) ? new $generatorFqcn() : false;
         }
 
         return $this->generators[$assertClass];
     }
-
 }

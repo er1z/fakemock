@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
@@ -16,6 +14,7 @@ class GeneratorChain implements GeneratorChainInterface
 
     /**
      * DetectorChain constructor.
+     *
      * @param GeneratorInterface[] $detectors
      */
     public function __construct($detectors = [])
@@ -40,7 +39,7 @@ class GeneratorChain implements GeneratorChainInterface
     public static function getDefaultDetectorsSet()
     {
         $result = [
-            new TypedGenerator()
+            new TypedGenerator(),
         ];
 
         if (class_exists(Constraint::class)) {
@@ -49,21 +48,20 @@ class GeneratorChain implements GeneratorChainInterface
 
         $result[] = new FakerGenerator();
         $result[] = new LastResortGenerator();
+
         return $result;
     }
 
     public function getValueForField(
         FieldMetadata $field
-    )
-    {
+    ) {
         foreach ($this->generators as $d) {
             $result = $d->generateForProperty($field);
-            if(!is_null($result)) {
+            if (!is_null($result)) {
                 return $result;
             }
         }
 
         return null;
     }
-
 }

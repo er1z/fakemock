@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Decorator\AssertDecorator;
-
 
 use Er1z\FakeMock\Accessor;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -10,16 +8,14 @@ use Symfony\Component\Validator\Constraint;
 
 class EqualTo implements AssertDecoratorInterface
 {
-
     public function decorate(&$value, FieldMetadata $field, Constraint $configuration, ?string $group = null): bool
     {
         /**
-         * @var $configuration \Symfony\Component\Validator\Constraints\EqualTo
+         * @var \Symfony\Component\Validator\Constraints\EqualTo
          */
-
-        if($configuration->value){
+        if ($configuration->value) {
             $value = $configuration->value;
-        }else if($configuration->propertyPath){
+        } elseif ($configuration->propertyPath) {
             $value = Accessor::getPropertyValue($field->object, $configuration->propertyPath);
         }
 

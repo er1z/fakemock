@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
 
 class DecoratorChain implements DecoratorChainInterface
 {
-
     /**
      * @var DecoratorInterface[]
      */
@@ -17,6 +14,7 @@ class DecoratorChain implements DecoratorChainInterface
 
     /**
      * DecoratorChain constructor.
+     *
      * @param DecoratorInterface[] $decorators
      */
     public function __construct($decorators = [])
@@ -28,7 +26,6 @@ class DecoratorChain implements DecoratorChainInterface
         foreach ($decorators as $d) {
             $this->addDecorator($d);
         }
-
     }
 
     public static function getDefaultDecoratorsSet()
@@ -59,6 +56,4 @@ class DecoratorChain implements DecoratorChainInterface
     {
         $this->decorators[] = $d;
     }
-
-
 }

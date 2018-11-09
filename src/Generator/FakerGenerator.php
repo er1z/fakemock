@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
@@ -11,7 +9,6 @@ use Faker\Guesser\Name;
 
 class FakerGenerator implements GeneratorInterface
 {
-
     /**
      * @var Name
      */
@@ -37,12 +34,12 @@ class FakerGenerator implements GeneratorInterface
 
     public function generateForProperty(FieldMetadata $field)
     {
-        if($field->configuration->faker){
-            return $this->generator->{$field->configuration->faker}(...(array)$field->configuration->arguments);
+        if ($field->configuration->faker) {
+            return $this->generator->{$field->configuration->faker}(...(array) $field->configuration->arguments);
         }
         $format = $this->guesser->guessFormat($field->property->getName());
 
-        if($format){
+        if ($format) {
             return $format();
         }
 

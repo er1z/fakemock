@@ -21,7 +21,8 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit":  "^7.4"
+    "phpunit/phpunit":  "^7.4",
+    "phpspec/prophecy": "~1.0"
   },
   "suggest": {
     "symfony/intl": "To get a correct country code for Country assert",

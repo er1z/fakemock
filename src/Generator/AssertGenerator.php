@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Symfony\Component\Validator\Constraint;
@@ -10,20 +8,18 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @todo: add interface with FakerableInterface in order to inject main Faker instance or sth
  * Class AssertGenerator
- * @package Er1z\FakeMock\Generator
  */
 class AssertGenerator extends AttachableGeneratorAbstract
 {
     public function generateForProperty(FieldMetadata $field)
     {
-        if(!$field->configuration->useAsserts){
+        if (!$field->configuration->useAsserts) {
             return null;
         }
 
         $asserts = $field->annotations->findAllBy(Constraint::class);
 
         if ($asserts) {
-
             $assert = $asserts[0];
 
             // https://coderwall.com/p/cpxxxw/php-get-class-name-without-namespace - reflection is the fastest?
@@ -36,7 +32,6 @@ class AssertGenerator extends AttachableGeneratorAbstract
 
         return null;
     }
-
 
     protected function getGeneratorFqcn($simpleClassName)
     {

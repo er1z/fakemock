@@ -1,20 +1,15 @@
 <?php
 
-
 namespace Er1z\FakeMock\Decorator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 
 class AssertDecorator extends DecoratorAbstract
 {
-
     public function decorate(
         &$value, FieldMetadata $field, ?string $group = null
-    ): bool
-    {
-
-        if(!$field->configuration->satisfyAssertsConditions){
+    ): bool {
+        if (!$field->configuration->satisfyAssertsConditions) {
             return false;
         }
 

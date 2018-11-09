@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Annotations;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
@@ -11,14 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class AnnotationCollectionTest extends TestCase
 {
-
-
     public function testGetOneByClass()
     {
         $data = [
             new FakeMock(),
             new FakeMock(),
-            new FakeMockField()
+            new FakeMockField(),
         ];
 
         $collection = new AnnotationCollection($data);
@@ -35,7 +31,7 @@ class AnnotationCollectionTest extends TestCase
         $data = [
             new FakeMock(),
             new FakeMock(),
-            new FakeMockField()
+            new FakeMockField(),
         ];
 
         $collection = new AnnotationCollection($data);
@@ -46,6 +42,4 @@ class AnnotationCollectionTest extends TestCase
         $result = $collection->findOneBy(\RuntimeException::class);
         $this->assertNull($result, 'Absent class');
     }
-
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Metadata;
-
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -12,10 +10,8 @@ use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use phpDocumentor\Reflection\Type;
 
-
 class Factory implements FactoryInterface
 {
-
     protected $reader;
 
     public function __construct(?Reader $reader = null)
@@ -28,7 +24,8 @@ class Factory implements FactoryInterface
         $this->reader = $reader ?: new AnnotationReader();
     }
 
-    public function getObjectConfiguration(\ReflectionClass $object): ?FakeMock{
+    public function getObjectConfiguration(\ReflectionClass $object): ?FakeMock
+    {
         return $this->reader->getClassAnnotation($object, FakeMock::class);
     }
 
@@ -38,9 +35,9 @@ class Factory implements FactoryInterface
         $fieldAnnotation = $annotations->findOneBy(FakeMockField::class);
 
         /**
-         * @var $fieldAnnotation FakeMockField
+         * @var FakeMockField
          */
-        if(!$fieldAnnotation){
+        if (!$fieldAnnotation) {
             return null;
         }
 
@@ -54,12 +51,11 @@ class Factory implements FactoryInterface
 
     protected function mergeGlobalConfigurationWithLocal(FakeMock $objectConfig, FakeMockField $fieldConfig): FakeMockField
     {
-
-        if(is_null($fieldConfig->useAsserts)){
+        if (is_null($fieldConfig->useAsserts)) {
             $fieldConfig->useAsserts = $objectConfig->useAsserts;
         }
 
-        if(is_null($fieldConfig->satisfyAssertsConditions)){
+        if (is_null($fieldConfig->satisfyAssertsConditions)) {
             $fieldConfig->satisfyAssertsConditions = $objectConfig->satisfyAssertsConditions;
         }
 
@@ -71,7 +67,7 @@ class Factory implements FactoryInterface
         $factory = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
         $docComment = $property->getDocComment();
 
-        if(!$docComment){
+        if (!$docComment) {
             return null;
         }
 
@@ -85,5 +81,4 @@ class Factory implements FactoryInterface
 
         return null;
     }
-
 }

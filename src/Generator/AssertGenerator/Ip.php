@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Er1z\FakeMock\Generator\AssertGenerator;
-
 
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Generator;
@@ -11,14 +9,12 @@ use Symfony\Component\Validator\Constraints\Ip as IpConstraint;
 
 class Ip implements GeneratorInterface
 {
-
     public function generateForProperty(FieldMetadata $field, Constraint $constraint, Generator $faker)
     {
         /**
-         * @var IpConstraint $constraint
+         * @var IpConstraint
          */
-
-        switch($constraint->version){
+        switch ($constraint->version) {
             case IpConstraint::V6:
             case IpConstraint::V6_NO_PRIV:
             case IpConstraint::V6_NO_RES:
@@ -36,7 +32,7 @@ class Ip implements GeneratorInterface
             case IpConstraint::ALL_NO_PRIV:
             case IpConstraint::ALL_NO_RES:
             case IpConstraint::ALL_ONLY_PUBLIC:
-                return $faker->{mt_rand(0,1) ? 'ipv4' : 'ipv6'};
+                return $faker->{mt_rand(0, 1) ? 'ipv4' : 'ipv6'};
         }
     }
 }
