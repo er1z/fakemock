@@ -78,6 +78,28 @@ and we end up with generated some random first and last name.
 
 Configuration
 -
+Some of behavior is controlled by annotations. We can specify two types of configuration: global (object-scope) and local (property-scope). All available properties for global scope:
+
+| type | name | default value | description|
+|------|------|---------------|------------|
+| `bool`| `satisfyAssertsConditions` |`true`|enables/disables asserts decorator (see: [supported asserts](#supported-asserts))|
+| `bool` | `useAsserts` | `true` | should FakeMock use assertions to generate data? |
+
+
+Local scope:
+
+| type | name | default value | description |
+| -----|-----|-------------|-------------|
+|`null|array`|`arguments`|`null`|an array of arguments for Faker method|
+|`null|string`|`faker`|`null`|specify desired faker method. Set to null if you want to generator chain do it's best on guessing|
+|`null|array|string`|`groups`|`null`|validation groups this rule for this rule is being processed.
+|`null|string`|`regex`|`null`|a regular expression to generate random data against|
+|`null|bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
+|`null|bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
+|`null|mixed`|`value`|`null`|literal value on field. Stops guessing|
+
+
+Local scope configuration constructor has a possibility to create an annotation from string-argument which is populated to `faker` key.
 
 Populating multiple objects
 -
@@ -115,7 +137,7 @@ class GroupedDto {
 
     /**
      * @FakeMockField(groups={"first"})
-     *]
+     */
     public $field;
     
 }
@@ -297,12 +319,41 @@ FakeMock is smart enough to guess what you want to get — asserts are also deco
  */
 ```
 
+Internal architecture
+-
+FakeMock is a library with fair amount of tests so you don't need to bother if you want to make some contribution and concerned your code will mess up anything.
+
+Modular architecture allows to enhance and extend functionality. The main entrypoint is a `FakeMock` class which needs three elements:
+- `Metadata\FactoryInterface` — builds some information on fields metadata, eg. if it should be processed, what rules are specified and so on,
+- `GeneratorChainInterface` — maintains a list of field-data generators,
+- `DecoratorChainInterface` — holds a list of decorators which can be used to modify generated value according to various rules, eg. convert `DateTimeInterface` to string.
+
+Almost all modules could be overrided thanks to passing the dependencies mostly by interfaces or constructor arguments. So feel free to play with all components.
+
+Generating of data step-by-step:
+1. Create a `FakeMock` instance with specified object/FQCN to generate (if FQCN, instantiate silently),
+2. Pass object to `Metadata\FactoryInterface` in order to get main object configuration,
+3. If object is configured, iterate over object properties, create `FieldMetadata` merging some configuration variables with object configuration and check if group is specified and if it should be processed,
+4. Tell `GeneratorChainInterface` to `getValueForField`. Available adapters are executed one-by-one until one of them returns non-null value,
+5. Run `DecoratorChainInterface` with `getDecoratedValue` — mostly, they are all ran one-by-one except currently processed returns `false` which breaks the chain,
+6. Set generated value by accessor.
+
+Default generator chain:
+1. `TypedGenerator` — handles two cases: `value` or `regex`. Nothing less, nothing more,
+2. If package `symfony/validator` is installed and available, `AssertGenerator` is being checked against,
+3. `FakerGenerator` — provides methods for generating specified Faker's generator or guess field content by `NameGuesser`,
+4. `PhpDocGenerator` — generates data according to the property type,
+5. `LastResortGenerator` — if everything above fails, generates simple name as string.
+
+Default decorators chain:
+1. `AssertDecorator` — restrict values to validation rules — its behavior is controlled by `satisfyAssertsConditions` field configuration,
+2. `PhpDocDecorator` — converts values types.
+
 TODO
 ----
 - `Assert\File` mocking
 - recursive fields processing when a type is supplied
 - l10n support on generated data and tests
-- test phpdoc type caster
 - fill unit tests asserts messages
 
 Future
