@@ -19,7 +19,7 @@ class GeneratorChainTest extends TestCase
 
         $generators = GeneratorChain::getDefaultDetectorsSet();
 
-        $this->assertCount($constraintsAvail ? 4 : 3, $generators, 'Count ok');
+        $this->assertCount($constraintsAvail ? 5 : 4, $generators, 'Count ok');
 
         foreach ($generators as $g) {
             $this->assertInstanceOf(GeneratorInterface::class, $g, get_class($g));

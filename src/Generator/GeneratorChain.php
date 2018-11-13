@@ -13,17 +13,15 @@ class GeneratorChain implements GeneratorChainInterface
     private $generators;
 
     /**
-     * DetectorChain constructor.
-     *
-     * @param GeneratorInterface[] $detectors
+     * @param GeneratorInterface[] $generators
      */
-    public function __construct($detectors = [])
+    public function __construct($generators = [])
     {
-        if (!$detectors) {
-            $detectors = self::getDefaultDetectorsSet();
+        if (!$generators) {
+            $generators = self::getDefaultDetectorsSet();
         }
 
-        foreach ($detectors as $d) {
+        foreach ($generators as $d) {
             $this->addGenerator($d);
         }
     }
@@ -47,6 +45,7 @@ class GeneratorChain implements GeneratorChainInterface
         }
 
         $result[] = new FakerGenerator();
+        $result[] = new PhpDocGenerator();
         $result[] = new LastResortGenerator();
 
         return $result;
