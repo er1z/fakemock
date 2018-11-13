@@ -17,10 +17,10 @@ before_install:
 
 install:
   - if [[ $deps = 'low' ]]; then
-      - composer update --prefer-dist --no-progress --no-suggest --prefer-stable --prefer-lowest --ansi;
+      composer update --prefer-dist --no-progress --no-suggest --prefer-stable --prefer-lowest --ansi;
     else
-      - cat composer.json | python3 -c "import json,sys;obj=json.load(sys.stdin);print(' '.join(obj['suggest'].keys()))" | xargs composer require
-      - composer update --prefer-dist --no-progress --no-suggest --ansi;
+      cat composer.json | python3 -c "import json,sys;obj=json.load(sys.stdin);print(' '.join(obj['suggest'].keys()))" | xargs composer require
+      && composer update --prefer-dist --no-progress --no-suggest --ansi;
     fi
 
 script:
