@@ -58,7 +58,7 @@ Now — fill up above with some random data:
 $fakemock = new Er1z\FakeMock\FakeMock();
 
 $dto = new MyDto();
-$fakemock->fill();
+$fakemock->fill($dto);
 
 echo $dto->username;   // mr.handsome
 ```
@@ -82,7 +82,7 @@ Some of behavior is controlled by annotations. We can specify two types of confi
 
 | type | name | default value | description|
 |------|------|---------------|------------|
-| `bool`| `satisfyAssertsConditions` |`true`|enables/disables asserts decorator (see: [supported asserts](#supported-asserts))|
+| `bool` | `satisfyAssertsConditions` |`true`|enables/disables asserts decorator (see: [supported asserts](#supported-asserts))|
 | `bool` | `useAsserts` | `true` | should FakeMock use assertions to generate data? |
 
 
@@ -90,13 +90,13 @@ Local scope:
 
 | type | name | default value | description |
 | -----|-----|-------------|-------------|
-|`null|array`|`arguments`|`null`|an array of arguments for Faker method|
-|`null|string`|`faker`|`null`|specify desired faker method. Set to null if you want to generator chain do it's best on guessing|
-|`null|array|string`|`groups`|`null`|validation groups this rule for this rule is being processed.
-|`null|string`|`regex`|`null`|a regular expression to generate random data against|
-|`null|bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
-|`null|bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
-|`null|mixed`|`value`|`null`|literal value on field. Stops guessing|
+|`null`|`array`|`arguments`|`null`|an array of arguments for Faker method|
+|`null`|`string`|`faker`|`null`|specify desired faker method. Set to null if you want to generator chain do it's best on guessing|
+|`null`|`array\|string`|`groups`|`null`|validation groups this rule for this rule is being processed.
+|`null`|`string`|`regex`|`null`|a regular expression to generate random data against|
+|`null`|`bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
+|`null`|`bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
+|`null`|`mixed`|`value`|`null`|literal value on field. Stops guessing|
 
 
 Local scope configuration constructor has a possibility to create an annotation from string-argument which is populated to `faker` key.
