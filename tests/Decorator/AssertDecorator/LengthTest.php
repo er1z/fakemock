@@ -5,9 +5,13 @@ namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 use Er1z\FakeMock\Decorator\AssertDecorator\Length;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use PHPUnit\Framework\TestCase;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class LengthTest extends TestCase
 {
+
+    use AssertsTestTrait;
+
     public function testLengthOk()
     {
         $decorator = new Length();

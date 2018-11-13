@@ -9,17 +9,23 @@ use Er1z\FakeMock\Metadata\FieldMetadata;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Url;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 use Tests\Er1z\FakeMock\Mocks\AssertDecoratorMockNegative;
 use Tests\Er1z\FakeMock\Mocks\AssertDecoratorMockPositive;
 
 class DecoratorAbstractTest extends TestCase
 {
+    use AssertsTestTrait {
+        setUp as setUp_;
+    }
+
     protected $counter = 0;
 
     protected function setUp()
     {
         $this->counter = 0;
         parent::setUp();
+        $this->setUp_();
     }
 
     public function testDecorateSingle()

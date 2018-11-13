@@ -8,9 +8,13 @@ use Er1z\FakeMock\Decorator\AssertDecorator\NotEqualTo;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class NotEqualToTest extends TestCase
 {
+
+    use AssertsTestTrait;
+
     public function testWithScalarValue()
     {
         $decorator = new NotEqualTo();

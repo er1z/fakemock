@@ -9,9 +9,13 @@ use Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface;
 use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Ip;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class AssertGeneratorTest extends TestCase
 {
+
+    use AssertsTestTrait;
+
     public function testGenerateDisabledAssertConditions()
     {
         $d = new \Er1z\FakeMock\Generator\AssertGenerator();

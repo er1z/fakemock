@@ -8,9 +8,12 @@ use Er1z\FakeMock\Decorator\AssertDecorator;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class AssertDecoratorTest extends TestCase
 {
+    use AssertsTestTrait;
+
     public function testDecorateDisabledAssertConditions()
     {
         $d = new AssertDecorator();

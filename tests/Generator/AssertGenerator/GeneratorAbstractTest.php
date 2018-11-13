@@ -15,9 +15,12 @@ use Faker\Factory;
 use Faker\Generator;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 abstract class GeneratorAbstractTest extends TestCase
 {
+    use AssertsTestTrait;
+
     protected function getFieldMetadata($assertsCollection = [], ?Type $type = null)
     {
         $obj = new \stdClass();

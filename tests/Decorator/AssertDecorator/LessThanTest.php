@@ -9,9 +9,13 @@ use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use PHPUnit\Framework\TestCase;
+use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class LessThanTest extends TestCase
 {
+
+    use AssertsTestTrait;
+
     public function testWithoutNumericValue()
     {
         $decorator = new LessThan();
