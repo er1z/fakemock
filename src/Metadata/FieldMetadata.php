@@ -30,7 +30,7 @@ class FieldMetadata
     public $configuration;
 
     public function __construct(
-        object $object, \ReflectionProperty $property, ?Type $type, AnnotationCollection $annotations, FakeMockField $configuration
+        $object, \ReflectionProperty $property, ?Type $type, AnnotationCollection $annotations, FakeMockField $configuration
     ) {
         $this->object = $object;
         $this->property = $property;
