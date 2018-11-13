@@ -58,7 +58,7 @@ Now — fill up above with some random data:
 $fakemock = new Er1z\FakeMock\FakeMock();
 
 $dto = new MyDto();
-$fakemock->fill();
+$fakemock->fill($dto);
 
 echo $dto->username;   // mr.handsome
 ```
