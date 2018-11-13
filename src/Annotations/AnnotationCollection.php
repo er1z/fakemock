@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Er1z\FakeMock\Annotations;
-
 
 class AnnotationCollection
 {
-
     /**
      * @var array
      */
@@ -19,7 +16,7 @@ class AnnotationCollection
 
     public function getOneBy($class)
     {
-        if($result = $this->findOneBy($class)){
+        if ($result = $this->findOneBy($class)) {
             return $result;
         }
 
@@ -28,14 +25,17 @@ class AnnotationCollection
 
     public function findOneBy($class)
     {
-        $result = array_values($this->findAllBy($class))[0] ?: null;
+        $result = array_values($this->findAllBy($class))[0] ?? null;
+
         return $result;
     }
 
-    public function findAllBy($class){
-        return array_filter($this->annotations, function($a) use ($class){
+    public function findAllBy($class)
+    {
+        $result = array_filter($this->annotations, function ($a) use ($class) {
             return $a instanceof $class;
         });
-    }
 
+        return array_values($result);
+    }
 }

@@ -1,135 +1,81 @@
 <?php
 
-
 namespace Er1z\FakeMock;
 
-
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\Common\Annotations\Reader;
-use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Annotations\FakeMock as MainAnnotation;
-use Er1z\FakeMock\Condition\Processor;
-use Er1z\FakeMock\Condition\ProcessorInterface;
-use Er1z\FakeMock\Generator\DefaultGenerator;
-use Er1z\FakeMock\Generator\GeneratorInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Length;
+use Er1z\FakeMock\Decorator\DecoratorChain;
+use Er1z\FakeMock\Decorator\DecoratorChainInterface;
+use Er1z\FakeMock\Metadata\Factory;
+use Er1z\FakeMock\Metadata\FactoryInterface;
+use Er1z\FakeMock\Generator\GeneratorChain;
+use Er1z\FakeMock\Generator\GeneratorChainInterface;
 
 class FakeMock
 {
-
-    private $reader;
     /**
-     * @var GeneratorInterface
+     * @var GeneratorChainInterface
      */
-    private $generator;
+    private $generatorChain;
     /**
-     * @var ProcessorInterface
+     * @var DecoratorChainInterface
      */
-    private $conditionProcessor;
+    private $decoratorChain;
+    /**
+     * @var FactoryInterface
+     */
+    private $metadataFactory;
 
-    public function __construct(?Reader $reader = null, ?GeneratorInterface $generator = null, ?ProcessorInterface $conditionProcessor = null)
-    {
-        // can't wait for v2...
-        if(class_exists(AnnotationRegistry::class)) {
-            AnnotationRegistry::registerLoader('class_exists');
-        }
-
-        $this->reader = $reader ?: new AnnotationReader();
-        $this->generator = $generator ?: new DefaultGenerator();
-        $this->conditionProcessor = $conditionProcessor ?: new Processor();
+    public function __construct(
+        ?FactoryInterface $metadataFactory = null, ?GeneratorChainInterface $generatorChain = null, ?DecoratorChainInterface $decoratorChain = null
+    ) {
+        $this->generatorChain = $generatorChain ?? new GeneratorChain();
+        $this->decoratorChain = $decoratorChain ?? new DecoratorChain();
+        $this->metadataFactory = $metadataFactory ?? new Factory();
     }
 
-    public function fill($object, $group = null)
+    public function fill($objectOrClassName, $group = null, $newObjectArguments = [])
     {
-        $obj = $this->getClass($object);
+        $obj = $this->getClass($objectOrClassName, $newObjectArguments);
 
         $reflection = new \ReflectionClass($obj);
-        $cfg = $this->getObjectConfiguration($reflection);
+        $cfg = $this->metadataFactory->getObjectConfiguration($reflection);
 
-        if(!$cfg){
-            return $object;
+        if (!$cfg) {
+            return $obj;
         }
 
-        return $this->populateObject($reflection, $obj, $group);
+        return $this->populateObject($reflection, $obj, $cfg, $group);
     }
 
-    protected function populateObject(\ReflectionClass $reflection, $object, $group = null)
+    protected function populateObject(\ReflectionClass $reflection, $object, MainAnnotation $objectConfiguration, $group = null)
     {
-        $propertyAccessor = PropertyAccess::createPropertyAccessorBuilder()
-            ->enableExceptionOnInvalidIndex()
-            ->getPropertyAccessor();
-
         $props = $reflection->getProperties();
 
-        foreach($props as $prop){
-
-            $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($prop));
-            /**
-             * @var $propMetadata FakeMockField
-             */
-            if(!($propMetadata = $annotations->findOneBy(FakeMockField::class))){
+        foreach ($props as $prop) {
+            $metadata = $this->metadataFactory->create($object, $objectConfiguration, $prop);
+            if (!$metadata) {
                 continue;
             }
 
-            if($group && !in_array($group, (array)$propMetadata->groups)){
+            if ($group && !in_array($group, (array) $metadata->configuration->groups)) {
                 continue;
             }
 
-            if(empty($value)) {
-                $value = $this->generator->generateValue($prop, $propMetadata, $annotations);
-            }
+            $value = $this->generatorChain->getValueForField($metadata);
+            $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
-            if($propMetadata->satisfyAssertsConditions){
-                $value = $this->conditionProcessor->processConditions($value, $object, $propMetadata, $annotations, $group);
-            }
-
-            $propertyAccessor->setValue($object, $prop->getName(), $value);
+            Accessor::setPropertyValue($object, $prop->getName(), $value);
         }
 
         return $object;
     }
 
-    protected function checkLength($value, FakeMockField $config, AnnotationCollection $annotations){
-
-        if(!class_exists(Constraint::class)){
-            return $value;
-        }
-
-        if($lengthConfig = $annotations->findOneBy(Length::class) && $config->satisfyAssertsConditions){
-            /**
-             * @var $lengthConfig Length
-             */
-            $min = $lengthConfig->min;
-            $max = $lengthConfig->max;
-            if(!isset($value[$min])){
-                // todo: to const
-                $value = str_pad($value, strlen($value)-$min, '_');
-            }else if(isset($value[$max+1])){
-                $value = substr($value, 0, $max);
-            }
-        }
-
-        return $value;
-
-    }
-
-    protected function getObjectConfiguration(\ReflectionClass $object){
-        return $this->reader->getClassAnnotation($object, MainAnnotation::class);
-    }
-
-    protected function getClass($objectOrClass){
-
-        if(is_object($objectOrClass)){
+    protected function getClass($objectOrClass, $newObjectArguments = [])
+    {
+        if (is_object($objectOrClass)) {
             return $objectOrClass;
         }
 
-        return new $objectOrClass;
-
+        return new $objectOrClass(...(array) $newObjectArguments);
     }
-
-
 }
