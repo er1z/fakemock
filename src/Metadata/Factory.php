@@ -8,7 +8,6 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\Type;
 
 class Factory implements FactoryInterface
@@ -46,7 +45,7 @@ class Factory implements FactoryInterface
         $configuration = $this->mergeGlobalConfigurationWithLocal($objectConfiguration, $fieldAnnotation);
 
         return new FieldMetadata(
-            $object, $property, $type, $annotations, $configuration
+            $object, $property, $type, $annotations, $configuration, $objectConfiguration
         );
     }
 

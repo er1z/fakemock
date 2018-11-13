@@ -4,6 +4,7 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface;
 use Er1z\FakeMock\Generator\PhpDocGenerator\Integer;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -25,10 +26,10 @@ class PhpDocGeneratorTest extends TestCase
         $prop = new \ReflectionProperty($obj, 'prop');
 
         $field = new FieldMetadata(
-            $obj, $prop, null, $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, null, $this->createMock(AnnotationCollection::class), new FakeMockField(), new \Er1z\FakeMock\Annotations\FakeMock()
         );
 
-        $result = $d->generateForProperty($field);
+        $result = $d->generateForProperty($field, $this->createMock(FakeMock::class));
 
         $this->assertNull($result);
     }
@@ -76,10 +77,10 @@ class PhpDocGeneratorTest extends TestCase
         $prop = new \ReflectionProperty($obj, 'prop');
 
         $field = new FieldMetadata(
-            $obj, $prop, new \phpDocumentor\Reflection\Types\Integer(), new AnnotationCollection(), new FakeMockField()
+            $obj, $prop, new \phpDocumentor\Reflection\Types\Integer(), new AnnotationCollection(), new FakeMockField(), new \Er1z\FakeMock\Annotations\FakeMock()
         );
 
-        $result = $d->generateForProperty($field);
+        $result = $d->generateForProperty($field, $this->createMock(FakeMock::class));
 
         $this->assertEquals('123', $result);
     }

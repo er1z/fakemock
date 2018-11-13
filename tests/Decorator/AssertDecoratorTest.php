@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\AssertDecorator;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -26,7 +27,7 @@ class AssertDecoratorTest extends TestCase
         $field = new FieldMetadata(
             $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField([
                 'satisfyAssertsConditions' => false,
-            ])
+            ]), new FakeMock()
         );
 
         $result = $d->decorate($val, $field);

@@ -25,6 +25,12 @@ class FakeMock
      */
     public $satisfyAssertsConditions = true;
 
+    /**
+     * Map interfaces/abstracts/so on to desired classes
+     * @var string[]
+     */
+    public $classMappings = [];
+
     public function __construct($data = [])
     {
         foreach ($data as $k => $v) {

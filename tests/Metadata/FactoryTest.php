@@ -120,5 +120,6 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(FakeMockField::class, $result->configuration);
         $this->assertInstanceOf(\ReflectionProperty::class, $result->property);
         $this->assertInstanceOf(String_::class, $result->type);
+        $this->assertInstanceOf(FakeMock::class, $result->objectConfiguration);
     }
 }

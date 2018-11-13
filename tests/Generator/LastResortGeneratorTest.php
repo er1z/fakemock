@@ -3,7 +3,9 @@
 namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock as FakeMockAlias;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\LastResortGenerator;
 use Faker\Generator;
@@ -26,10 +28,10 @@ class LastResortGeneratorTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(), new FakeMock()
         );
 
-        $result = $generator->generateForProperty($field);
+        $result = $generator->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
         return $result;
     }

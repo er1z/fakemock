@@ -3,7 +3,9 @@
 namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock as FakeMockAlias;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\AssertGenerator\GeneratorInterface;
 use phpDocumentor\Reflection\Types\String_;
@@ -27,10 +29,10 @@ class AssertGeneratorTest extends TestCase
         $field = new FieldMetadata(
             $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField([
                 'useAsserts' => false,
-            ])
+            ]), new FakeMock()
         );
 
-        $result = $d->generateForProperty($field);
+        $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
         $this->assertNull($result);
     }
@@ -65,10 +67,10 @@ class AssertGeneratorTest extends TestCase
         $prop = new \ReflectionProperty($obj, 'prop');
 
         $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField(), new FakeMock()
         );
 
-        $result = $d->generateForProperty($field);
+        $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
         $this->assertNull($result);
     }
@@ -100,10 +102,11 @@ class AssertGeneratorTest extends TestCase
                 new Ip(),
         ]), new FakeMockField([
             'useAsserts' => true,
-            ])
+            ]),
+            new FakeMock()
         );
 
-        $result = $d->generateForProperty($field);
+        $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
         $this->assertEquals('123', $result);
     }

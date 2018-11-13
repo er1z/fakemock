@@ -61,7 +61,7 @@ class FakeMock
                 continue;
             }
 
-            $value = $this->generatorChain->getValueForField($metadata);
+            $value = $this->generatorChain->getValueForField($metadata, $this);
             $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
             Accessor::setPropertyValue($object, $prop->getName(), $value);

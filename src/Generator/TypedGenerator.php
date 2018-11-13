@@ -2,6 +2,7 @@
 
 namespace Er1z\FakeMock\Generator;
 
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use ReverseRegex\Generator\Scope;
 use ReverseRegex\Lexer;
@@ -11,7 +12,7 @@ use ReverseRegex\Random\SimpleRandom;
 class TypedGenerator implements GeneratorInterface
 {
     public function generateForProperty(
-        FieldMetadata $field
+        FieldMetadata $field, FakeMock $fakemock
     ) {
         if ($field->configuration->value) {
             return $field->configuration->value;

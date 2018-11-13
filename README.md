@@ -21,6 +21,7 @@ ToC
 - [Asserts](#asserts)
 - [Supported asserts](#supported-asserts)
 - [Internal architecture](#internal-architecture)
+- [Advanced concepts](#advanced-concepts)
 
 Install
 -
@@ -349,10 +350,80 @@ Default decorators chain:
 1. `AssertDecorator` — restrict values to validation rules — its behavior is controlled by `satisfyAssertsConditions` field configuration,
 2. `PhpDocDecorator` — converts values types.
 
+Advanced Concepts
+-
+This is a „skeleton” of the steps required to do something more complicated within this library. For example, we want to use mapped interfaces/abstract on DTOs. Assume structure:
+
+```php
+interface SomeDTOInterface {
+    
+}
+```
+
+```php
+use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
+use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+
+/**
+ * @FakeMock()
+ */
+class InnerDTO implements SomeDTOInterface {
+    
+    /**
+     * @FakeMockField()
+     */
+    public $field;
+    
+}
+```
+
+```php
+use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
+use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+
+/**
+ * @FakeMock()
+ */
+class MainDTO {
+    
+    /**
+     * @FakeMockField()
+     * @var SomeDTOInterface
+     */
+    public $nested;
+    
+}
+```
+
+Running basic FakeMock scenario will produce nothing — `$nested` is `null`. We have to tell the library, what object should we map to desired interface.
+
+```
+$generators = GeneratorChain::getDefaultGeneratorsSet();
+
+foreach($generators as $g)
+{
+    if( $g instanceof RecursiveGenerator::class )
+    {
+        $g->addClassMapping(SomeDTOInterface::class, InnerDTO::class);
+    }
+}
+
+$generatorChain = new GeneratorChain($generators);
+
+$fakemock = new FakeMock(null, $generatorChain);
+
+$mainDto = new MainDto();
+$result = $fakemock->fill($mainDto);
+```
+
+Of course, you also can map interfaces using annotations on the global and/or local scope.
+
+
+
 TODO
 ----
+- ~~recursive fields processing when a type is supplied~~
 - `Assert\File` mocking
-- recursive fields processing when a type is supplied
 - l10n support on generated data and tests
 - fill unit tests asserts messages
 
