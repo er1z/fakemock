@@ -21,7 +21,7 @@ class LessThanOrEqual implements AssertDecoratorInterface
         }
 
         /**
-         * @var $configuration \Symfony\Component\Validator\Constraints\LessThan|\Symfony\Component\Validator\Constraints\LessThanOrEqual
+         * @var \Symfony\Component\Validator\Constraints\LessThan|\Symfony\Component\Validator\Constraints\LessThanOrEqual
          */
         if ($configuration->value && $value >= $configuration->value) {
             $value -= $value - $configuration->value + $trailer;

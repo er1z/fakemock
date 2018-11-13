@@ -20,7 +20,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
         $baseClass = new \ReflectionClass($field->type);
 
         /**
-         * @var $generator \Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface
+         * @var \Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface
          */
         if ($generator = $this->getGenerator($baseClass->getShortName())) {
             return $generator->generateForProperty($field, $this->generator);

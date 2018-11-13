@@ -12,7 +12,6 @@ use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class IdenticalToTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testWithScalarValue()

@@ -9,7 +9,6 @@ use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class LengthTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testLengthOk()

@@ -17,7 +17,7 @@ class CardScheme implements GeneratorInterface
     public function generateForProperty(FieldMetadata $field, Constraint $constraint, Generator $faker)
     {
         /**
-         * @var \Symfony\Component\Validator\Constraints\CardScheme $constraint
+         * @var \Symfony\Component\Validator\Constraints\CardScheme
          */
         $providers = $constraint->schemes;
 

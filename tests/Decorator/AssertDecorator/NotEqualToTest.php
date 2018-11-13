@@ -12,7 +12,6 @@ use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class NotEqualToTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testWithScalarValue()

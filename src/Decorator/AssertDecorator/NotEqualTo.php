@@ -10,7 +10,7 @@ class NotEqualTo implements AssertDecoratorInterface
 {
     public function decorate(&$value, FieldMetadata $field, Constraint $configuration, ?string $group = null): bool
     {
-        /**
+        /*
          * @var $configuration \Symfony\Component\Validator\Constraints\NotEqualTo
          */
 

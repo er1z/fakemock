@@ -9,7 +9,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Asserts;
 
 class AssertsTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testAsserts()

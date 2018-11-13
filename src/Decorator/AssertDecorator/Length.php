@@ -12,7 +12,7 @@ class Length implements AssertDecoratorInterface
     public function decorate(&$value, FieldMetadata $field, Constraint $configuration, ?string $group = null): bool
     {
         /**
-         * @var \Symfony\Component\Validator\Constraints\Length $configuration
+         * @var \Symfony\Component\Validator\Constraints\Length
          */
         $min = $configuration->min;
         $max = $configuration->max;

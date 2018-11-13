@@ -13,7 +13,6 @@ use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class LessThanTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testWithoutNumericValue()

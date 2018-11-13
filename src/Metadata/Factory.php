@@ -35,7 +35,7 @@ class Factory implements FactoryInterface
         $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($property));
         $fieldAnnotation = $annotations->findOneBy(FakeMockField::class);
 
-        /**
+        /*
          * @var FakeMockField
          */
         if (!$fieldAnnotation) {
@@ -76,7 +76,7 @@ class Factory implements FactoryInterface
             $docComment
         );
 
-        /**
+        /*
          * @var Tag
          */
         if ($vars = $data->getTagsByName('var')) {

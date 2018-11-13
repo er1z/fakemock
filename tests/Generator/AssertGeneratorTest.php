@@ -13,7 +13,6 @@ use Tests\Er1z\FakeMock\AssertsTestTrait;
 
 class AssertGeneratorTest extends TestCase
 {
-
     use AssertsTestTrait;
 
     public function testGenerateDisabledAssertConditions()

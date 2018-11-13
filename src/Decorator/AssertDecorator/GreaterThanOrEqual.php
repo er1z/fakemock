@@ -21,7 +21,7 @@ class GreaterThanOrEqual implements AssertDecoratorInterface
         }
 
         /**
-         * @var $configuration \Symfony\Component\Validator\Constraints\GreaterThan|\Symfony\Component\Validator\Constraints\GreaterThanOrEqual
+         * @var \Symfony\Component\Validator\Constraints\GreaterThan|\Symfony\Component\Validator\Constraints\GreaterThanOrEqual
          */
         if ($configuration->value && $value <= $configuration->value) {
             $value += $configuration->value - $value + $trailer;
