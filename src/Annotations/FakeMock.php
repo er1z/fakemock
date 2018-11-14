@@ -31,6 +31,12 @@ class FakeMock
      */
     public $classMappings = [];
 
+    /**
+     * Map sub-objects if class type is specified
+     * @var bool
+     */
+    public $recursive = true;
+
     public function __construct($data = [])
     {
         foreach ($data as $k => $v) {

@@ -65,6 +65,12 @@ class FakeMockField
      */
     public $mapToClass = null;
 
+    /**
+     * Map sub-objects if class type is specified
+     * @var bool|null
+     */
+    public $recursive = null;
+
     public function __construct($dataOrFaker = [])
     {
         if (is_array($dataOrFaker)) {

@@ -9,6 +9,7 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\ContextFactory;
 
 class Factory implements FactoryInterface
 {
@@ -59,6 +60,10 @@ class Factory implements FactoryInterface
             $fieldConfig->satisfyAssertsConditions = $objectConfig->satisfyAssertsConditions;
         }
 
+        if(is_null($fieldConfig->recursive)){
+            $fieldConfig->recursive = $objectConfig->recursive;
+        }
+
         return $fieldConfig;
     }
 
@@ -71,8 +76,10 @@ class Factory implements FactoryInterface
             return null;
         }
 
+        $ctxFactory = new ContextFactory();
+
         $data = $factory->create(
-            $docComment
+            $docComment, $ctxFactory->createFromReflector($property)
         );
 
         /*
