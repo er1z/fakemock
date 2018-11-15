@@ -24,7 +24,7 @@ install:
     fi
 
 script:
-    - vendor/bin/phpunit -config phpunit.xml.dist
+    - vendor/bin/phpunit -c phpunit.xml.dist
 
 after_script:
   #- wget https://scrutinizer-ci.com/ocular.phar
