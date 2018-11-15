@@ -27,7 +27,7 @@ script:
     - vendor/bin/phpunit -c phpunit.xml.dist
 
 after_script:
-  - if [ $deps != 'low' ]; then
+  - if [[ $deps != 'low' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
       && php ocular.phar code-coverage:upload --format=php-clover --revision=$TRAVIS_COMMIT coverage.clover;
     fi
