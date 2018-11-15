@@ -419,6 +419,15 @@ $result = $fakemock->fill($mainDto);
 
 Of course, you also can map interfaces using annotations on the global and/or local scope.
 
+Changelog
+-
+
+*0.2*
+- New: recursive fields processing
+
+*0.1*
+- First public version
+
 
 
 TODO
