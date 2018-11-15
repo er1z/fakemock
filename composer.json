@@ -21,7 +21,8 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit":  "^7.4"
+    "phpunit/phpunit": "^7.4",
+    "php-coveralls/php-coveralls": "^2.1"
   },
   "suggest": {
     "symfony/intl": "To get a correct country code for Country assert",

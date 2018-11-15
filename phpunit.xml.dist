@@ -13,6 +13,10 @@
     </testsuites>
 
 
+    <logging>
+        <log type="coverage-clover" target="clover.xml"/>
+    </logging>
+
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>

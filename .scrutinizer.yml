@@ -1,4 +1,8 @@
 build:
+  dependencies:
+    # Runs before inferred commands
+    before:
+      - 'composer global require symfony/validator symfony/intl'
   nodes:
     analysis:
       project_setup:
@@ -23,6 +27,5 @@ tools:
   php_code_coverage:
     enabled: true
   external_code_coverage:
-    timeout: 1000
-    #timeout: 600 # There can be another pull request in progress
-  #runs: 4 # ( PHP 7.1 + 7.2 ) *2
+    timeout: 600
+    runs: 4 # ( PHP 7.1 + 7.2 ) *2
