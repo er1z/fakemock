@@ -7,7 +7,7 @@ Fakemock
 to do much of work in order to map all things you need. Especially when you are working with DTOs/Entities and they
 already have some assertions configured — the dev has to create very own rules from scratch.
 
-This library solves this problem. I have introduced a `FakeMock` library that takes care of filling up as many objects
+This library solves that problem. I have introduced a `FakeMock` library that takes care of filling up as many objects
 as you need.  
 
 ToC
@@ -64,7 +64,7 @@ $fakemock->fill($dto);
 echo $dto->username;   // mr.handsome
 ```
 
-What's happened — [Name guesser](https://github.com/fzaninotto/Faker/blob/master/src/Faker/Guesser/Name.php) is used here
+What's happened — [name guesser](https://github.com/fzaninotto/Faker/blob/master/src/Faker/Guesser/Name.php) is used here
 so it assumed that `$username` may contain your user's login. But guessing not always would fit your needs. It's possible
 to specify *any* Faker's method to fill it with random data:
 
@@ -79,7 +79,7 @@ and we end up with generated some random first and last name.
 
 Configuration
 -
-Some of behavior is controlled by annotations. We can specify two types of configuration: global (object-scope) and local (property-scope). All available properties for global scope:
+Most part of behavior is controlled via annotations. We can specify two types of configuration: global (object-scope) and local (property-scope). All available properties for global scope:
 
 | type | name | default value | description|
 |------|------|---------------|------------|
@@ -91,13 +91,13 @@ Local scope:
 
 | type | name | default value | description |
 | -----|-----|-------------|-------------|
-|`null`|`array`|`arguments`|`null`|an array of arguments for Faker method|
-|`null`|`string`|`faker`|`null`|specify desired faker method. Set to null if you want to generator chain do it's best on guessing|
-|`null`|`array\|string`|`groups`|`null`|validation groups this rule for this rule is being processed.
-|`null`|`string`|`regex`|`null`|a regular expression to generate random data against|
-|`null`|`bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
-|`null`|`bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
-|`null`|`mixed`|`value`|`null`|literal value on field. Stops guessing|
+|`null`\|`array`|`arguments`|`null`|an array of arguments for Faker method|
+|`null`\|`string`|`faker`|`null`|specify desired faker method. Set to null if you want to generator chain do it's best on guessing|
+|`null`\|`array\|string`|`groups`|`null`|validation groups this rule for this rule is being processed.
+|`null`\|`string`|`regex`|`null`|a regular expression to generate random data against|
+|`null`\|`bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
+|`null`\|`bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
+|`null`\|`mixed`|`value`|`null`|literal value on field. Stops guessing|
 
 
 Local scope configuration constructor has a possibility to create an annotation from string-argument which is populated to `faker` key.
@@ -105,7 +105,7 @@ Local scope configuration constructor has a possibility to create an annotation 
 Populating multiple objects
 -
 
-Developers are lazy so am I — you have to take care of thing you really need to. So let's populate a few objects:
+Developers are lazy so am I — you have to take care of things you really need to. So let's populate a few objects:
 ```php
 
 $fakemock = new FakeMock();
@@ -119,13 +119,12 @@ for( $a=0; $a<1000; $a++ )
 
 ```
 
-That's all. They all are fresh instances so don't be concerned the reference object would have messed anything.
+That's all. They all are fresh instances so don't be concerned any references.
 
 Groups
 -
 
-Sometimes it's needed to populate objects conditionally. Let's try with populating every 3rd generated object. First,
-declare a group of field:
+Sometimes it's needed to populate objects conditionally. Let's try with populating every 3rd generated object. First, declare a group of field:
 
 ```php
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
@@ -157,7 +156,7 @@ for( $a=0; $a<1000; $a++ )
 }
 ```
 
-Now, check your results.
+Now, check your results. This behavior is similar to Symfony's [validation groups](https://symfony.com/doc/current/form/validation_groups.html).
 
 phpDoc
 -
@@ -398,7 +397,7 @@ class MainDTO {
 
 Running basic FakeMock scenario will produce nothing — `$nested` is `null`. We have to tell the library, what object should we map to desired interface.
 
-```
+```php
 $generators = GeneratorChain::getDefaultGeneratorsSet();
 
 foreach($generators as $g)
