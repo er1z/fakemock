@@ -1,7 +1,7 @@
 Fakemock
 -
 
-[![Build Status](https://travis-ci.org/er1z/fakemock.svg?branch=dev)](https://travis-ci.org/er1z/fakemock) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/er1z/fakemock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/er1z/fakemock/?branch=master) [![Latest Stable Version](https://poser.pugx.org/er1z/fakemock/v/stable)](https://packagist.org/packages/er1z/fakemock) 
+[![Build Status](https://travis-ci.org/er1z/fakemock.svg?branch=dev)](https://travis-ci.org/er1z/fakemock) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/er1z/fakemock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/er1z/fakemock/?branch=master) [![Latest Stable Version](https://poser.pugx.org/er1z/fakemock/v/stable)](https://packagist.org/packages/er1z/fakemock) [![Code Coverage](https://scrutinizer-ci.com/g/er1z/fakemock/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/er1z/fakemock/?branch=master) 
 
 [Faker](https://github.com/fzaninotto/Faker) is an amazing tool for mocking things but has a one drawback — you have
 to do much of work in order to map all things you need. Especially when you are working with DTOs/Entities and they
