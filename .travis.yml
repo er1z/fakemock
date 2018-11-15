@@ -27,5 +27,6 @@ script:
     - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover --revision=$TRAVIS_COMMIT coverage.clover
+  #- wget https://scrutinizer-ci.com/ocular.phar
+  #- php ocular.phar code-coverage:upload --format=php-clover --revision=$TRAVIS_COMMIT coverage.clover
+  - php vendor/bin/php-coveralls -v
