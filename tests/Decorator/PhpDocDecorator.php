@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -22,7 +23,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, null, $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, null, $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = 'asd';
@@ -43,7 +45,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, new Integer(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new Integer(), $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = 10.01;
@@ -65,7 +68,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = 10.01;
@@ -87,7 +91,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, new Boolean(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new Boolean(), $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = 'false';
@@ -130,7 +135,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = true;
@@ -160,7 +166,8 @@ class PhpDocDecorator extends TestCase
         $prop = new \ReflectionProperty($obj, 'test');
 
         $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField()
+            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField(),
+            new FakeMock()
         );
 
         $val = new \DateTime();

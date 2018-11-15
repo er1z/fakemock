@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\AssertDecorator\EqualTo;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -37,7 +38,8 @@ class EqualToTest extends TestCase
             new \ReflectionProperty($obj, 'second'),
             new String_(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $decorator = new EqualTo();

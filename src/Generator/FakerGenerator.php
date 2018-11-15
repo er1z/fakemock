@@ -2,6 +2,7 @@
 
 namespace Er1z\FakeMock\Generator;
 
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
@@ -32,7 +33,7 @@ class FakerGenerator implements GeneratorInterface
         $this->generator = $generator;
     }
 
-    public function generateForProperty(FieldMetadata $field)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
     {
         if ($field->configuration->faker) {
             return $this->generator->{$field->configuration->faker}(...(array) $field->configuration->arguments);

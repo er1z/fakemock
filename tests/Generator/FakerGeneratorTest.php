@@ -3,7 +3,9 @@
 namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock as FakeMockAlias;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\FakerGenerator;
 use Faker\Generator;
@@ -34,10 +36,11 @@ class FakerGeneratorTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            $config
+            $config,
+            new FakeMock()
         );
 
-        $result = $faker->generateForProperty($field);
+        $result = $faker->generateForProperty($field, $this->createMock(FakeMockAlias::class));
         $this->assertNotNull(filter_var($result, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE));
         $this->assertContains('320', $result);
         $this->assertContains('240', $result);
@@ -55,10 +58,10 @@ class FakerGeneratorTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(), new FakeMock()
         );
 
-        $result = $faker->generateForProperty($field);
+        $result = $faker->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
         return $result;
     }

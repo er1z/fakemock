@@ -59,6 +59,18 @@ class FakeMockField
      */
     public $groups = null;
 
+    /**
+     * Map object-type field to specified class (useful if it's an interface)
+     * @var string|null
+     */
+    public $mapToClass = null;
+
+    /**
+     * Map sub-objects if class type is specified
+     * @var bool|null
+     */
+    public $recursive = null;
+
     public function __construct($dataOrFaker = [])
     {
         if (is_array($dataOrFaker)) {

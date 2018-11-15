@@ -4,6 +4,7 @@ namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\TypedGenerator;
 use phpDocumentor\Reflection\Type;
@@ -29,10 +30,11 @@ class TypedGeneratorTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            $config
+            $config,
+            new \Er1z\FakeMock\Annotations\FakeMock()
         );
 
-        $result = $generator->generateForProperty($field);
+        $result = $generator->generateForProperty($field, $this->createMock(FakeMock::class));
 
         return $result;
     }
@@ -41,17 +43,17 @@ class TypedGeneratorTest extends TestCase
     {
         $result = $this->getInternalResult([
             'value' => self::TESTING_SCALAR_VALUE,
-        ], 'Scalar value');
+        ]);
 
-        $this->assertEquals(self::TESTING_SCALAR_VALUE, $result);
+        $this->assertEquals(self::TESTING_SCALAR_VALUE, $result, 'Scalar value');
     }
 
     public function testRegexValue()
     {
         $result = $this->getInternalResult([
             'regex' => '\d{7}',
-        ], 'Regex value');
+        ]);
 
-        $this->assertGreaterThanOrEqual('1000000', $result);
+        $this->assertGreaterThanOrEqual('1000000', $result, 'Regex value');
     }
 }

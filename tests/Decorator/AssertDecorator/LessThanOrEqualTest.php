@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator\AssertDecorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\AssertDecorator\LessThanOrEqual;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -37,7 +38,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Float_(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $num = 10.0;
@@ -83,7 +85,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Float_(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $num = 10.01;
@@ -116,7 +119,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Integer(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
@@ -133,7 +137,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Integer(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $num = 11;
@@ -158,7 +163,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Float_(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
@@ -175,7 +181,8 @@ class LessThanOrEqualTest extends TestCase
             new \ReflectionProperty($obj, 'test'),
             new Float_(),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $num = 11.01;

@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\DecoratorChain;
 use Er1z\FakeMock\Decorator\DecoratorInterface;
@@ -58,7 +59,8 @@ class DecoratorChainTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(),
+            new FakeMock()
         );
 
         $decoratorChain->getDecoratedValue('', $field);

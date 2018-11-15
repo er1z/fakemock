@@ -2,6 +2,7 @@
 
 namespace Er1z\FakeMock\Generator;
 
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 
 class PhpDocGenerator extends AttachableGeneratorAbstract
@@ -11,7 +12,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
         return sprintf('Er1z\\FakeMock\\Generator\\PhpDocGenerator\\%s', $simpleClassName);
     }
 
-    public function generateForProperty(FieldMetadata $field)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
     {
         if (!$field->type) {
             return null;

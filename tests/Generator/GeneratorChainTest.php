@@ -3,7 +3,9 @@
 namespace Tests\Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use Er1z\FakeMock\FakeMock as FakeMockAlias;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\GeneratorChain;
 use Er1z\FakeMock\Generator\GeneratorInterface;
@@ -17,9 +19,9 @@ class GeneratorChainTest extends TestCase
     {
         $constraintsAvail = class_exists(Constraint::class);
 
-        $generators = GeneratorChain::getDefaultDetectorsSet();
+        $generators = GeneratorChain::getDefaultGeneratorsSet();
 
-        $this->assertCount($constraintsAvail ? 5 : 4, $generators, 'Count ok');
+        $this->assertCount($constraintsAvail ? 6 : 5, $generators, 'Count ok');
 
         foreach ($generators as $g) {
             $this->assertInstanceOf(GeneratorInterface::class, $g, get_class($g));
@@ -50,10 +52,10 @@ class GeneratorChainTest extends TestCase
             $prop,
             $this->createMock(Type::class),
             $this->createMock(AnnotationCollection::class),
-            new FakeMockField()
+            new FakeMockField(), new FakeMock()
         );
 
-        $result = $generatorChain->getValueForField($field);
+        $result = $generatorChain->getValueForField($field, $this->createMock(FakeMockAlias::class));
 
         return $result;
     }

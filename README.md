@@ -1,7 +1,7 @@
 Fakemock
 -
 
-[![Build Status](https://travis-ci.org/er1z/fakemock.svg?branch=dev)](https://travis-ci.org/er1z/fakemock)
+[![Build Status](https://travis-ci.org/er1z/fakemock.svg?branch=dev)](https://travis-ci.org/er1z/fakemock) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/er1z/fakemock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/er1z/fakemock/?branch=master) [![Latest Stable Version](https://poser.pugx.org/er1z/fakemock/v/stable)](https://packagist.org/packages/er1z/fakemock) 
 
 [Faker](https://github.com/fzaninotto/Faker) is an amazing tool for mocking things but has a one drawback — you have
 to do much of work in order to map all things you need. Especially when you are working with DTOs/Entities and they
@@ -21,6 +21,7 @@ ToC
 - [Asserts](#asserts)
 - [Supported asserts](#supported-asserts)
 - [Internal architecture](#internal-architecture)
+- [Advanced concepts](#advanced-concepts)
 
 Install
 -
@@ -340,6 +341,7 @@ Generating of data step-by-step:
 
 Default generator chain:
 1. `TypedGenerator` — handles two cases: `value` or `regex`. Nothing less, nothing more,
+2. `RecursiveGenerator` — if variable class has FQCN specified in phpDoc, it's processed unless `recursive` field flag is set to `false`,
 2. If package `symfony/validator` is installed and available, `AssertGenerator` is being checked against,
 3. `FakerGenerator` — provides methods for generating specified Faker's generator or guess field content by `NameGuesser`,
 4. `PhpDocGenerator` — generates data according to the property type,
@@ -349,10 +351,80 @@ Default decorators chain:
 1. `AssertDecorator` — restrict values to validation rules — its behavior is controlled by `satisfyAssertsConditions` field configuration,
 2. `PhpDocDecorator` — converts values types.
 
+Advanced Concepts
+-
+This is a „skeleton” of the steps required to do something more complicated within this library. For example, we want to use mapped interfaces/abstract on DTOs. Assume structure:
+
+```php
+interface SomeDTOInterface {
+    
+}
+```
+
+```php
+use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
+use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+
+/**
+ * @FakeMock()
+ */
+class InnerDTO implements SomeDTOInterface {
+    
+    /**
+     * @FakeMockField()
+     */
+    public $field;
+    
+}
+```
+
+```php
+use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
+use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+
+/**
+ * @FakeMock()
+ */
+class MainDTO {
+    
+    /**
+     * @FakeMockField()
+     * @var SomeDTOInterface
+     */
+    public $nested;
+    
+}
+```
+
+Running basic FakeMock scenario will produce nothing — `$nested` is `null`. We have to tell the library, what object should we map to desired interface.
+
+```
+$generators = GeneratorChain::getDefaultGeneratorsSet();
+
+foreach($generators as $g)
+{
+    if( $g instanceof RecursiveGenerator::class )
+    {
+        $g->addClassMapping(SomeDTOInterface::class, InnerDTO::class);
+    }
+}
+
+$generatorChain = new GeneratorChain($generators);
+
+$fakemock = new FakeMock(null, $generatorChain);
+
+$mainDto = new MainDto();
+$result = $fakemock->fill($mainDto);
+```
+
+Of course, you also can map interfaces using annotations on the global and/or local scope.
+
+
+
 TODO
 ----
+- ~~recursive fields processing when a type is supplied~~
 - `Assert\File` mocking
-- recursive fields processing when a type is supplied
 - l10n support on generated data and tests
 - fill unit tests asserts messages
 

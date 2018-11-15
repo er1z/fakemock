@@ -2,6 +2,7 @@
 
 namespace Er1z\FakeMock\Generator;
 
+use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
@@ -24,7 +25,7 @@ abstract class AttachableGeneratorAbstract implements GeneratorInterface
     }
 
     abstract public function generateForProperty(
-        FieldMetadata $field
+        FieldMetadata $field, FakeMock $fakemock
     );
 
     abstract protected function getGeneratorFqcn($simpleClassName);

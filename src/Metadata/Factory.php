@@ -8,8 +8,8 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\ContextFactory;
 
 class Factory implements FactoryInterface
 {
@@ -46,7 +46,7 @@ class Factory implements FactoryInterface
         $configuration = $this->mergeGlobalConfigurationWithLocal($objectConfiguration, $fieldAnnotation);
 
         return new FieldMetadata(
-            $object, $property, $type, $annotations, $configuration
+            $object, $property, $type, $annotations, $configuration, $objectConfiguration
         );
     }
 
@@ -58,6 +58,10 @@ class Factory implements FactoryInterface
 
         if (is_null($fieldConfig->satisfyAssertsConditions)) {
             $fieldConfig->satisfyAssertsConditions = $objectConfig->satisfyAssertsConditions;
+        }
+
+        if(is_null($fieldConfig->recursive)){
+            $fieldConfig->recursive = $objectConfig->recursive;
         }
 
         return $fieldConfig;
@@ -72,8 +76,10 @@ class Factory implements FactoryInterface
             return null;
         }
 
+        $ctxFactory = new ContextFactory();
+
         $data = $factory->create(
-            $docComment
+            $docComment, $ctxFactory->createFromReflector($property)
         );
 
         /*

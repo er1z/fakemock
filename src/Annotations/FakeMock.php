@@ -25,6 +25,18 @@ class FakeMock
      */
     public $satisfyAssertsConditions = true;
 
+    /**
+     * Map interfaces/abstracts/so on to desired classes
+     * @var string[]
+     */
+    public $classMappings = [];
+
+    /**
+     * Map sub-objects if class type is specified
+     * @var bool
+     */
+    public $recursive = true;
+
     public function __construct($data = [])
     {
         foreach ($data as $k => $v) {

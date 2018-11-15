@@ -8,7 +8,7 @@ use Er1z\FakeMock\Annotations\FakeMockField;
 /**
  * @FakeMock()
  */
-class Explicit
+class Explicit implements ExplicitInterface
 {
     /**
      * @FakeMockField(value="test value")

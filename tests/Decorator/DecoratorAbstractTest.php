@@ -3,6 +3,7 @@
 namespace Tests\Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\DecoratorAbstract;
 use Er1z\FakeMock\Metadata\FieldMetadata;
@@ -40,7 +41,7 @@ class DecoratorAbstractTest extends TestCase
         $field = new FieldMetadata(
             $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
             new Email(),
-        ]), new FakeMockField()
+        ]), new FakeMockField(), new FakeMock()
         );
 
         $result = $mock->decorate($test, $field);
@@ -75,7 +76,7 @@ class DecoratorAbstractTest extends TestCase
             $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
             new Email(),
             new Url(),
-        ]), new FakeMockField()
+        ]), new FakeMockField(), new FakeMock()
         );
 
         $result = $mock->decorate($test, $field);

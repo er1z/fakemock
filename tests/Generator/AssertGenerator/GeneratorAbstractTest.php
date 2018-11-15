@@ -9,6 +9,7 @@
 namespace Tests\Er1z\FakeMock\Generator\AssertGenerator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
+use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
@@ -33,7 +34,7 @@ abstract class GeneratorAbstractTest extends TestCase
             $prop,
             $type ?? $this->createMock(Type::class),
             new AnnotationCollection($assertsCollection),
-            new FakeMockField()
+            new FakeMockField(), new FakeMock()
         );
 
         return $field;
