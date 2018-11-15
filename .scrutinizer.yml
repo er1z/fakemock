@@ -1,4 +1,8 @@
 build:
+  dependencies:
+    # Runs before inferred commands
+    before:
+      - 'composer global require symfony/validator symfony/intl'
   nodes:
     analysis:
       project_setup:
