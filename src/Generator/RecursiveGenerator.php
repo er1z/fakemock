@@ -19,7 +19,7 @@ class RecursiveGenerator implements GeneratorInterface
         $this->classMapper = $classMapper ?? new ClassMapper();
     }
 
-    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
         if (!$field->configuration->recursive) {
             return null;

@@ -25,7 +25,7 @@ abstract class AttachableGeneratorAbstract implements GeneratorInterface
     }
 
     abstract public function generateForProperty(
-        FieldMetadata $field, FakeMock $fakemock
+        FieldMetadata $field, FakeMock $fakemock, ?string $group = null
     );
 
     abstract protected function getGeneratorFqcn($simpleClassName);

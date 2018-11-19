@@ -310,7 +310,7 @@ Decorators/conditionals:
 
 
 
-FakeMock is smart enough to guess what you want to get — asserts are also decorated against specified phpDoc type, for example if you specify `LessThan` constraint and `@var float`, you get float value and so on. This features is useful when you need a `DateTimeInterface` in string:
+FakeMock is smart enough to guess what you want to get — asserts are also decorated against specified phpDoc type, for example if you specify `LessThan` constraint and `@var float`, you get float value and so on. This feature is useful when you need a `DateTimeInterface` in string:
 
 ```php
 /**
@@ -322,7 +322,7 @@ FakeMock is smart enough to guess what you want to get — asserts are also deco
 
 Internal architecture
 -
-FakeMock is a library with fair amount of tests so you don't need to bother if you want to make some contribution and concerned your code will mess up anything.
+FakeMock is a library with fair amount of tests so you don't need to bother if you want to make a contribution and concerned your code will mess up something.
 
 Modular architecture allows to enhance and extend functionality. The main entrypoint is a `FakeMock` class which needs three elements:
 - `Metadata\FactoryInterface` — builds some information on fields metadata, eg. if it should be processed, what rules are specified and so on,

@@ -34,19 +34,11 @@ class FieldMetadata
      */
     public $objectConfiguration;
 
-    public function __construct(
-        $object,
-        \ReflectionProperty $property,
-        ?Type $type,
-        AnnotationCollection $annotations,
-        FakeMockField $configuration,
-        FakeMock $objectConfiguration
-    ) {
-        $this->object = $object;
-        $this->property = $property;
-        $this->type = $type;
-        $this->annotations = $annotations;
-        $this->configuration = $configuration;
-        $this->objectConfiguration = $objectConfiguration;
+    public function __construct($args = [])
+    {
+        foreach($args as $k=>$v){
+            $this->{$k} = $v;
+        }
     }
+
 }

@@ -31,14 +31,13 @@ class FakerGeneratorTest extends TestCase
             ],
         ]);
 
-        $field = new FieldMetadata(
-            $obj,
-            $prop,
-            $this->createMock(Type::class),
-            $this->createMock(AnnotationCollection::class),
-            $config,
-            new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = $this->createMock(Type::class);
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = $config;
+        $field->objectConfiguration = new FakeMock();
 
         $result = $faker->generateForProperty($field, $this->createMock(FakeMockAlias::class));
         $this->assertNotNull(filter_var($result, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE));
@@ -53,13 +52,13 @@ class FakerGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'created_at');
 
-        $field = new FieldMetadata(
-            $obj,
-            $prop,
-            $this->createMock(Type::class),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = $this->createMock(Type::class);
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new FakeMock();
 
         $result = $faker->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 

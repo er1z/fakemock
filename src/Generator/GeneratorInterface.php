@@ -8,6 +8,6 @@ use Er1z\FakeMock\Metadata\FieldMetadata;
 interface GeneratorInterface
 {
     public function generateForProperty(
-        FieldMetadata $field, FakeMock $fakemock
+        FieldMetadata $field, FakeMock $fakemock, ?string $group = null
     );
 }

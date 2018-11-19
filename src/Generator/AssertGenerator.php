@@ -12,13 +12,14 @@ use Symfony\Component\Validator\Constraint;
  */
 class AssertGenerator extends AttachableGeneratorAbstract
 {
-    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
         if (!$field->configuration->useAsserts) {
             return null;
         }
 
-        $asserts = $field->annotations->findAllBy(Constraint::class);
+        $allAsserts = $field->annotations->findAllBy(Constraint::class);
+        $asserts = $this->filterByGroup($allAsserts, $group);
 
         if ($asserts) {
             $assert = $asserts[0];
@@ -32,6 +33,21 @@ class AssertGenerator extends AttachableGeneratorAbstract
         }
 
         return null;
+    }
+
+    protected function filterByGroup($asserts, ?string $group = null){
+        if(is_null($group)){
+            return $asserts;
+        }
+
+        $result = array_filter($asserts, function($a) use ($group){
+            /**
+             * @var $a Constraint
+             */
+            return in_array($group, $a->groups);
+        });
+
+        return array_values($result);
     }
 
     protected function getGeneratorFqcn($simpleClassName)

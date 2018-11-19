@@ -12,7 +12,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
         return sprintf('Er1z\\FakeMock\\Generator\\PhpDocGenerator\\%s', $simpleClassName);
     }
 
-    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
         if (!$field->type) {
             return null;
@@ -21,7 +21,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
         $baseClass = new \ReflectionClass($field->type);
 
         /**
-         * @var \Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface
+         * @var $generator \Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface
          */
         if ($generator = $this->getGenerator($baseClass->getShortName())) {
             return $generator->generateForProperty($field, $this->generator);

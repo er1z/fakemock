@@ -19,7 +19,7 @@ class LastResortGenerator implements GeneratorInterface
         $this->generator = $generator ?: Factory::create();
     }
 
-    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
         return $this->generator->name();
     }

@@ -33,7 +33,7 @@ class FakerGenerator implements GeneratorInterface
         $this->generator = $generator;
     }
 
-    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock)
+    public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
         if ($field->configuration->faker) {
             return $this->generator->{$field->configuration->faker}(...(array) $field->configuration->arguments);

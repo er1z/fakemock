@@ -29,13 +29,13 @@ abstract class GeneratorAbstractTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj,
-            $prop,
-            $type ?? $this->createMock(Type::class),
-            new AnnotationCollection($assertsCollection),
-            new FakeMockField(), new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = $type ?? $this->createMock(Type::class);
+        $field->annotations = new AnnotationCollection($assertsCollection);
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new FakeMock();
 
         return $field;
     }

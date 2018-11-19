@@ -48,14 +48,13 @@ class NotEqualToTest extends TestCase
         $obj->first = 'one';
         $obj->second = 'one';
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'second'),
-            new String_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'second');
+        $metadata->type = new String_();
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $decorator = new NotEqualTo();
 

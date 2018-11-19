@@ -12,7 +12,7 @@ use ReverseRegex\Random\SimpleRandom;
 class TypedGenerator implements GeneratorInterface
 {
     public function generateForProperty(
-        FieldMetadata $field, FakeMock $fakemock
+        FieldMetadata $field, FakeMock $fakemock, ?string $group = null
     ) {
         if ($field->configuration->value) {
             return $field->configuration->value;
