@@ -85,6 +85,7 @@ Most part of behavior is controlled via annotations. We can specify two types of
 |------|------|---------------|------------|
 | `bool` | `satisfyAssertsConditions` |`true`|enables/disables asserts decorator (see: [supported asserts](#supported-asserts))|
 | `bool` | `useAsserts` | `true` | should FakeMock use assertions to generate data? |
+| `array` | `classMappings` | ` [] ` | specifies a dictionary of `SomeClass=>FQCN` for mapping interfaces within this field |
 
 
 Local scope:
@@ -98,6 +99,7 @@ Local scope:
 |`null`\|`bool`|`satisfyAssertConditions`|`null`|turns off or on assertion decorator — `null` inherits value from global configuration|
 |`null`\|`bool`|`useAsserts`|`null`|should FakeMock use validation rules to generate? If `null`, value is inherited from global configuration|
 |`null`\|`mixed`|`value`|`null`|literal value on field. Stops guessing|
+|`null`\|`string`|`mapToClass`|`null`|FQCN of class the object should be instantiated as|
 
 
 Local scope configuration constructor has a possibility to create an annotation from string-argument which is populated to `faker` key.
@@ -416,7 +418,31 @@ $mainDto = new MainDto();
 $result = $fakemock->fill($mainDto);
 ```
 
-Of course, you also can map interfaces using annotations on the global and/or local scope.
+Of course, you also can map interfaces using annotations on the global and/or local scope:
+
+```php
+use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
+use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+
+/**
+ * @FakeMock(classMappings={"Namespace\SomeDTOInterface"=>"Some\Other\Class"})
+ */
+class MainDTO {
+    
+    /**
+     * @FakeMockField()
+     * @var SomeDTOInterface
+     */
+    public $nested;
+    
+    /**
+     * @FakeMockField("mapClass"="Some\Other\Class")
+     * @var SomeDTOInterface
+     */
+    public $secondNested;
+    
+}
+```
 
 Changelog
 -
