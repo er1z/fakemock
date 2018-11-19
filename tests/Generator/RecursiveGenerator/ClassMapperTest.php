@@ -24,13 +24,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
         $generator->addClassMapping(ExplicitInterface::class, Explicit::class);
@@ -44,15 +44,15 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField([
-                'mapToClass'=>Explicit::class
-            ]), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField([
+            'mapToClass'=>Explicit::class
+        ]);
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -65,17 +65,17 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock([
-                'classMappings'=>[
-                    ExplicitInterface::class=>Explicit::class
-                ]
-            ])
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock([
+            'classMappings'=>[
+                ExplicitInterface::class=>Explicit::class
+            ]
+        ]);
 
         $generator = new ClassMapper();
 
@@ -88,13 +88,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -109,13 +109,13 @@ class ClassMapperTest extends TestCase
 
         $obj->explicit = new Explicit();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration =  new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -128,13 +128,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -147,13 +147,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new String_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new String_();
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -166,13 +166,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Szczebrzeszyn')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Szczebrzeszyn'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
         $generator->addClassMapping(ExplicitInterface::class, Explicit::class);
@@ -185,13 +185,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_();
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
         $result = $generator->getObjectForField($metadata);
@@ -203,13 +203,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\stdClass')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\stdClass'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
         $generator->addClassMapping('stdClass', 'Szczebrzeszyn');
@@ -222,13 +222,13 @@ class ClassMapperTest extends TestCase
     {
         $obj = new Recursive();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
         $generator->addClassMapping(ExplicitInterface::class, \stdClass::class);

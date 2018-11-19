@@ -8,6 +8,6 @@ use Er1z\FakeMock\Metadata\FieldMetadata;
 interface GeneratorChainInterface
 {
     public function getValueForField(
-        FieldMetadata $field, FakeMock $fakemock
+        FieldMetadata $field, FakeMock $fakemock, ?string $group = null
     );
 }

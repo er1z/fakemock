@@ -30,15 +30,15 @@ class RecursiveGeneratorTest extends TestCase
 
         $fakemock = new FakeMockAlias();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField([
-                'recursive'=>false
-            ]), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_();
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField([
+            'recursive' => false
+        ]);
+        $metadata->objectConfiguration = new FakeMock();
 
         $result = $generator->generateForProperty($metadata, $fakemock);
         $this->assertNull($result);
@@ -52,15 +52,15 @@ class RecursiveGeneratorTest extends TestCase
 
         $fakemock = new FakeMockAlias();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField([
-                'recursive'=>true
-            ]), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField([
+            'recursive' => true
+        ]);
+        $metadata->objectConfiguration = new FakeMock();
 
         $result = $generator->generateForProperty($metadata, $fakemock);
         $this->assertNull($result);
@@ -74,15 +74,15 @@ class RecursiveGeneratorTest extends TestCase
 
         $fakemock = new FakeMockAlias();
 
-        $metadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'explicit'),
-            new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit')),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField([
-                'recursive'=>true
-            ]), new FakeMock()
-        );
+        $metadata = new FieldMetadata();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'explicit');
+        $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit'));
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField([
+            'recursive' => true
+        ]);
+        $metadata->objectConfiguration = new FakeMock();
 
         $result = $generator->generateForProperty($metadata, $fakemock);
         $this->assertRegExp('#\d{2}\-\d{3}#si', $result->regex);

@@ -33,14 +33,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = ['asd'];
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Float_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Float_();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $num = 10.0;
 
@@ -80,14 +79,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = null;
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Float_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Float_();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $num = 10.01;
 
@@ -114,14 +112,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = 10;
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Integer(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Integer();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
             'propertyPath' => 'test',
@@ -132,14 +129,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = 10;
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Integer(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Integer();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $num = 11;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
@@ -158,14 +154,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = 10.01;
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Float_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Float_();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
             'propertyPath' => 'test',
@@ -176,14 +171,13 @@ class LessThanOrEqualTest extends TestCase
         $obj = new \stdClass();
         $obj->test = 10.01;
 
-        $fieldMetadata = new FieldMetadata(
-            $obj,
-            new \ReflectionProperty($obj, 'test'),
-            new Float_(),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(),
-            new FakeMock()
-        );
+        $fieldMetadata = new FieldMetadata();
+        $fieldMetadata->object = $obj;
+        $fieldMetadata->property = new \ReflectionProperty($obj, 'test');
+        $fieldMetadata->type = new Float_();
+        $fieldMetadata->annotations = $this->createMock(AnnotationCollection::class);
+        $fieldMetadata->configuration = new FakeMockField();
+        $fieldMetadata->objectConfiguration = new FakeMock();
 
         $num = 11.01;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThanOrEqual([

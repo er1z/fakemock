@@ -26,11 +26,15 @@ class AssertGeneratorTest extends TestCase
         $obj->prop = null;
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField([
-                'useAsserts' => false,
-            ]), new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = new String_();
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = new FakeMockField([
+            'useAsserts' => false,
+        ]);
+        $field->objectConfiguration = new FakeMock();
 
         $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
@@ -66,9 +70,13 @@ class AssertGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj, $prop, new String_(), $this->createMock(AnnotationCollection::class), new FakeMockField(), new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = new String_();
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new FakeMock();
 
         $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 
@@ -97,14 +105,17 @@ class AssertGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj, $prop, new String_(), new AnnotationCollection([
-                new Ip(),
-        ]), new FakeMockField([
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = new String_();
+        $field->annotations = new AnnotationCollection([
+            new Ip(),
+        ]);
+        $field->configuration = new FakeMockField([
             'useAsserts' => true,
-            ]),
-            new FakeMock()
-        );
+        ]);
+        $field->objectConfiguration = new FakeMock();
 
         $result = $d->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 

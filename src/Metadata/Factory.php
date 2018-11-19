@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\Reader;
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
+use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\Types\ContextFactory;
 
@@ -22,7 +23,7 @@ class Factory implements FactoryInterface
             AnnotationRegistry::registerLoader('class_exists');
         }
 
-        $this->reader = $reader ?: new AnnotationReader();
+        $this->reader = $reader ?? new AnnotationReader();
     }
 
     public function getObjectConfiguration(\ReflectionClass $object): ?FakeMock
@@ -30,24 +31,61 @@ class Factory implements FactoryInterface
         return $this->reader->getClassAnnotation($object, FakeMock::class);
     }
 
-    public function create($object, FakeMock $objectConfiguration, \ReflectionProperty $property): ?FieldMetadata
+    /**
+     * @param $object
+     * @param FakeMock $objectConfiguration
+     * @param \ReflectionProperty $property
+     * @return FieldMetadata[]
+     */
+    public function create($object, FakeMock $objectConfiguration, \ReflectionProperty $property)
     {
         $annotations = new AnnotationCollection($this->reader->getPropertyAnnotations($property));
-        $fieldAnnotation = $annotations->findOneBy(FakeMockField::class);
+        $fieldAnnotations = $annotations->findAllBy(FakeMockField::class);
 
-        /*
-         * @var FakeMockField
-         */
-        if (!$fieldAnnotation) {
+        if (!$fieldAnnotations) {
             return null;
         }
 
-        $type = $this->getPhpDocType($property);
-        $configuration = $this->mergeGlobalConfigurationWithLocal($objectConfiguration, $fieldAnnotation);
+        $result = [];
 
-        return new FieldMetadata(
-            $object, $property, $type, $annotations, $configuration, $objectConfiguration
-        );
+
+        foreach($fieldAnnotations as $a){
+            $f = new FieldMetadata();
+            $f->property = $property;
+            $f->objectConfiguration = $objectConfiguration;
+            $f->annotations = $annotations;
+            $f->type = $this->getPhpDocType($property);
+            $f->object = $object;
+            $f->configuration = $this->mergeGlobalConfigurationWithLocal($objectConfiguration, $a);
+
+            $result[] = $f;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param FieldMetadata[] $annotations
+     * @param string|null $group
+     * @return FieldMetadata[]
+     */
+    public function getConfigurationForFieldByGroup($annotations, ?string $group = null){
+
+        if(empty($annotations)){
+            return null;
+        }
+
+        if(is_null($group)){
+            return array_shift($annotations);
+        }
+
+        $result = array_filter($annotations, function($item) use ($group){
+            return !empty($item->configuration->groups) && in_array($group, $item->configuration->groups);
+        });
+
+        $filtered = array_values($result);
+
+        return array_shift($filtered);
     }
 
     protected function mergeGlobalConfigurationWithLocal(FakeMock $objectConfig, FakeMockField $fieldConfig): FakeMockField
@@ -82,8 +120,8 @@ class Factory implements FactoryInterface
             $docComment, $ctxFactory->createFromReflector($property)
         );
 
-        /*
-         * @var Tag
+        /**
+         * @var $vars Tag[]
          */
         if ($vars = $data->getTagsByName('var')) {
             return $vars[0]->getType();

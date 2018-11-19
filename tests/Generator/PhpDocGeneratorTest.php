@@ -25,9 +25,12 @@ class PhpDocGeneratorTest extends TestCase
         $obj->prop = null;
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj, $prop, null, $this->createMock(AnnotationCollection::class), new FakeMockField(), new \Er1z\FakeMock\Annotations\FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new \Er1z\FakeMock\Annotations\FakeMock();
 
         $result = $d->generateForProperty($field, $this->createMock(FakeMock::class));
 
@@ -76,9 +79,13 @@ class PhpDocGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'prop');
 
-        $field = new FieldMetadata(
-            $obj, $prop, new \phpDocumentor\Reflection\Types\Integer(), new AnnotationCollection(), new FakeMockField(), new \Er1z\FakeMock\Annotations\FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = new \phpDocumentor\Reflection\Types\Integer();
+        $field->annotations = new AnnotationCollection();
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new \Er1z\FakeMock\Annotations\FakeMock();
 
         $result = $d->generateForProperty($field, $this->createMock(FakeMock::class));
 

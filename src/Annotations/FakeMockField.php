@@ -75,6 +75,11 @@ class FakeMockField
     {
         if (is_array($dataOrFaker)) {
             foreach ($dataOrFaker as $k => $v) {
+
+                if($k == 'groups'){
+                    $v = (array)$v;
+                }
+
                 $this->$k = $v;
             }
         } else {

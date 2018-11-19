@@ -23,13 +23,13 @@ class LastResortGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'sth');
 
-        $field = new FieldMetadata(
-            $obj,
-            $prop,
-            $this->createMock(Type::class),
-            $this->createMock(AnnotationCollection::class),
-            new FakeMockField(), new FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = $this->createMock(Type::class);
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = new FakeMockField();
+        $field->objectConfiguration = new FakeMock();
 
         $result = $generator->generateForProperty($field, $this->createMock(FakeMockAlias::class));
 

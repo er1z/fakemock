@@ -54,10 +54,10 @@ class GeneratorChain implements GeneratorChainInterface
     }
 
     public function getValueForField(
-        FieldMetadata $field, FakeMock $fakemock
+        FieldMetadata $field, FakeMock $fakemock, ?string $group = null
     ) {
         foreach ($this->generators as $d) {
-            $result = $d->generateForProperty($field, $fakemock);
+            $result = $d->generateForProperty($field, $fakemock, $group);
             if (!is_null($result)) {
                 return $result;
             }

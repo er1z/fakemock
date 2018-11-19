@@ -38,11 +38,13 @@ class DecoratorAbstractTest extends TestCase
         $test = null;
         $obj = new \stdClass();
         $obj->field = null;
-        $field = new FieldMetadata(
-            $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = new \ReflectionProperty($obj, 'field');
+        $field->annotations = new AnnotationCollection([
             new Email(),
-        ]), new FakeMockField(), new FakeMock()
-        );
+        ]);
+        $field->configuration = new FakeMockField();
 
         $result = $mock->decorate($test, $field);
 
@@ -72,12 +74,15 @@ class DecoratorAbstractTest extends TestCase
         $test = null;
         $obj = new \stdClass();
         $obj->field = null;
-        $field = new FieldMetadata(
-            $obj, new \ReflectionProperty($obj, 'field'), null, new AnnotationCollection([
+
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = new \ReflectionProperty($obj, 'field');
+        $field->annotations = new AnnotationCollection([
             new Email(),
             new Url(),
-        ]), new FakeMockField(), new FakeMock()
-        );
+        ]);
+        $field->configuration = new FakeMockField();
 
         $result = $mock->decorate($test, $field);
 

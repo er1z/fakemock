@@ -52,16 +52,14 @@ class FakeMock
         $props = $reflection->getProperties();
 
         foreach ($props as $prop) {
-            $metadata = $this->metadataFactory->create($object, $objectConfiguration, $prop);
+            $metadatum = $this->metadataFactory->create($object, $objectConfiguration, $prop);
+            $metadata = $this->metadataFactory->getConfigurationForFieldByGroup($metadatum, $group);
+
             if (!$metadata) {
                 continue;
             }
 
-            if ($group && !in_array($group, (array) $metadata->configuration->groups)) {
-                continue;
-            }
-
-            $value = $this->generatorChain->getValueForField($metadata, $this);
+            $value = $this->generatorChain->getValueForField($metadata, $this, $group);
             $value = $this->decoratorChain->getDecoratedValue($value, $metadata);
 
             Accessor::setPropertyValue($object, $prop->getName(), $value);

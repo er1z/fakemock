@@ -25,14 +25,13 @@ class TypedGeneratorTest extends TestCase
 
         $prop = new \ReflectionProperty($obj, 'sth');
 
-        $field = new FieldMetadata(
-            $obj,
-            $prop,
-            $this->createMock(Type::class),
-            $this->createMock(AnnotationCollection::class),
-            $config,
-            new \Er1z\FakeMock\Annotations\FakeMock()
-        );
+        $field = new FieldMetadata();
+        $field->object = $obj;
+        $field->property = $prop;
+        $field->type = $this->createMock(Type::class);
+        $field->annotations = $this->createMock(AnnotationCollection::class);
+        $field->configuration = $config;
+        $field->objectConfiguration = new \Er1z\FakeMock\Annotations\FakeMock();
 
         $result = $generator->generateForProperty($field, $this->createMock(FakeMock::class));
 
