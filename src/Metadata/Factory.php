@@ -49,7 +49,7 @@ class Factory implements FactoryInterface
         $result = [];
 
 
-        foreach($fieldAnnotations as $a){
+        foreach ($fieldAnnotations as $a) {
             $f = new FieldMetadata();
             $f->property = $property;
             $f->objectConfiguration = $objectConfiguration;
@@ -69,17 +69,18 @@ class Factory implements FactoryInterface
      * @param string|null $group
      * @return FieldMetadata[]
      */
-    public function getConfigurationForFieldByGroup($annotations, ?string $group = null){
+    public function getConfigurationForFieldByGroup($annotations, ?string $group = null)
+    {
 
-        if(empty($annotations)){
+        if (empty($annotations)) {
             return null;
         }
 
-        if(is_null($group)){
+        if (is_null($group)) {
             return array_shift($annotations);
         }
 
-        $result = array_filter($annotations, function($item) use ($group){
+        $result = array_filter($annotations, function ($item) use ($group) {
             return !empty($item->configuration->groups) && in_array($group, $item->configuration->groups);
         });
 
@@ -98,8 +99,12 @@ class Factory implements FactoryInterface
             $fieldConfig->satisfyAssertsConditions = $objectConfig->satisfyAssertsConditions;
         }
 
-        if(is_null($fieldConfig->recursive)){
+        if (is_null($fieldConfig->recursive)) {
             $fieldConfig->recursive = $objectConfig->recursive;
+        }
+
+        if (is_null($fieldConfig->locale)) {
+            $fieldConfig->locale = $objectConfig->locale;
         }
 
         return $fieldConfig;

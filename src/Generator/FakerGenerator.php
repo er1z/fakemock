@@ -3,9 +3,9 @@
 namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\FakeMock;
+use Er1z\FakeMock\Faker\Registry;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
-use Faker\Generator;
 use Faker\Guesser\Name;
 
 class FakerGenerator implements GeneratorInterface
@@ -15,11 +15,11 @@ class FakerGenerator implements GeneratorInterface
      */
     private $guesser;
     /**
-     * @var Generator
+     * @var Registry
      */
     private $generator;
 
-    public function __construct(?Name $guesser = null, ?Generator $generator = null)
+    public function __construct(?Name $guesser = null, ?Registry $generator = null)
     {
         if (!$guesser) {
             if (!$generator) {

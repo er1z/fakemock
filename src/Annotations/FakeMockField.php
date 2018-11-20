@@ -71,6 +71,12 @@ class FakeMockField
      */
     public $recursive = null;
 
+    /**
+     * Locale to generate string for
+     * @var null|string
+     */
+    public $locale = null;
+
     public function __construct($dataOrFaker = [])
     {
         if (is_array($dataOrFaker)) {
