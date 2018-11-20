@@ -4,11 +4,12 @@
 namespace Er1z\FakeMock\Faker;
 
 
+use Er1z\FakeMock\Metadata\FieldMetadata;
 use Faker\Factory;
 use Faker\Generator;
 use Faker\Guesser\Name;
 
-class Registry
+class Registry implements RegistryInterface
 {
 
     /**
@@ -16,7 +17,12 @@ class Registry
      */
     protected $generators = [];
 
-    public function getGeneratorForLocale($locale = null)
+    public function getGeneratorForField(FieldMetadata $fieldMetadata)
+    {
+        return $this->getGeneratorForLocale($fieldMetadata->configuration->locale);
+    }
+
+    public function getGeneratorForLocale(?string $locale = null): Generator
     {
 
         if(empty($this->generators[$locale])){
@@ -27,7 +33,7 @@ class Registry
 
     }
 
-    public function getGuesserForLocale($locale = null){
+    public function getGuesserForLocale(?string $locale = null): Name{
 
         $generator = $this->getGeneratorForLocale($locale);
 
@@ -36,7 +42,7 @@ class Registry
     }
 
     protected function instantiate($locale = null){
-        return Factory::create($locale);
+        return Factory::create($locale ?? Factory::DEFAULT_LOCALE);
     }
 
 }
