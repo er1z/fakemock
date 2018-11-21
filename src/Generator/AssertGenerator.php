@@ -28,7 +28,7 @@ class AssertGenerator extends AttachableGeneratorAbstract
             $baseClass = new \ReflectionClass($assert);
 
             if ($generator = $this->getGenerator($baseClass->getShortName())) {
-                return $generator->generateForProperty($field, $assert, $this->generator);
+                return $generator->generateForProperty($field, $assert, $this->fakerRegistry->getGeneratorForField($field));
             }
         }
 

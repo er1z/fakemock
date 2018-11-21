@@ -3,24 +3,24 @@
 namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\FakeMock;
+use Er1z\FakeMock\Faker\Registry;
+use Er1z\FakeMock\Faker\RegistryInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
-use Faker\Factory;
-use Faker\Generator;
 
 class LastResortGenerator implements GeneratorInterface
 {
     /**
-     * @var Generator
+     * @var Registry
      */
-    private $generator;
+    private $fakerRegistry;
 
-    public function __construct(?Generator $generator = null)
+    public function __construct(?RegistryInterface $fakerRegistry = null)
     {
-        $this->generator = $generator ?: Factory::create();
+        $this->fakerRegistry = $fakerRegistry ?: new Registry();
     }
 
     public function generateForProperty(FieldMetadata $field, FakeMock $fakemock, ?string $group = null)
     {
-        return $this->generator->name();
+        return $this->fakerRegistry->getGeneratorForField($field)->name();
     }
 }

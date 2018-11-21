@@ -24,7 +24,7 @@ class PhpDocGenerator extends AttachableGeneratorAbstract
          * @var $generator \Er1z\FakeMock\Generator\PhpDocGenerator\GeneratorInterface
          */
         if ($generator = $this->getGenerator($baseClass->getShortName())) {
-            return $generator->generateForProperty($field, $this->generator);
+            return $generator->generateForProperty($field, $this->fakerRegistry->getGeneratorForField($field));
         }
 
         return null;

@@ -37,6 +37,12 @@ class FakeMock
      */
     public $recursive = true;
 
+    /**
+     * Locale to generate string for
+     * @var null|string
+     */
+    public $locale = null;
+
     public function __construct($data = [])
     {
         foreach ($data as $k => $v) {
