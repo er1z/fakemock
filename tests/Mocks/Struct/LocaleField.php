@@ -16,7 +16,7 @@ class LocaleField
     public $name;
 
     /**
-     * @FakeMockField()
+     * @FakeMockField(faker="name")
      */
-    public $username;
+    public $name2;
 }
