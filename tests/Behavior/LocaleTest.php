@@ -50,24 +50,15 @@ class LocaleTest extends TestCase
 
         $result = $f->fill($struct);
 
-        $namesString = implode(' ', $this->getNames());
+        $namesString = mb_strtolower(implode(' ', $this->getNames()));
 
         $found = false;
         foreach (explode(' ', $struct->name) as $str) {
-            if (false !== strpos($namesString, $str)) {
+            if (false !== strpos($namesString, mb_strtolower($str))) {
                 $found = true;
             }
         }
         $this->assertTrue($found);
 
-        $namesString = implode(' ', $this->getNames());
-
-        $found = false;
-        foreach (explode(' ', $struct->name2) as $str) {
-            if (false !== strpos($namesString, $str)) {
-                $found = true;
-            }
-        }
-        $this->assertFalse($found);
     }
 }
