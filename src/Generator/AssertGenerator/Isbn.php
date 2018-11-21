@@ -17,7 +17,7 @@ class Isbn implements GeneratorInterface
          * @var \Symfony\Component\Validator\Constraints\Isbn $constraint
          */
 
-        /**
+        /*
          * @var Length
          */
         if ($length = $field->annotations->findOneBy(Length::class)) {

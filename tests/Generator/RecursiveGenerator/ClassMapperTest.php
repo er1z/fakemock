@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator\RecursiveGenerator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
@@ -19,7 +17,6 @@ use Tests\Er1z\FakeMock\Mocks\Struct\Recursive;
 
 class ClassMapperTest extends TestCase
 {
-
     public function testWithGloballyMappedInterface()
     {
         $obj = new Recursive();
@@ -50,7 +47,7 @@ class ClassMapperTest extends TestCase
         $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField([
-            'mapToClass'=>Explicit::class
+            'mapToClass' => Explicit::class,
         ]);
         $metadata->objectConfiguration = new FakeMock();
 
@@ -72,9 +69,9 @@ class ClassMapperTest extends TestCase
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField();
         $metadata->objectConfiguration = new FakeMock([
-            'classMappings'=>[
-                ExplicitInterface::class=>Explicit::class
-            ]
+            'classMappings' => [
+                ExplicitInterface::class => Explicit::class,
+            ],
         ]);
 
         $generator = new ClassMapper();
@@ -115,7 +112,7 @@ class ClassMapperTest extends TestCase
         $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit'));
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField();
-        $metadata->objectConfiguration =  new FakeMock();
+        $metadata->objectConfiguration = new FakeMock();
 
         $generator = new ClassMapper();
 
@@ -236,6 +233,4 @@ class ClassMapperTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $generator->getObjectForField($metadata);
     }
-
-
 }

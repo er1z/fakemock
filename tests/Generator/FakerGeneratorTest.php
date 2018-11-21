@@ -6,10 +6,9 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\FakeMock as FakeMockAlias;
+use Er1z\FakeMock\Faker\RegistryInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\FakerGenerator;
-use Faker\Generator;
-use Faker\Guesser\Name;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -73,23 +72,13 @@ class FakerGeneratorTest extends TestCase
         $this->assertInstanceOf(\DateTime::class, $result);
     }
 
-    public function testOwnGuesser()
+    public function testOwnRegistry()
     {
-        $guesser = $this->createMock(Name::class);
+        $registry = $this->createMock(RegistryInterface::class);
 
-        $guesser->expects($this->once())->method('guessFormat');
+        $registry->expects($this->once())->method('getGuesserForLocale');
 
-        $faker = new FakerGenerator($guesser);
-        $this->runGuess($faker);
-    }
-
-    public function testOwnGenerator()
-    {
-        $generator = $this->createMock(Generator::class);
-
-        $generator->expects($this->once())->method('__get');
-
-        $faker = new FakerGenerator(null, $generator);
+        $faker = new FakerGenerator($registry);
         $this->runGuess($faker);
     }
 }

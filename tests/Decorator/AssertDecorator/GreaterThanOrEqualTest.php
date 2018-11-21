@@ -87,7 +87,6 @@ class GreaterThanOrEqualTest extends TestCase
         $fieldMetadata->configuration = new FakeMockField();
         $fieldMetadata->objectConfiguration = new FakeMock();
 
-
         $num = 10.01;
 
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\GreaterThanOrEqual([

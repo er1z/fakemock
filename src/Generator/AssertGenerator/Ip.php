@@ -11,7 +11,7 @@ class Ip implements GeneratorInterface
 {
     public function generateForProperty(FieldMetadata $field, Constraint $constraint, Generator $faker)
     {
-        /**
+        /*
          * @var IpConstraint
          */
         switch ($constraint->version) {

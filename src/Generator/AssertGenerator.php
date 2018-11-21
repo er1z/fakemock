@@ -28,20 +28,21 @@ class AssertGenerator extends AttachableGeneratorAbstract
             $baseClass = new \ReflectionClass($assert);
 
             if ($generator = $this->getGenerator($baseClass->getShortName())) {
-                return $generator->generateForProperty($field, $assert, $this->generator);
+                return $generator->generateForProperty($field, $assert, $this->fakerRegistry->getGeneratorForField($field));
             }
         }
 
         return null;
     }
 
-    protected function filterByGroup($asserts, ?string $group = null){
-        if(is_null($group)){
+    protected function filterByGroup($asserts, ?string $group = null)
+    {
+        if (is_null($group)) {
             return $asserts;
         }
 
-        $result = array_filter($asserts, function($a) use ($group){
-            /**
+        $result = array_filter($asserts, function ($a) use ($group) {
+            /*
              * @var $a Constraint
              */
             return in_array($group, $a->groups);

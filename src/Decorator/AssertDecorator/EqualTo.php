@@ -10,7 +10,7 @@ class EqualTo implements AssertDecoratorInterface
 {
     public function decorate(&$value, FieldMetadata $field, Constraint $configuration, ?string $group = null): bool
     {
-        /**
+        /*
          * @var \Symfony\Component\Validator\Constraints\EqualTo
          */
         if ($configuration->value) {

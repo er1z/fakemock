@@ -20,7 +20,7 @@ class LessThanOrEqual implements AssertDecoratorInterface
             $trailer = $field->type instanceof Float_ ? 0.00001 : 1;
         }
 
-        /**
+        /*
          * @var \Symfony\Component\Validator\Constraints\LessThan|\Symfony\Component\Validator\Constraints\LessThanOrEqual
          */
         if ($configuration->value && $value >= $configuration->value) {

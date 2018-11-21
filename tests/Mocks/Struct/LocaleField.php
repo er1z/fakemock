@@ -8,11 +8,15 @@ use Er1z\FakeMock\Annotations\FakeMockField;
 /**
  * @FakeMock()
  */
-class RecursiveInterfaced
+class LocaleField
 {
     /**
-     * @var ExplicitInterface
-     * @FakeMockField()
+     * @FakeMockField(locale="pl_PL")
      */
-    public $explicit;
+    public $name;
+
+    /**
+     * @FakeMockField(faker="name")
+     */
+    public $name2;
 }

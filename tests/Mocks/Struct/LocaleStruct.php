@@ -6,13 +6,17 @@ use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 
 /**
- * @FakeMock()
+ * @FakeMock(locale="pl_PL")
  */
-class RecursiveInterfaced
+class LocaleStruct
 {
     /**
-     * @var ExplicitInterface
      * @FakeMockField()
      */
-    public $explicit;
+    public $name;
+
+    /**
+     * @FakeMockField()
+     */
+    public $username;
 }

@@ -137,7 +137,6 @@ class LessThanTest extends TestCase
         $fieldMetadata->configuration = new FakeMockField();
         $fieldMetadata->objectConfiguration = new FakeMock();
 
-
         $num = 11;
         $decorator->decorate($num, $fieldMetadata, new \Symfony\Component\Validator\Constraints\LessThan([
             'propertyPath' => 'test',

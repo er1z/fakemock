@@ -3,9 +3,8 @@
 namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\FakeMock;
+use Er1z\FakeMock\Faker\Registry;
 use Er1z\FakeMock\Metadata\FieldMetadata;
-use Faker\Factory;
-use Faker\Generator;
 
 abstract class AttachableGeneratorAbstract implements GeneratorInterface
 {
@@ -15,13 +14,13 @@ abstract class AttachableGeneratorAbstract implements GeneratorInterface
     protected $generators;
 
     /**
-     * @var Generator
+     * @var Registry
      */
-    protected $generator;
+    protected $fakerRegistry;
 
-    public function __construct(?Generator $generator = null)
+    public function __construct(?Registry $registry = null)
     {
-        $this->generator = $generator ?: Factory::create();
+        $this->fakerRegistry = $registry ?: new Registry();
     }
 
     abstract public function generateForProperty(
