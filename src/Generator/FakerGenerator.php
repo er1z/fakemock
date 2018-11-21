@@ -4,6 +4,7 @@ namespace Er1z\FakeMock\Generator;
 
 use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Faker\Registry;
+use Er1z\FakeMock\Faker\RegistryInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 
 class FakerGenerator implements GeneratorInterface
@@ -13,7 +14,7 @@ class FakerGenerator implements GeneratorInterface
      */
     private $fakerRegistry;
 
-    public function __construct(?Registry $generator = null)
+    public function __construct(?RegistryInterface $generator = null)
     {
         $this->fakerRegistry = $generator ?? new Registry();
     }
@@ -22,7 +23,7 @@ class FakerGenerator implements GeneratorInterface
     {
         if ($field->configuration->faker) {
             return
-                $this->fakerRegistry->getGeneratorForField($field){$field->configuration->faker}(
+                $this->fakerRegistry->getGeneratorForField($field)->{$field->configuration->faker}(
                     ...(array) $field->configuration->arguments
                 );
         }

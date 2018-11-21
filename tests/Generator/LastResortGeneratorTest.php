@@ -6,8 +6,11 @@ use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\FakeMock as FakeMockAlias;
+use Er1z\FakeMock\Faker\Registry;
+use Er1z\FakeMock\Faker\RegistryInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\LastResortGenerator;
+use Faker\Factory;
 use Faker\Generator;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
@@ -44,7 +47,7 @@ class LastResortGeneratorTest extends TestCase
 
     public function testWithCustomGenerator()
     {
-        $generator = $this->getMockBuilder(Generator::class)
+        $generator = $this->getMockBuilder(RegistryInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -52,7 +55,7 @@ class LastResortGeneratorTest extends TestCase
             ->expects(
                 $this->once()
             )
-            ->method('__call');
+            ->method('getGeneratorForField')->willReturn(Factory::create());
 
         $this->runForProperty($generator);
     }

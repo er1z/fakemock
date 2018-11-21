@@ -25,6 +25,8 @@ class Registry implements RegistryInterface
     public function getGeneratorForLocale(?string $locale = null): Generator
     {
 
+        $locale = $locale ?? Factory::DEFAULT_LOCALE;
+
         if(empty($this->generators[$locale])){
             $this->generators[$locale] = $this->instantiate($locale);
         }
