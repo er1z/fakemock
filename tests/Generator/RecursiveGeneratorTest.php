@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Generator;
-
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
 use Er1z\FakeMock\Annotations\FakeMock;
@@ -16,12 +14,10 @@ use PHPUnit\Framework\TestCase;
 use Tests\Er1z\FakeMock\Mocks\Struct\Recursive;
 
 /**
- * Class RecursiveGeneratorTest
- * @package Tests\Er1z\FakeMock\Generator
+ * Class RecursiveGeneratorTest.
  */
 class RecursiveGeneratorTest extends TestCase
 {
-
     public function testForDisabled()
     {
         $generator = new RecursiveGenerator();
@@ -36,7 +32,7 @@ class RecursiveGeneratorTest extends TestCase
         $metadata->type = new Object_();
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField([
-            'recursive' => false
+            'recursive' => false,
         ]);
         $metadata->objectConfiguration = new FakeMock();
 
@@ -58,7 +54,7 @@ class RecursiveGeneratorTest extends TestCase
         $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\ExplicitInterface'));
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField([
-            'recursive' => true
+            'recursive' => true,
         ]);
         $metadata->objectConfiguration = new FakeMock();
 
@@ -80,7 +76,7 @@ class RecursiveGeneratorTest extends TestCase
         $metadata->type = new Object_(new Fqsen('\Tests\Er1z\FakeMock\Mocks\Struct\Explicit'));
         $metadata->annotations = $this->createMock(AnnotationCollection::class);
         $metadata->configuration = new FakeMockField([
-            'recursive' => true
+            'recursive' => true,
         ]);
         $metadata->objectConfiguration = new FakeMock();
 
@@ -88,7 +84,6 @@ class RecursiveGeneratorTest extends TestCase
         $this->assertRegExp('#\d{2}\-\d{3}#si', $result->regex);
         $this->assertEquals('test value', $result->value);
         $this->assertRegExp('#\w+\ \w+#si', $result->fakedName);
-
     }
 
     public function testAddClassMapping()
@@ -100,6 +95,4 @@ class RecursiveGeneratorTest extends TestCase
         $generator = new RecursiveGenerator($classMapperMock);
         $generator->addClassMapping('interface', 'target');
     }
-
-
 }

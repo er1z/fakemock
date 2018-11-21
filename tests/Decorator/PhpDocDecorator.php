@@ -186,7 +186,7 @@ class PhpDocDecorator extends TestCase
         $field->annotations = $this->createMock(AnnotationCollection::class);
         $field->configuration = new FakeMockField();
         $field->objectConfiguration = new FakeMock();
-        
+
         $val = new \DateTime();
 
         $result = $d->decorate($val, $field);

@@ -20,7 +20,7 @@ class GreaterThanOrEqual implements AssertDecoratorInterface
             $trailer = $field->type instanceof Float_ ? 0.00001 : 1;
         }
 
-        /**
+        /*
          * @var \Symfony\Component\Validator\Constraints\GreaterThan|\Symfony\Component\Validator\Constraints\GreaterThanOrEqual
          */
         if ($configuration->value && $value <= $configuration->value) {

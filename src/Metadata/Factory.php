@@ -33,8 +33,9 @@ class Factory implements FactoryInterface
 
     /**
      * @param $object
-     * @param FakeMock $objectConfiguration
+     * @param FakeMock            $objectConfiguration
      * @param \ReflectionProperty $property
+     *
      * @return FieldMetadata[]
      */
     public function create($object, FakeMock $objectConfiguration, \ReflectionProperty $property)
@@ -47,7 +48,6 @@ class Factory implements FactoryInterface
         }
 
         $result = [];
-
 
         foreach ($fieldAnnotations as $a) {
             $f = new FieldMetadata();
@@ -66,12 +66,12 @@ class Factory implements FactoryInterface
 
     /**
      * @param FieldMetadata[] $annotations
-     * @param string|null $group
+     * @param string|null     $group
+     *
      * @return FieldMetadata[]
      */
     public function getConfigurationForFieldByGroup($annotations, ?string $group = null)
     {
-
         if (empty($annotations)) {
             return null;
         }

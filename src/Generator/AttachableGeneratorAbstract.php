@@ -5,8 +5,6 @@ namespace Er1z\FakeMock\Generator;
 use Er1z\FakeMock\FakeMock;
 use Er1z\FakeMock\Faker\Registry;
 use Er1z\FakeMock\Metadata\FieldMetadata;
-use Faker\Factory;
-use Faker\Generator;
 
 abstract class AttachableGeneratorAbstract implements GeneratorInterface
 {

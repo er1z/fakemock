@@ -26,19 +26,22 @@ class FakeMock
     public $satisfyAssertsConditions = true;
 
     /**
-     * Map interfaces/abstracts/so on to desired classes
+     * Map interfaces/abstracts/so on to desired classes.
+     *
      * @var string[]
      */
     public $classMappings = [];
 
     /**
-     * Map sub-objects if class type is specified
+     * Map sub-objects if class type is specified.
+     *
      * @var bool
      */
     public $recursive = true;
 
     /**
-     * Locale to generate string for
+     * Locale to generate string for.
+     *
      * @var null|string
      */
     public $locale = null;

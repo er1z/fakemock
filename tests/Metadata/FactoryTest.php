@@ -127,11 +127,10 @@ class FactoryTest extends TestCase
 
     public function testGetConfigurationForFieldByGroup()
     {
-
         $annotationsList = [
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['nope']])]),
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['yep']])]),
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['why']])])
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['nope']])]),
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['yep']])]),
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['why']])]),
         ];
 
         $factory = new Factory();
@@ -142,7 +141,6 @@ class FactoryTest extends TestCase
         $result = $factory->getConfigurationForFieldByGroup($annotationsList, 'yep');
         $this->assertInstanceOf(FieldMetadata::class, $result);
         $this->assertTrue(in_array('yep', $result->configuration->groups));
-
     }
 
     public function testGetConfigurationForFieldByGroupEmptyFieldsList()
@@ -158,11 +156,10 @@ class FactoryTest extends TestCase
 
     public function testGetConfigurationForFieldByGroupWithEmptyArgument()
     {
-
         $annotationsList = [
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['nope']])]),
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['yep']])]),
-            new FieldMetadata(['configuration'=>new FakeMockField(['groups'=>['why']])])
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['nope']])]),
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['yep']])]),
+            new FieldMetadata(['configuration' => new FakeMockField(['groups' => ['why']])]),
         ];
 
         $factory = new Factory();
@@ -173,6 +170,5 @@ class FactoryTest extends TestCase
         $result = $factory->getConfigurationForFieldByGroup($annotationsList);
         $this->assertInstanceOf(FieldMetadata::class, $result);
         $this->assertTrue(in_array('nope', $result->configuration->groups));
-
     }
 }

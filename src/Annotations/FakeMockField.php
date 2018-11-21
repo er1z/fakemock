@@ -60,19 +60,22 @@ class FakeMockField
     public $groups = null;
 
     /**
-     * Map object-type field to specified class (useful if it's an interface)
+     * Map object-type field to specified class (useful if it's an interface).
+     *
      * @var string|null
      */
     public $mapToClass = null;
 
     /**
-     * Map sub-objects if class type is specified
+     * Map sub-objects if class type is specified.
+     *
      * @var bool|null
      */
     public $recursive = null;
 
     /**
-     * Locale to generate string for
+     * Locale to generate string for.
+     *
      * @var null|string
      */
     public $locale = null;
@@ -81,9 +84,8 @@ class FakeMockField
     {
         if (is_array($dataOrFaker)) {
             foreach ($dataOrFaker as $k => $v) {
-
-                if($k == 'groups'){
-                    $v = (array)$v;
+                if ('groups' == $k) {
+                    $v = (array) $v;
                 }
 
                 $this->$k = $v;

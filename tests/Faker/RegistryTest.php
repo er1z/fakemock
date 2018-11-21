@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Er1z\FakeMock\Faker;
-
 
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Faker\Registry;
@@ -13,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class RegistryTest extends TestCase
 {
-
     public function testGetGeneratorForField()
     {
         $field = new FieldMetadata();
@@ -24,8 +21,8 @@ class RegistryTest extends TestCase
         $result = $registry->getGeneratorForField($field);
 
         $found = false;
-        foreach($result->getProviders() as $p){
-            if($p instanceof Person){
+        foreach ($result->getProviders() as $p) {
+            if ($p instanceof Person) {
                 $found = true;
                 break;
             }
@@ -36,13 +33,12 @@ class RegistryTest extends TestCase
 
     public function testGetGeneratorForLocale()
     {
-
         $registry = new Registry();
         $result = $registry->getGeneratorForLocale('pl_PL');
 
         $found = false;
-        foreach($result->getProviders() as $p){
-            if($p instanceof Person){
+        foreach ($result->getProviders() as $p) {
+            if ($p instanceof Person) {
                 $found = true;
                 break;
             }
@@ -63,26 +59,24 @@ class RegistryTest extends TestCase
         $val = $prop->getValue($guesser);
 
         $found = false;
-        foreach($val->getProviders() as $p){
-            if($p instanceof Person){
+        foreach ($val->getProviders() as $p) {
+            if ($p instanceof Person) {
                 $found = true;
                 break;
             }
         }
 
         $this->assertTrue($found);
-
     }
 
     public function testGetGeneratorForEmpty()
     {
-
         $registry = new Registry();
         $result = $registry->getGeneratorForLocale();
 
         $found = false;
-        foreach($result->getProviders() as $p){
-            if($p instanceof PersonEnUs){
+        foreach ($result->getProviders() as $p) {
+            if ($p instanceof PersonEnUs) {
                 $found = true;
                 break;
             }
@@ -90,5 +84,4 @@ class RegistryTest extends TestCase
 
         $this->assertTrue($found);
     }
-
 }

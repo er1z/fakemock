@@ -9,8 +9,6 @@ use Er1z\FakeMock\FakeMock as FakeMockAlias;
 use Er1z\FakeMock\Faker\RegistryInterface;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use Er1z\FakeMock\Generator\FakerGenerator;
-use Faker\Generator;
-use Faker\Guesser\Name;
 use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 

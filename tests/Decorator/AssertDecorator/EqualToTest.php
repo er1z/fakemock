@@ -34,12 +34,12 @@ class EqualToTest extends TestCase
         $obj->second = 'two';
 
         $metadata = new FieldMetadata();
-            $metadata->object = $obj;
-            $metadata->property = new \ReflectionProperty($obj, 'second');
-            $metadata->type = new String_();
-            $metadata->annotations = $this->createMock(AnnotationCollection::class);
-            $metadata->configuration = new FakeMockField();
-            $metadata->objectConfiguration = new FakeMock();
+        $metadata->object = $obj;
+        $metadata->property = new \ReflectionProperty($obj, 'second');
+        $metadata->type = new String_();
+        $metadata->annotations = $this->createMock(AnnotationCollection::class);
+        $metadata->configuration = new FakeMockField();
+        $metadata->objectConfiguration = new FakeMock();
 
         $decorator = new EqualTo();
 

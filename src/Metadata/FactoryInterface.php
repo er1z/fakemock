@@ -8,8 +8,9 @@ interface FactoryInterface
 {
     /**
      * @param $object
-     * @param FakeMock $objectConfiguration
+     * @param FakeMock            $objectConfiguration
      * @param \ReflectionProperty $property
+     *
      * @return FieldMetadata[]
      */
     public function create($object, FakeMock $objectConfiguration, \ReflectionProperty $property);

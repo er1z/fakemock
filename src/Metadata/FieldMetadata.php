@@ -36,9 +36,8 @@ class FieldMetadata
 
     public function __construct($args = [])
     {
-        foreach($args as $k=>$v){
+        foreach ($args as $k => $v) {
             $this->{$k} = $v;
         }
     }
-
 }

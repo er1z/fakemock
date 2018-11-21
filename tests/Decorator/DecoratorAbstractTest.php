@@ -3,7 +3,6 @@
 namespace Tests\Er1z\FakeMock\Decorator;
 
 use Er1z\FakeMock\Annotations\AnnotationCollection;
-use Er1z\FakeMock\Annotations\FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField;
 use Er1z\FakeMock\Decorator\DecoratorAbstract;
 use Er1z\FakeMock\Metadata\FieldMetadata;

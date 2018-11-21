@@ -35,13 +35,14 @@ class AssertGenerator extends AttachableGeneratorAbstract
         return null;
     }
 
-    protected function filterByGroup($asserts, ?string $group = null){
-        if(is_null($group)){
+    protected function filterByGroup($asserts, ?string $group = null)
+    {
+        if (is_null($group)) {
             return $asserts;
         }
 
-        $result = array_filter($asserts, function($a) use ($group){
-            /**
+        $result = array_filter($asserts, function ($a) use ($group) {
+            /*
              * @var $a Constraint
              */
             return in_array($group, $a->groups);
