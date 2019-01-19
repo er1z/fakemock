@@ -449,6 +449,9 @@ class MainDTO {
 Changelog
 -
 
+*0.3.1*
+- Fixed: value retrieval to PropertyInfo-based method
+
 *0.3*
 - New: option to specify Faker's locale and Faker Generator Registry
 

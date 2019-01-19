@@ -2,6 +2,7 @@
 
 namespace Er1z\FakeMock\Generator\RecursiveGenerator;
 
+use Er1z\FakeMock\Accessor;
 use Er1z\FakeMock\Metadata\FieldMetadata;
 use phpDocumentor\Reflection\Types\Object_;
 
@@ -52,7 +53,7 @@ class ClassMapper implements ClassMapperInterface
 
     public function getObjectForField(FieldMetadata $field)
     {
-        $value = $field->property->getValue($field->object);
+        $value = Accessor::getPropertyValue($field->object, $field->property->getName());
 
         if (is_object($value)) {
             return $value;
